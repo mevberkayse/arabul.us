@@ -17,8 +17,10 @@
             </a>
 
             <div class="d-flex align-items-center col-lg-8">
-                <form class="w-50 me-3" role="search">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                    <form class=" w-75 me-3 d-flex justify-content-between gap-1" role="search">
+  <input type="text" class="form-control " placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <button class="btn btn-outline-light " type="button" id="button-addon2">Button</button>
+
                 </form>
             </div>
             <div class="d-flex justify-content-between gap-4">
