@@ -1,1 +1,1 @@
-Graduation projecttest
+Graduation project
