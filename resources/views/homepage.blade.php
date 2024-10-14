@@ -17,16 +17,19 @@
             </a>
 
             <div class="d-flex align-items-center col-lg-8">
-                    <form class=" w-75 me-3 d-flex justify-content-between gap-1" role="search">
-  <input type="text" class="form-control " placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <button class="btn btn-outline-light " type="button" id="button-addon2">Button</button>
+                <form class=" w-75 me-3 d-flex justify-content-between gap-1" role="search">
+                    <input type="text" class="form-control " placeholder="Ara..." aria-label="Recipient's username"
+                        aria-describedby="button-addon2">
+                    <button class="btn btn-outline-light " type="button" id="button-addon2">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
 
                 </form>
             </div>
             <div class="d-flex justify-content-between gap-4">
-                <button class="btn btn-outline-light">
+                <a href="/ilan-yukle" class="btn btn-outline-light">
                     <i class="fa-solid fa-plus"></i>
-                </button>
+                </a>
                 <div class="flex-shrink-0 dropdown">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -71,12 +74,13 @@
                 <div class="col-7" style="
             border:1px dashed black;
         ">
-            <h1>URUNLER</h1>
+                    <h1>URUNLER</h1>
                 </div>
                 <div class="col-1" style="
             border:1px dashed black;
         ">
-        <H1>reklam</H1></div>
+                    <H1>reklam</H1>
+                </div>
             </div>
         </div>
     </div>
