@@ -28,3 +28,18 @@ ilan sayfasında:
     - ilan açıklaması
 
 
+
+DATABASE:
+    - listings
+        - id
+        - title
+        - description
+        - parametreler
+        - konum
+        - fiyat
+        - yuklenme tarihi/guncelleme tarihi
+    - kategoriler tablosu
+        - id 
+        - parent_id
+        - ismi 
+        - 
