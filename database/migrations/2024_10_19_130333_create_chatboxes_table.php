@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer("seller_id");
             $table->integer("buyer_id");
-            $table->string("message_text");
+            $table->string("message_text"); // ->nullable(); boş text olabilir demektir.
             $table->timestamps();
         });
     }

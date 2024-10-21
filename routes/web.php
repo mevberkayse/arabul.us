@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -21,4 +22,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get("/search?{query}", [SearchController::class, 'index'])->name('search.index');
+Route::get("/ekle",[DatabaseController::class,'ekle)']);
 require __DIR__.'/auth.php';
