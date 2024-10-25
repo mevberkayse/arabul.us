@@ -1,0 +1,122 @@
+
+@media only screen and (min-width: 600px) {
+    .navbar {
+        height: 90px !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar {
+        height: 70px !important;
+    }
+}
+
+.category-bg-1 {
+    background-color: #bdb2ff;
+    font-family: "Metropolis", "arial", "sans-serif";
+    font-size: 18px;
+}
+
+.category-bg-2 {
+    background-color: #bfd8bd;
+    font-family: "Metropolis", "arial", "sans-serif";
+    font-size: 18px;
+}
+
+.category-bg-3 {
+    background-color: #fde4cf;
+    font-family: "Metropolis", "arial", "sans-serif";
+    font-size: 18px;
+}
+
+.category-bg-4 {
+    background-color: #ffcfd2;
+    font-family: "Metropolis", "arial", "sans-serif";
+    font-size: 18px;
+}
+
+.dropdown-menu-1 {
+    width: 380px !important;
+    height: 400px !important;
+    right: 40%;
+    /* Sol kenarı ortalamak için %50'ye ayarla */
+    transform: translateX(30%);
+    /* Sol kenarı merkeze doğru kaydır */
+    background-color: #fff;
+    border-radius: 0px;
+
+}
+.dropdown-item {
+    padding: 0.5rem 1rem; /* Varsayılan padding değerini artırabilirsiniz */
+    margin-bottom: 0.2rem; /* Alt kısma küçük bir boşluk ekleyin */
+}
+
+.dropdown-menu-2 {
+    width: 380px !important;
+    height: 400px !important;
+    right: 40%;
+    /* Sol kenarı ortalamak için %50'ye ayarla */
+    transform: translateX(30%);
+    /* Sol kenarı merkeze doğru kaydır */
+    background-color: #fff;
+    border-radius: 0px;
+}
+
+.dropdown-menu-3 {
+    width: 380px !important;
+    height: 400px !important;
+    right: 40%;
+    /* Sol kenarı ortalamak için %50'ye ayarla */
+    transform: translateX(30%);
+    /* Sol kenarı merkeze doğru kaydır */
+    background-color: #fff;
+    border-radius: 0px;
+}
+
+.dropdown-menu-4 {
+    width: 380px !important;
+    height: 400px !important;
+    right: 40%;
+    /* Sol kenarı ortalamak için %50'ye ayarla */
+    transform: translateX(30%);
+    /* Sol kenarı merkeze doğru kaydır */
+    background-color: #fff;
+    border-radius: 0px;
+}
+
+.dropdown-item {
+    transition: all 0.3s ease-in-out;
+    /* Geçiş süresi ve animasyon stili */
+    position: relative;
+    /* Sağ kaydırmak için pozisyonlamayı ayarla */
+}
+
+.dropdown-item:hover {
+    background-color: transparent !important;
+    /* Arka plan rengini transparan yap */
+    transform: translateX(10px);
+    /* Yazıyı sağa kaydır */
+}
+
+.searchw {
+    min-width: 400px;
+    /* Maksimum genişlik isteğe bağlı olarak ayarlanabilir */
+}
+.img-small{
+    max-width: 100%;  /* Görselin kartın genişliğini aşmadığından emin olur */
+    height: 170px; 
+
+}
+.large-price {
+    font-size: 1rem; /* Boyutunu istediğiniz gibi ayarlayabilirsiniz */
+    font-weight: bold;
+}     
+.custom-btn{
+    background-color: transparent;
+    border-color:#bdb2ff;
+    color: dimgray;
+}
+.custom-btn:hover{
+    background-color: #bdb2ff; /* Hover durumunda lila arka plan */
+    color: white; /* Hover durumunda yazı rengi beyaz */
+}
