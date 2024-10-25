@@ -6,109 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AraBulus</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
-    <style>
-        @media only screen and (min-width: 600px) {
-            .navbar {
-                height: 90px !important;
-            }
-        }
-
-        @media only screen and (min-width: 768px) {
-            .navbar {
-                height: 70px !important;
-            }
-        }
-
-        .category-bg-1 {
-            background-color: #bdb2ff;
-            font-family: "Metropolis", "arial", "sans-serif";
-            font-size: 18px;
-        }
-
-        .category-bg-2 {
-            background-color: #bfd8bd;
-            font-family: "Metropolis", "arial", "sans-serif";
-            font-size: 18px;
-        }
-
-        .category-bg-3 {
-            background-color: #fde4cf;
-            font-family: "Metropolis", "arial", "sans-serif";
-            font-size: 18px;
-        }
-
-        .category-bg-4 {
-            background-color: #ffcfd2;
-            font-family: "Metropolis", "arial", "sans-serif";
-            font-size: 18px;
-        }
-
-        .dropdown-menu-1 {
-            width: 300px !important;
-            height: 400px !important;
-            right: 40%;
-            /* Sol kenarı ortalamak için %50'ye ayarla */
-            transform: translateX(38%);
-            /* Sol kenarı merkeze doğru kaydır */
-            background-color: #bdb2ff;
-            border-radius: 0px;
-
-        }
-
-        .dropdown-menu-2 {
-            width: 300px !important;
-            height: 400px !important;
-            right: 40%;
-            /* Sol kenarı ortalamak için %50'ye ayarla */
-            transform: translateX(35%);
-            /* Sol kenarı merkeze doğru kaydır */
-            background-color: #bfd8bd;
-        }
-
-        .dropdown-menu-3 {
-            width: 300px !important;
-            height: 400px !important;
-            right: 40%;
-            /* Sol kenarı ortalamak için %50'ye ayarla */
-            transform: translateX(35%);
-            /* Sol kenarı merkeze doğru kaydır */
-            background-color: #fde4cf;
-        }
-
-        .dropdown-menu-4 {
-            width: 300px !important;
-            height: 400px !important;
-            right: 40%;
-            /* Sol kenarı ortalamak için %50'ye ayarla */
-            transform: translateX(35%);
-            /* Sol kenarı merkeze doğru kaydır */
-            background-color: #ffcfd2;
-        }
-
-        .dropdown-item {
-            transition: all 0.3s ease-in-out;
-            /* Geçiş süresi ve animasyon stili */
-            position: relative;
-            /* Sağ kaydırmak için pozisyonlamayı ayarla */
-        }
-
-        .dropdown-item:hover {
-            background-color: transparent !important;
-            /* Arka plan rengini transparan yap */
-            transform: translateX(10px);
-            /* Yazıyı sağa kaydır */
-        }
-
-        .searchw {
-            min-width: 400px;
-            /* Maksimum genişlik isteğe bağlı olarak ayarlanabilir */
-        }
-        .img-small{
-            max-width: 100%;  /* Görselin kartın genişliğini aşmadığından emin olur */
-            height: 170px; 
-
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/homepage.css?{{time();}}">
+    
 </head>
 
 <body>
@@ -176,9 +75,15 @@
                         </a>
                         <ul
                             class="dropdown-menu dropdown-menu-1 dropdown-menu-lg-end dropdown-menu-start text-small shadow">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">iOS Telefon</a></li>
 
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li><a class="dropdown-item" href="#">Android Telefon</a></li>
+                            <li><a class="dropdown-item" href="#">Yapay Zeka Telefonlar</a></li>
+                            <li><a class="dropdown-item" href="#">Giyilebilir Teknoloji</a></li>
+                            <li><a class="dropdown-item" href="#">Telefon Aksesuar</a></li>
+                            <li><a class="dropdown-item" href="#">Kulaklık</a></li>
+                            <li><a class="dropdown-item" href="#">Yenilenmiş Telefon</a></li>
+                            <li><a class="dropdown-item" href="#">Telsiz ve Masaüstü Telefon</a></li>
                         </ul>
                     </div>
                 </div>
@@ -233,52 +138,70 @@
     </nav>
     <div class="container mt-5">
         <div class="row justify-content-center gap-0 ">
-            <div class="col-3">
+        <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
-                        <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                                the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
+                    <div class="card-body">
+                        <h5 class="item-price large-price">99.999 TL</h5>
+                        <p class="item-text mt-2">İphone 16 Yeni</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="location">Gaziantep</p>
+                            <p class="time">Dün</p>
                         </div>
                     </div>
+                </div>
             </div>
             <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
                     <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="item-price large-price">99.999 TL</h5>
+                        <p class="item-text mt-2">İphone 16 Yeni</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="location">Gaziantep</p>
+                            <p class="time">Dün</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-3 ">
+                <div class="card" style="width: 18rem;">
+                <img src="https://placehold.co/400x200/png" class="card-img-top img-small" alt="...">
+                    <div class="card-body">
+                        <h5 class="item-price large-price">99.999 TL</h5>
+                        <p class="item-text mt-2">İphone 16 Yeni</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="location">Gaziantep</p>
+                            <p class="time">Dün</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
                     <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="item-price large-price">99.999 TL</h5>
+                        <p class="item-text mt-2">İphone 16 Yeni</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="location">Gaziantep</p>
+                            <p class="time">Dün</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="card" style="width: 18rem;">
-                    <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-            </div>
                 </div>
+            </div>
+            <div class="text-center dahafazlayukle-btn my-4">
+                <button class="btn custom-btn btn-primary">Daha Fazla Yükle</button>
             </div>
 
+            <!-- Footer -->
+            <footer class="bg-light text-center text-lg-start mt-auto py-3">
+                <div class="container">
+                    <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+                </div>
+</footer>
 
 
             <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
