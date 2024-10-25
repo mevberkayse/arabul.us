@@ -197,7 +197,7 @@
             </div>
 
             <!-- Footer -->
-            <footer class="bg-light text-center text-lg-start mt-auto py-3">
+            <footer class="bg-light text-center text-lg-start mt-auto py-3 fixed-buttom">
                 <div class="container">
                     <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
                 </div>
