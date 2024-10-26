@@ -153,7 +153,7 @@
             </div>
             <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
-                    <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
+                    <img src="assets/images/shopping.png" class="card-img-top img-small" alt="...">
                     <div class="card-body">
                         <h5 class="item-price large-price">99.999 TL</h5>
                         <p class="item-text mt-2">İphone 16 Yeni</p>

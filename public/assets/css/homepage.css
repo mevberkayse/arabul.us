@@ -120,3 +120,29 @@
     background-color: #bdb2ff; /* Hover durumunda lila arka plan */
     color: white; /* Hover durumunda yazı rengi beyaz */
 }
+.category-list-content {
+    list-style-type: none; /* Başındaki noktaları kaldırır */
+    padding: 0; /* Varsayılan padding'i kaldırır */
+}
+
+.category-item a {
+    color: black; /* Rengi siyah yapar */
+    text-decoration: none; /* Alt çizgiyi kaldırır */
+    padding: 0.5rem 1rem; /* Varsayılan padding değerini artırabilirsiniz */
+    margin-bottom: 0.2rem; /* Alt kısma küçük bir boşluk ekleyin */
+}
+
+.category-item {
+    transition: all 0.3s ease-in-out;
+    /* Geçiş süresi ve animasyon stili */
+    position: relative;
+    /* Sağ kaydırmak için pozisyonlamayı ayarla */
+}
+
+.category-item:hover {
+    background-color: transparent !important;
+    /* Arka plan rengini transparan yap */
+    transform: translateX(10px);
+    /* Yazıyı sağa kaydır */
+}
+ 
