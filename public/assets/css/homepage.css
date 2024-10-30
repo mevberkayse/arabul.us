@@ -145,4 +145,24 @@
     transform: translateX(10px);
     /* Yazıyı sağa kaydır */
 }
- 
+.transparent-button {
+    background-color: transparent; /* Arka planı transparan yap */
+    border: 2px solid #007bff; /* Mavi border */
+    color: #007bff; /* Metin rengi mavi */
+    padding: 0.5rem 1rem; /* Butonun iç boşlukları */
+    border-radius: 0.25rem; /* Kenarları yuvarlaştır */
+}
+
+.transparent-button:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Hover durumunda hafif bir arka plan rengi */
+    transition: none;
+    transform: none;
+}
+.input-group {
+    align-items: center; /* İkon ve inputu aynı hizada tut */
+}
+
+.input-group-text {
+    display: flex; /* İkonu ortalamak için */
+    align-items: center; /* İkonu dikeyde ortala */
+}

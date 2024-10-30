@@ -24,6 +24,31 @@
                         aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <div class="d-flex align-items-center ">            
+                    <div class="border rounded p-2 d-flex align-items-center">
+                        <i class="fa-solid fa-map-marker-alt"></i>
+                        <span class="ms-2">Gaziantep, Türkiye</span>
+                        <div class="dropdown ms-2">
+                            <i class="fa-solid fa-chevron-down dropdown-toggle" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="locationDropdown">
+                            <li>
+                                <div class="input-group">
+                                    <span class="input-group-text border-0 bg-transparent"><i class="fa-solid fa-magnifying-glass"></i></span>
+                                    <input type="text" class="form-control" placeholder="İl ve İlçe Gir" aria-label="Search">
+                                </div>
+                            </li>
+                                <li>
+                                    <a class="dropdown-item text-primary transparent-button" href="#" role="button">
+                                        Mevcut Konum Kullan
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+</div>
+</div>
+</div>
+        
                 <div class="d-flex gap-5 align-items-center">
                     <a href="#" class="btn btn-outline-dark">
                         <i class="fa-solid fa-plus"></i>
@@ -140,7 +165,7 @@
         <div class="row justify-content-center gap-0 ">
         <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
-                    <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
+                    <img src="assets/images/shopping.png" class="card-img-top img-small" alt="...">
                     <div class="card-body">
                         <h5 class="item-price large-price">99.999 TL</h5>
                         <p class="item-text mt-2">İphone 16 Yeni</p>
@@ -166,7 +191,7 @@
             </div>
             <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
-                <img src="https://placehold.co/400x200/png" class="card-img-top img-small" alt="...">
+                <img src="assets/images/shopping.png" class="card-img-top img-small" alt="...">
                     <div class="card-body">
                         <h5 class="item-price large-price">99.999 TL</h5>
                         <p class="item-text mt-2">İphone 16 Yeni</p>
@@ -179,7 +204,7 @@
             </div>
             <div class="col-3 ">
                 <div class="card" style="width: 18rem;">
-                    <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
+                    <img src="assets/images/shopping.png" class="card-img-top img-small" alt="...">
                     <div class="card-body">
                         <h5 class="item-price large-price">99.999 TL</h5>
                         <p class="item-text mt-2">İphone 16 Yeni</p>
