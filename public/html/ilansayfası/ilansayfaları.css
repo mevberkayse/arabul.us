@@ -1,0 +1,70 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+  
+.container {
+    max-width: 600px;
+  }
+  
+  .steps {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .step-circle {
+    width: 12px;
+    height: 12px;
+    background-color: #ddd;
+    border-radius: 50%;
+  }
+  
+  .upload-box {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .main-photo-upload {
+    width: 100%;
+    height: 300px; /* Boyutu büyütmek için artırıldı */
+    border: 2px dashed #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;  /* Elemanları dikey hizalar */
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+  }
+  
+  .text-muted {
+    font-size: 14px;                    /* Küçük yazı boyutu */
+  }
+  
+  .photo-slot {
+    width: 100%;
+    height: 80px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px; /* Simge boyutu */
+    color: #ccc;     /* Simge rengi */
+  }
+  .custom-upload-btn {
+   
+    background-color: #ff69b4;/* İçini transparan yapar */
+    border: 2px solid #ff69b4;          /* Pembe border */
+
+    color: #fff;                    /* Pembe metin rengi */
+    margin-top: 10px;
+  }
+  
+  .custom-upload-btn:hover {
+    background-color: transparent;        /* Hover sırasında içini pembe yapar */
+    color: #ff69b4;
+    border:  2px solid #ff69b4;                       /* Hover sırasında metni beyaz yapar */
+  }
+  
