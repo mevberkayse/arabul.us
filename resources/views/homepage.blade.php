@@ -220,7 +220,7 @@
         </div>
     </div>
     <div class="text-center dahafazlayukle-btn my-4">
-        <button class="btn custom-btn btn-primary">Daha Fazla Yükle</button>
+        <button class="btn custom-btn btn-primary">Daha Fazla Yükle test</button>
     </div>
 
     <!-- Footer -->
