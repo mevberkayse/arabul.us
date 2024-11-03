@@ -27,6 +27,12 @@ html, body {
     background-color: red;
     border-radius: 50%;
   }
+  .step-circle2 {
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+  }
   
   .upload-box {
     width: 100%;
@@ -110,4 +116,63 @@ html, body {
   margin-top: 10px;
   font-weight: bold;
   color: #333;
+}
+body .ilansayfasi3 {
+  font-size: 18px;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+  padding-right: 35px;
+  position: relative;
+}
+
+/* Checkbox'ı gizle */
+.custom-checkbox input[type="radio"] {
+  display: none;
+}
+
+/* Seçili checkbox stili */
+.custom-checkbox input[type="radio"]:checked + span::before {
+  content: "✔"; /* Basit bir check simgesi */
+  color: white;
+  background-color: red; /*içi kırmızı*/
+  font-size: 10px;
+  border-radius: 50%;
+  padding: 5px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: inherit; /* Yazı rengini üsttekilerle aynı yapar */
+  text-decoration: none; /* Altındaki çizgiyi kaldırır */
+}
+
+/* Sağ köşede ok simgesi */
+.arrow {
+  font-size: 20px;
+}
+
+hr {
+  border-top: 2px solid #ccc;
+}
+.custom-checkbox-2{
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+  padding-right: 35px;
+  position: relative;
+  color: inherit; /* Yazı rengini üsttekilerle aynı yapar */
+  text-decoration: none; /* Altındaki çizgiyi kaldırır */
+}
+
+/* Checkbox'ı gizle */
+.custom-checkbox-2 input[type="radio"] {
+  display: none;
 }
