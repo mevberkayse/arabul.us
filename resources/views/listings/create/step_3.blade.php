@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>giyilebilir teknoloji</title>
+    <title>Document</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="ilansayfaları.css">
+    <link rel="stylesheet" href="/assets/css/create_listing.css">
 </head>
-<body class="ilansayfasi4">
+<body class="ilansayfasi3">
     <div class="header d-flex align-items-center p-3">
         <button class="back-button btn p-0 me-3">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -28,33 +28,52 @@
 
         <!-- Ana Kutucuk -->
         <div class="container d-flex flex-column align-items-center rounded mt-3 border p-4">
-            <h5 class="text-center font-weight-bold mb-3">Giyilebilir Teknoloji</h5>
+            <h5 class="text-center font-weight-bold mb-3">Telefon</h5>
 
             <!-- Checkbox Kategorileri -->
             <div class="w-100">
                 <!-- iOS Telefon Checkboxes -->
                 <label class="custom-checkbox">
                     <input type="radio" name="iosOption">
-                    <span>Akıllı Saat</span>
+                    <span>iOS Telefon</span>
                 </label>
                 <hr>
                 <label class="custom-checkbox">
                     <input type="radio" name="iosOption">
-                    <span>Akıllı Bileklik</span>
+                    <span>Android Telefon</span>
                 </label>
                 <hr>
                 <label class="custom-checkbox">
                     <input type="radio" name="iosOption">
-                    <span>Sanal ve Artırılmış Gerçeklik</span>
+                    <span>Yapay Zeka Telefonlar</span>
                 </label>
                 <hr>
                 <label class="custom-checkbox">
                     <input type="radio" name="iosOption">
-                    <span>Akıllı Gözlük</span>
+                    <span>Kulaklık</span>
                 </label>
                 <hr>
-               
-            
+                <label class="custom-checkbox">
+                    <input type="radio" name="iosOption">
+                    <span>Yenilenmiş Telefon</span>
+                </label>
+                <hr>
+                <label class="custom-checkbox">
+                    <input type="radio" name="iosOption">
+                    <span>Telsiz ve Masaüstü Telefon</span>
+                </label>
+                <hr>
+                
+                <!-- Ok İkonlu Checkboxes -->
+                <a href="#" class="custom-checkbox custom-checkbox-2 d-flex justify-content-between align-items-center">
+                    <span>Giyilebilir Teknoloji</span>
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+                <hr>
+                <a href="#" class="custom-checkbox custom-checkbox-2 d-flex justify-content-between align-items-center">
+                    <span>Telefon Aksesuar</span>
+                    <i class="fa fa-arrow-right"></i>
+                </a>
             </div>
 
            

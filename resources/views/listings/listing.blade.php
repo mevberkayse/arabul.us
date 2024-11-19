@@ -8,145 +8,18 @@
     <link rel="stylesheet" href="/assets/css/homepage.css?{{time();}}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg ">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">Logo</a>
-                <form class="d-flex vw-25" role="search">
-                    <input class="form-control me-2 w-100 searchw" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <div class="d-flex gap-5 align-items-center">
-                    <a href="#" class="btn btn-outline-dark">
-                        <i class="fa-solid fa-plus"></i>
-                    </a>
-                    <div class="flex-shrink-0 dropdown">
-                        <a href="#" class="btn btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-moon text-dark"></i>
-                        </a>
-                        <ul class="dropdown-menu text-small shadow">
-                            <li><a class="dropdown-item" href="#">
-                                    <i class="fa-solid fa-moon"></i>
-                                    Dark</a></li>
-                            <li><a class="dropdown-item" href="#">
-                                    <i class="fa-solid fa-sun"></i>Light</a></li>
-                            <li><a class="dropdown-item" href="#">
-                                    <i class="fa-solid fa-circle-half-stroke"></i>
-                                    Auto</a></li>
-                        </ul>
-                    </div>
-                    <div class="flex-shrink-0 dropdown">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
-                                class="rounded-circle">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start text-small shadow">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+@include('partials.navbar')
 
-    <!-- Kategoriler için düzenleme -->
-    <nav class="navbar mt-0 pt-0">
-        <div class="container-fluid h-100 w-100 p-0 m-0">
-            <div class="row g-0 justify-content-end align-items-stretch w-100 text-center h-100 p-0">
-                <div class="col-3 category-bg-1 d-flex justify-content-center align-items-center ">
-                    <div class="dropdown text-center">
-                        <i class="fa-solid fa-mobile-screen-button"></i>
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none " data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Telefon & Aksesuar
-                        </a>
-                        <ul
-                            class="dropdown-menu dropdown-menu-1 dropdown-menu-lg-end dropdown-menu-start text-small shadow">
-                            <li><a class="dropdown-item" href="#">iOS Telefon</a></li>
-
-                            <li><a class="dropdown-item" href="#">Android Telefon</a></li>
-                            <li><a class="dropdown-item" href="#">Yapay Zeka Telefonlar</a></li>
-                            <li><a class="dropdown-item" href="#">Giyilebilir Teknoloji</a></li>
-                            <li><a class="dropdown-item" href="#">Telefon Aksesuar</a></li>
-                            <li><a class="dropdown-item" href="#">Kulaklık</a></li>
-                            <li><a class="dropdown-item" href="#">Yenilenmiş Telefon</a></li>
-                            <li><a class="dropdown-item" href="#">Telsiz ve Masaüstü Telefon</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Diğer kategori elemanlarını aynı şekilde düzenle -->
-                <div class="col-3 category-bg-2 d-flex justify-content-center align-items-center ">
-                    <div class="dropdown text-center">
-                        <i class="fa-solid fa-laptop"></i>
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Bilgisayar & Tablet
-                        </a>
-                        <ul
-                            class="dropdown-menu dropdown-menu-2 dropdown-menu-lg-end dropdown-menu-start text-small shadow">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3 category-bg-3 d-flex justify-content-center align-items-center ">
-                    <div class="dropdown text-center">
-                        <i class="fa-solid fa-tv "></i>
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none " data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            TV,Ses ve Görüntü
-                        </a>
-                        <ul
-                            class="dropdown-menu dropdown-menu-3 dropdown-menu-lg-end dropdown-menu-start text-small shadow ">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3 category-bg-4 d-flex justify-content-center align-items-center">
-                    <div class="dropdown text-center">
-                        <i class="fa-solid fa-kitchen-set"></i>
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Beyaz Eşya & Ev Aletleri
-                        </a>
-                        <ul
-                            class="dropdown-menu dropdown-menu-4 dropdown-menu-lg-end dropdown-menu-start text-small shadow ">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
     <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-3 border border-secondary p-3 rounded">
             <h3>Kategoriler</h3>
-            <h5>Telefon & Aksesuar</h5>
+            <h5><a class="text-decoration-none text-black" href='/ilanlar/{{$category->getParentCategory()->id}}'>@if($category->id == $category->getParentCategory()->id) <b> @endif {{$category->getParentCategory()->name}} @if($category->id == $category->getParentCategory()->id) </b> @endif </a></h5>
             <ul class="category-list-content">
-                <li class="category-item"><a href="/arabalar_c15706">iOS Telefon<span>(146.637)</span></a></li>
-                <li class="category-item"><a href="/oto-yedek-parca_c15707">Android Telefon<span>(89.019)</span></a></li>
-                <li class="category-item"><a href="/jant-lastik_c15725">Yapay Zeka Telefonlar<span>(73.728)</span></a></li>
-                <li class="category-item"><a href="/aksesuar-tuning_c15719">Giyilebilir Teknoloji<span>(56.600)</span></a></li>
-                <li class="category-item"><a href="/ses-goruntu-sistemleri_c15731">Telefon Aksesuar<span>(42.811)</span></a></li>
-                <li class="category-item"><a href="/kiralik-araclar_c15742">Kulaklık<span>(8.840)</span></a></li>
-                <li class="category-item"><a href="/kiralik-araclar_c15742">Yenilenmiş Telefon<span>(8.840)</span></a></li>
-                <li class="category-item"><a href="/kiralik-araclar_c15742">Telsiz ve Masaüstü Telefon<span>(8.840)</span></a></li>
+                @foreach($category->getParentCategory()->getSubcategories() as $subcategory)
+                <li class="category-item"><a href="/ilanlar/{{$subcategory->id}}">@if($subcategory->id == $category->id) <b>@endif{{$subcategory->name}} @if($subcategory->id == $category->id) </b>@endif<span>({{$subcategory->getListingCount()}})</span></a></li>
+                @endforeach
+
             </ul>
             <div class="my-3">
                 <h5>Fiyat Aralığı</h5> <!-- Fiyat başlığı eklendi -->
@@ -185,48 +58,24 @@
 
         <div class="col-9">
             <div class="category-listing-title my-3">
-                <span>417.474 ilan bulundu</span>
+                <span>{{$category->getListingCount()}} ilan bulundu</span>
             </div>
             <div class="row gap-3 justify-content-between">
+                @foreach($listings as $listing)
                 <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="assets/img/shopping.jpeg" class="card-img-top img-small" alt="...">
+                    <a class="card" style="width: 18rem; text-decoration: none;" href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}">
+                        <img src="{{$listing->getThumbnail()}}" class="card-img-top img-small" alt="...">
                         <div class="card-body">
-                            <h5 class="item-price large-price">99.999 TL</h5>
-                            <p class="item-text mt-2">İphone 16 Yeni</p>
+                            <h5 class="item-price large-price">{{$listing->price}} ₺</h5>
+                            <p class="item-text mt-2">{{$listing->title}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <p class="location">Gaziantep</p>
-                                <p class="time">Dün</p>
+                                <p class="location">{{$listing->location}}</p>
+                                <p class="time">{{$listing->created_at->diffForHumans()}}</p>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="assets/images/shopping.png" class="card-img-top img-small" alt="...">
-                        <div class="card-body">
-                            <h5 class="item-price large-price">99.999 TL</h5>
-                            <p class="item-text mt-2">İphone 16 Yeni</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="location">Gaziantep</p>
-                                <p class="time">Dün</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="https://placehold.co/400x200/png" class="card-img-top img-small" alt="...">
-                        <div class="card-body">
-                            <h5 class="item-price large-price">99.999 TL</h5>
-                            <p class="item-text mt-2">İphone 16 Yeni</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="location">Gaziantep</p>
-                                <p class="time">Dün</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
