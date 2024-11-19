@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('listings', function (Blueprint $table) {
             //
-            $table->number('lat');
-            $table->number('long');
+            $table->integer('lat');
+            $table->integer('long');
         });
     }
 
