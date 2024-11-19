@@ -112,4 +112,5 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'default_profile_picture_path' => '//cdn.arabul.us/images/default.png'
 ];
