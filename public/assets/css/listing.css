@@ -208,7 +208,7 @@
     border-radius: 8px;
     padding: 20px;
     background-color: #ffffff;
-    box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5); /* Açık pembe gölge */
+    box-shadow: 0 4px 15px rgba(102, 175, 92, 0.5); /* Açık pembe gölge */
   }
   .heart-icon {
     position: absolute;
@@ -228,7 +228,7 @@
     border-radius: 8px; /* Kutu köşeleri */
     padding: 10px; /* İç boşluk */
     background-color: #ffffff; /* Arka plan rengi */
-    box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5); /* Açık pembe gölge */
+    box-shadow: 0 4px 15px rgba(102, 175, 92, 0.5); /* Açık pembe gölge */
     
   }
   .price-info{
@@ -248,31 +248,34 @@
   .sohbet-btn{
     width: 120px;
     background-color: transparent;
-    border-color: pink;
-    color: palevioletred;
+    border-color: rgb(86, 155, 72);
+    color: rgb(86, 155, 72);
   }
   .sohbet-btn:hover{
-    background-color: palevioletred;
+    background-color: rgb(86, 155, 72);
     color: white;
-    border-color: pink;
+    border-color: rgb(86, 155, 72);
   }
   .profil-btn{
     width: 120px;
     background-color: transparent;
-    border-color: pink;
-    color: palevioletred;
+    border-color: rgb(86, 155, 72);
+    color: rgb(86, 155, 72);
   }
   .profil-btn:hover{
-    background-color: palevioletred;
+    background-color: rgb(86, 155, 72);
     color: white;
-    border-color: pink;
+    border-color: rgb(86, 155, 72);
+  }
+  .profile-btn:active {
+    background-color: transparent !important ;
   }
   .location-info{
     border: 1px solid #ddd; /* Kutu kenarı */
     border-radius: 8px; /* Kutu köşeleri */
     padding: 10px; /* İç boşluk */
     background-color: #ffffff; /* Arka plan rengi */
-    box-shadow: 0 4px 15px rgba(255, 182, 193, 0.5); /* Açık pembe gölge */
+    box-shadow: 0 4px 15px rgba(102, 175, 92, 0.5); /* Açık pembe gölge */
   }
   .related-products {
     background-color: #f9f9f9; /* Arka plan rengi */

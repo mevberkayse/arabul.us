@@ -188,21 +188,6 @@
             <i class="fa-solid fa-plus"></i>
         </a>
         <div class="flex-shrink-0 dropdown">
-            <a href="#" class="btn btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-moon text-dark"></i>
-            </a>
-            <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" href="#">
-                        <i class="fa-solid fa-moon"></i>
-                        Dark</a></li>
-                <li><a class="dropdown-item" href="#">
-                        <i class="fa-solid fa-sun"></i>Light</a></li>
-                <li><a class="dropdown-item" href="#">
-                        <i class="fa-solid fa-circle-half-stroke"></i>
-                        Auto</a></li>
-            </ul>
-        </div>
-        <div class="flex-shrink-0 dropdown">
             <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <img src="@if(auth()->check()){{ auth()->user()->profile_picture}}@else{{config('auth.default_profile_picture_path')}} @endif"

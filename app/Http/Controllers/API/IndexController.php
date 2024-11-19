@@ -25,9 +25,9 @@ class IndexController extends Controller
         $output = curl_exec($ch);   
         curl_close($ch);
         $output = json_decode($output, true);
-        $address = $output['results']['0']['formatted_address'];
+        //$address = $output['results']['0']['formatted_address'];
 
-        $request->session()->put('address', $address);
+        //$request->session()->put('address', $address);
 
         return response()->json(['message' => 'success', 'output'=>$output['results']]);
     }

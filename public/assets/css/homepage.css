@@ -13,26 +13,32 @@
 
 .category-bg-1 {
     background-color: #bdb2ff;
-    font-family: "Metropolis", "arial", "sans-serif";
-    font-size: 18px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 500;
+        font-size: 18px;
 }
 
 .category-bg-2 {
     background-color: #bfd8bd;
-    font-family: "Metropolis", "arial", "sans-serif";
-    font-size: 18px;
+    font-family: "Nunito", sans-serif;
+        font-size: 18px;
+        font-weight: 500;
 }
 
 .category-bg-3 {
     background-color: #fde4cf;
-    font-family: "Metropolis", "arial", "sans-serif";
+    font-family: "Nunito", "arial", "sans-serif";
     font-size: 18px;
+    font-weight: 500;
+
 }
 
 .category-bg-4 {
     background-color: #ffcfd2;
-    font-family: "Metropolis", "arial", "sans-serif";
+    font-family: "Nunito", "arial", "sans-serif";
     font-size: 18px;
+    font-weight: 500;
+
 }
 
 .dropdown-menu-1 {
