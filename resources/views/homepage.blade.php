@@ -18,12 +18,20 @@
     @include('partials.navbar')
 
     <div class="container mt-5">
+        <div class="row mb-5">
+            <div class="col-12">
+                <img src="https://placehold.co/1275x400/png" alt="" style="border-radius: 10px;">
+            </div>
+        </div>
         <div class="row justify-content-center gap-0" id="itemlist">
             @foreach($listings as $listing)
             <div class="col-3 ">
                 <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" class="card"
                     style="width: 18rem; text-decoration: none;">
-                    <img src="{{$listing->getThumbnail()}}" class="card-img-top img-small" alt="...">
+                    <img src="{{$listing->getThumbnail()}}" class="card-img-top p-3 pt-4" style="height: 300px">
+                    <div class="heart-icon">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
                     <div class="card-body">
                         <h5 class="item-price large-price">{{$listing->price}}</h5>
                         <p class="item-text mt-2">{{$listing->title}}</p>
@@ -38,7 +46,7 @@
         </div>
     </div>
     <div class="text-center dahafazlayukle-btn my-4">
-        <button class="btn custom-btn btn-primary">Daha Fazla Yükle </button>
+        <button class="btn btn-outline-custom" id="loadMore">Daha Fazla Yükle </button>
     </div>
 
     <!-- Footer -->
@@ -55,7 +63,12 @@
     <script>
         $(document).ready(() => {
             // get items by location
-            $.ajax({
+
+            $('#loadMore').click(e => getItems());
+            
+
+            let getItems = () => {
+                $.ajax({
                 url: '/api/homepage/listings-by-location',
                 method: 'GET',
                 success: (data) => {
@@ -81,7 +94,10 @@
                                                 data.items.forEach(listing => {
                                                     $('#itemlist').append(`<div class="col-3 ">
                                                         <a href="${listing.url}" class="card" style="width: 18rem; text-decoration: none;">
-                                                            <img src="${listing.thumbnail}" class="card-img-top img-small" alt="...">
+                                                            <img src="${listing.thumbnail}" class="card-img-top p-3 pt-4" alt="..." style="height:300px">
+                                                             <div class="heart-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
                                                             <div class="card-body">
                                                                 <h5 class="item-price large-price">${listing.price} ₺</h5>
                                                                 <p class="item-text mt-2">${listing.title}</p>
@@ -105,7 +121,10 @@
                         data.items.forEach(listing => {
                             $('#itemlist').append(`<div class="col-3 ">
                 <a href="${listing.url}" class="card" style="width: 18rem; text-decoration: none;">
-                    <img src="${listing.thumbnail}" class="card-img-top img-small" alt="...">
+                    <img src="${listing.thumbnail}" class="card-img-top p-3 pt-4 alt="..." style="height:300px">
+                     <div class="heart-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
                     <div class="card-body">
                         <h5 class="item-price large-price">${listing.price} ₺</h5>
                         <p class="item-text mt-2">${listing.title}</p>
@@ -122,6 +141,9 @@
                 }
 
             })
+            }
+            getItems();
+
         });
     </script>
 </body>

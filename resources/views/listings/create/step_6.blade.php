@@ -118,7 +118,7 @@
 
     <!-- Devam Et Butonu -->
     <div class="text-center mt-5">
-        <button class="btn btn-success mt-2 w-25">Devam Et</button>
+        <button class="btn btn-outline-custom mt-5 w-25">Devam Et</button>
     </div>
 
     <!-- Modal (Renk Dropdown) -->
