@@ -140,20 +140,58 @@
             /* Sonra tekrar başlangıç noktasına dön */
         }
     }
+    .custom-navbar {
+    background-color: #f8f9fa; /* Navbar arka plan rengi */
+    padding: 60px 0; /* Daha geniş yapmak için yukarı ve aşağı padding */
+    }
+    .category-navbar {
+   
+    padding: 20px 0; /* Daha geniş yapmak için yukarı ve aşağı padding */
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem; /* Logonun boyutunu büyütmek için */
+    }
+
+
+    .d-flex.gap-5.align-items-center {
+        justify-content: center; /* İkon ve dropdown'ı yatayda ortalama */
+    }
+
+    .dropdown-menu {
+        text-align: center; /* Dropdown içeriğini ortalama */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.logo-font {
+    font-family: 'Bangers', cursive; /* Eğlenceli, karikatürize font */
+    font-size: 3rem; /* Yazı boyutunu büyüt */
+    font-weight: bold; /* Kalın yap */
+    color: darkgreen; /* Turuncu renk tonu */
+    text-transform: none; /* Doğal harf boyutları */
+    letter-spacing: 1px; /* Hafif harf aralığı */
+}
+
+.logo-font .us {
+    color: #4caf50; /* Yeşil renk */
+    font-size: 3.5rem; /* `us` kısmını biraz daha büyük yap */
+}
+
+
 </style>
-<nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="{{route('index')}}">Logo</a>
+            <a class="navbar-brand logo-font" href="{{route('index')}}">AraBul.<span class="us">us</span></a>
             <form class="d-flex vw-25" role="search">
-                <input class="form-control me-2 w-100 searchw" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-4 w-100 searchw" type="search" placeholder="Search" aria-label="Search" style="border: 1px solid darkgreen;">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <div class="d-flex align-items-center ">
+            <div class="d-flex align-items-center">
                 <div class="border rounded p-2 d-flex align-items-center">
                     <i class="fa-solid fa-map-marker-alt"></i>
                     <span class="ms-2">@if(session()->has('address')){{session()->get('address')}} @else Türkiye @endif</span>
@@ -206,7 +244,7 @@
     </div>
 </nav>
 <!-- Kategoriler için düzenleme -->
-<nav class="navbar mt-0 pt-0">
+<nav class="navbar mt-0 pt-0 category-navbar">
     <div class="container-fluid h-100 w-100 p-0 m-0">
         <div class="row g-0 justify-content-end align-items-stretch w-100 text-center h-100 p-0">
             <div class="col-3 category-bg-1 d-flex justify-content-center align-items-center ">
