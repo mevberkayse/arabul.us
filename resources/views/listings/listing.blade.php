@@ -12,24 +12,24 @@
 
     <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-3 border border-secondary p-3 rounded">
-            <h3>Kategoriler</h3>
-            <h5><a class="text-decoration-none text-black" href='/ilanlar/{{$category->getParentCategory()->id}}'>@if($category->id == $category->getParentCategory()->id) <b> @endif {{$category->getParentCategory()->name}} @if($category->id == $category->getParentCategory()->id) </b> @endif </a></h5>
+        <div class="col-3 border border-secondary p-3 rounded ">
+            <h3 class="mb-4">Kategoriler</h3>
+            <h5 class="mb-3"><a class="text-decoration-none text-black" href='/ilanlar/{{$category->getParentCategory()->id}}'>@if($category->id == $category->getParentCategory()->id) <b> @endif {{$category->getParentCategory()->name}} @if($category->id == $category->getParentCategory()->id) </b> @endif </a></h5>
             <ul class="category-list-content">
                 @foreach($category->getParentCategory()->getSubcategories() as $subcategory)
-                <li class="category-item"><a href="/ilanlar/{{$subcategory->id}}">@if($subcategory->id == $category->id) <b>@endif{{$subcategory->name}} @if($subcategory->id == $category->id) </b>@endif<span>({{$subcategory->getListingCount()}})</span></a></li>
+                <li class="category-item mb-2"><a href="/ilanlar/{{$subcategory->id}}">@if($subcategory->id == $category->id) <b>@endif{{$subcategory->name}} @if($subcategory->id == $category->id) </b>@endif<span>({{$subcategory->getListingCount()}})</span></a></li>
                 @endforeach
 
             </ul>
-            <div class="my-3">
-                <h5>Fiyat Aralığı</h5> <!-- Fiyat başlığı eklendi -->
+            <div class="my-5">
+                <h5 class="mb-3">Fiyat Aralığı</h5> <!-- Fiyat başlığı eklendi -->
                 <div class="d-flex align-items-center">
                     <input type="number" class="form-control me-2" placeholder="Min Fiyat" style="width: 45%;">
                     <input type="number" class="form-control me-2" placeholder="Max Fiyat" style="width: 45%;">
-                    <button class="btn btn-secondary">Ara</button>
+                    <button class="btn btn-custom">Ara</button>
                 </div>
             </div>
-            <div class="my-3">
+            <div class="my-5">
                 <h5>Konum</h5> <!-- Konum başlığı eklendi -->
                 <select class="form-select">
                     <option value="">Seçiniz...</option>
@@ -52,7 +52,7 @@
                 </select>
             </div>
             <div class="filter-container mt-3 text-center">
-                <button class="btn btn-secondary btn-sm">Filtreyi Temizle</button>
+                <button class="btn btn-custom btn-sm">Filtreyi Temizle</button>
             </div>
         </div>
 
@@ -64,7 +64,10 @@
                 @foreach($listings as $listing)
                 <div class="col">
                     <a class="card" style="width: 18rem; text-decoration: none;" href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}">
-                        <img src="{{$listing->getThumbnail()}}" class="card-img-top img-small" alt="...">
+                        <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4" style="height: 300px">
+                        <div class="heart-icon">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
                         <div class="card-body">
                             <h5 class="item-price large-price">{{$listing->price}} ₺</h5>
                             <p class="item-text mt-2">{{$listing->title}}</p>
@@ -84,7 +87,7 @@
 
     
     <div class="text-center dahafazlayukle-btn my-4">
-            <button class="btn custom-btn btn-primary">Daha Fazla Yükle</button>
+            <button class="btn btn-outline-custom">Daha Fazla Yükle</button>
     </div>
 
     <!-- Footer -->

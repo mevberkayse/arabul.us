@@ -49,4 +49,8 @@ class Listing extends Model
     {
         return Listing::where('lat', 'LIKE', $lat . "%")->where('long', 'LIKE', $lng . "%");
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

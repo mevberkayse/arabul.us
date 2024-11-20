@@ -28,4 +28,9 @@ class Category extends Model
         
         return Listing::where('category_id', $this->id)->count();
     }
+
+    public function hasSubCategories()
+    {
+        return Category::where('parent_id', $this->id)->count() > 0;
+    }
 }

@@ -10,23 +10,23 @@
         height: 70px !important;
     }
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 .category-bg-1 {
-    background-color: #bdb2ff;
+    background-color: #1A1B41;
     font-family: "Nunito", sans-serif;
     font-weight: 500;
         font-size: 18px;
 }
 
 .category-bg-2 {
-    background-color: #bfd8bd;
+    background-color: #820933;
     font-family: "Nunito", sans-serif;
         font-size: 18px;
         font-weight: 500;
 }
 
 .category-bg-3 {
-    background-color: #fde4cf;
+    background-color: #52154E;
     font-family: "Nunito", "arial", "sans-serif";
     font-size: 18px;
     font-weight: 500;
@@ -42,11 +42,11 @@
 }
 
 .dropdown-menu-1 {
-    width: 380px !important;
+    width: 550px !important;
     height: 400px !important;
     right: 40%;
     /* Sol kenarı ortalamak için %50'ye ayarla */
-    transform: translateX(30%);
+    transform: translateX(35%);
     /* Sol kenarı merkeze doğru kaydır */
     background-color: #fff;
     border-radius: 0px;
@@ -55,25 +55,28 @@
 .dropdown-item {
     padding: 0.5rem 1rem; /* Varsayılan padding değerini artırabilirsiniz */
     margin-bottom: 0.2rem; /* Alt kısma küçük bir boşluk ekleyin */
+    font-family: "Nunito", "arial", "sans-serif";
+    font-size: 18px;
 }
 
+
 .dropdown-menu-2 {
-    width: 380px !important;
+    width: 550px !important;
     height: 400px !important;
     right: 40%;
     /* Sol kenarı ortalamak için %50'ye ayarla */
-    transform: translateX(30%);
+    transform: translateX(35%);
     /* Sol kenarı merkeze doğru kaydır */
     background-color: #fff;
     border-radius: 0px;
 }
 
 .dropdown-menu-3 {
-    width: 380px !important;
+    width: 550px !important;
     height: 400px !important;
     right: 40%;
     /* Sol kenarı ortalamak için %50'ye ayarla */
-    transform: translateX(30%);
+    transform: translateX(35%);
     /* Sol kenarı merkeze doğru kaydır */
     background-color: #fff;
     border-radius: 0px;
@@ -172,3 +175,52 @@
     display: flex; /* İkonu ortalamak için */
     align-items: center; /* İkonu dikeyde ortala */
 }
+
+.heart-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #d3d3d3; /* Gri arka plan */
+    border-radius: 50%; /* Yuvarlak görünüm */
+    padding: 5px; /* İç boşluk */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; /* Yuvarlağın boyutu */
+    height: 30px; /* Yuvarlağın boyutu */
+  }
+  
+
+.btn-outline-custom {
+    --bs-btn-color: #1A1B41;
+    --bs-btn-border-color: #1A1B41;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #1A1B41;
+    --bs-btn-hover-border-color: #1A1B41;
+    --bs-btn-focus-shadow-rgb: 25, 135, 84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #1A1B41;
+    --bs-btn-active-border-color: #1A1B41;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #1A1B41;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #1A1B41;
+    --bs-gradient: none;
+  }
+  
+  .btn-custom {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #1A1B41;
+    --bs-btn-border-color: #1A1B41;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #1A1B41;
+    --bs-btn-hover-border-color: #1A1B41;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #1A1B41;
+    --bs-btn-active-border-color: #1A1B41;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #0d6efd;
+    --bs-btn-disabled-border-color: #1A1B41;
+  }

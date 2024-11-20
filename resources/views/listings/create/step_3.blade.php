@@ -28,57 +28,29 @@
 
         <!-- Ana Kutucuk -->
         <div class="container d-flex flex-column align-items-center rounded mt-3 border p-4">
-            <h5 class="text-center font-weight-bold mb-3">Telefon</h5>
+            <h5 class="text-center font-weight-bold mb-3">{{$category->name}}</h5>
 
             <!-- Checkbox Kategorileri -->
             <div class="w-100">
                 <!-- iOS Telefon Checkboxes -->
+                 @foreach($subCategories as $subCategory)
+                 @if(!$subCategory->hasSubCategories())
                 <label class="custom-checkbox">
-                    <input type="radio" name="iosOption">
-                    <span>iOS Telefon</span>
+                    <input type="radio" name="subcategory" id="{{$subCategory->id}}">
+                    <span>{{$subCategory->name}}</span>
                 </label>
                 <hr>
-                <label class="custom-checkbox">
-                    <input type="radio" name="iosOption">
-                    <span>Android Telefon</span>
-                </label>
-                <hr>
-                <label class="custom-checkbox">
-                    <input type="radio" name="iosOption">
-                    <span>Yapay Zeka Telefonlar</span>
-                </label>
-                <hr>
-                <label class="custom-checkbox">
-                    <input type="radio" name="iosOption">
-                    <span>Kulaklık</span>
-                </label>
-                <hr>
-                <label class="custom-checkbox">
-                    <input type="radio" name="iosOption">
-                    <span>Yenilenmiş Telefon</span>
-                </label>
-                <hr>
-                <label class="custom-checkbox">
-                    <input type="radio" name="iosOption">
-                    <span>Telsiz ve Masaüstü Telefon</span>
-                </label>
-                <hr>
-                
-                <!-- Ok İkonlu Checkboxes -->
+                @else 
                 <a href="#" class="custom-checkbox custom-checkbox-2 d-flex justify-content-between align-items-center">
-                    <span>Giyilebilir Teknoloji</span>
+                    <span>{{$subCategory->name}}</span>
                     <i class="fa fa-arrow-right"></i>
                 </a>
                 <hr>
-                <a href="#" class="custom-checkbox custom-checkbox-2 d-flex justify-content-between align-items-center">
-                    <span>Telefon Aksesuar</span>
-                    <i class="fa fa-arrow-right"></i>
-                </a>
+                @endif
+                @endforeach
             </div>
-
-           
         </div>
-        <button class="btn btn-success mt-3 w-25">Devam Et</button>
+        <button class="btn btn-outline-custom mt-3 w-25">Devam Et</button>
     </div>
     
     
@@ -87,5 +59,6 @@
 
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+<script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 </body>
 </html>

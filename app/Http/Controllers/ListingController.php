@@ -23,7 +23,8 @@ class ListingController extends Controller
             
             return redirect()->route('listings.show', ['id' => $id, 'slug' => $listing->slug]);
         }
-        return view('listings.listing_new', ['listing' => $listing]);
+        $listings = Listing::all()->take(4);
+        return view('listings.listing_new', ['listing' => $listing, 'listings' => $listings]);
     }
 
     public function index(Request $request, $category) {

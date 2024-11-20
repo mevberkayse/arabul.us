@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\CreateListingController as APICreateListingController;
 use App\Http\Controllers\API\IndexController as APIIndexController;
+use App\Http\Controllers\CreateListingController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -9,7 +11,7 @@ use App\Http\Controllers\IndexController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::get('/ilan-yukle/{step?}', [ListingController::class, 'create'])->name('listings.create')->whereIn('step', [null, 0, 1,2,3,4,5,6,7,8]);
+Route::get('/ilan-yukle/{step?}', [CreateListingController::class, 'create'])->name('listings.create')->whereIn('step', [null, 0, 1,2,3,4,5,6,7,8]);
 
 // static page for development purposes
 Route::get("/ilan/{id}{dash?}{slug?}", [ListingController::class, 'show'])->name('listings.show')->whereNumber('id')->where('dash', '-');
@@ -27,6 +29,8 @@ Route::get("/search?{query}", [SearchController::class, 'index'])->name('search.
 Route::prefix('api')->group(function() {
     Route::post('/save-location', [APIIndexController::class, 'saveLocation']);
     Route::get('/homepage/listings-by-location', [APIIndexController::class, 'getItemListByLocation']);
+
+    Route::post('/create-listing/step-{step}', [APICreateListingController::class, 'createListing'])->whereIn('step', [null, 0, 1,2,3,4,5,6,7,8]);
 });
 
 require __DIR__.'/auth.php';

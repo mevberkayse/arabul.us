@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.arabul.us/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/create_listing.css">
+    <link rel="stylesheet" href="/assets/css/step_7_8.css">
 </head>
 
 <body>
@@ -51,7 +51,7 @@
             <label for="fiyat" class="form-label">Fiyat</label>
             <div class="input-group">
                 <input type="text" id="fiyat" class="form-control" placeholder="Fiyat giriniz">
-                <span class="input-group-text">TL</span>
+                <span class="input-group-text" style="font-size: 18px; border-left: none!important;">₺</span>
             </div>
             <small class="text-danger">Doğru fiyatlandırınız</small>
         </div>
@@ -67,10 +67,9 @@
         </div>
 
         <!-- Konum -->
-        <div class="mb-3 w-100">
+        <div class="mb-3 w-100 d-flex justify-content-between">
             <label for="konum" class="form-label">Konum</label>
-            <button id="konum-sec" class="btn btn-outline-primary w-100" data-bs-toggle="modal"
-                data-bs-target="#konumModal">Seç</button>
+            <button id="konum-sec" class=" btn btn-custom w-25" >Seç</button>
         </div>
 
         <!-- İletişim Bilgileri -->
@@ -89,7 +88,7 @@
     </div>
     <!-- Devam Et Butonu -->
     <div class="text-center mt-5">
-        <button class="btn btn-success mt-2 w-25">Devam Et</button>
+        <button class="btn btn-outline-custom mt-2 w-25">Devam Et</button>
     </div>
 
     <!-- Modal (Pop-Up Dropdown) -->

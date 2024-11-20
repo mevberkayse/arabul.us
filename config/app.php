@@ -122,5 +122,6 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-    'default_listing_thumbnail' => '//cdn.arabul.us/images/default_listing.png'
+    'default_listing_thumbnail' => '//cdn.arabul.us/images/default_listing.png',
+    'listing_images_path' => public_path('listing-images')
 ];

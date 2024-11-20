@@ -8,8 +8,7 @@
 
 }
 body{
-    background-color: #c9d6ff;
-    background: linear-gradient(to right,#e2e2e2,#c9d6ff);
+    background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,7 +43,7 @@ body{
     margin: 15px 0 10px;
 }
 .container button{
-    background-color: #b672c1;
+    background-color: #1A1B41;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -150,7 +149,7 @@ body{
 .toggle{
     background-color: #bdb2ff;
     height: 100%;
-    background: linear-gradient(to right, hsl(296, 75%, 75%),#b672c1);
+    background: #820933;
     color: #fff;
     position: relative;
     left: -100%;
@@ -179,6 +178,7 @@ body{
 }
 .toggle-left{
     transform: translateX(-200%);
+    /* background: linear-gradient(to right, #820933, hsl(355, 50%, 75%));*/ 
 }
 .container.active .toggle-left{
     transform: translateX(0);
@@ -186,6 +186,7 @@ body{
 .toggle-right{
     right: 0;
     transform: translateX(0);
+     
 }
 .container.active .toggle-right{
     transform: translateX(200%);
