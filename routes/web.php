@@ -18,6 +18,8 @@ Route::get("/ilan/{id}{dash?}{slug?}", [ListingController::class, 'show'])->name
 
 Route::get('/ilanlar/{category?}', [ListingController::class, 'index'])->name('listings.by_category');
 
+Route::get('/chat', [ProfileController::class, 'chat'])->name('chat');
+Route::get('/edit-profile', [ProfileController::class, 'editprofile'])->name('editprofile');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

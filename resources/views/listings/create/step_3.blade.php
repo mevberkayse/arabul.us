@@ -63,7 +63,7 @@
             $(`#subcategory-${id}`).modal('hide');
 
             // clear other inputs
-            $('input[name="subcategory-input"]').not(writeTo).val('');
+            $('input[name="subcategory-input"]').not(writeTo).val('').attr('data-id', '');
             // clear radio inputs too
             $('input[type="radio"]').prop('checked', false);
 
@@ -101,7 +101,7 @@
     $(()  => {
         $('#next_step').click(() => {
             // subcategory is either radio or input
-            let subcategory = $('input[type="radio"]:checked').length > 0 ? $('input[type="radio"]:checked').attr('id') : $('input[name="subcategory-input"]').attr('data-id');
+            let subcategory = $('input[type="radio"]:checked').length > 0 ? $('input[type="radio"]:checked').attr('id') : $('input[name=subcategory-input]').filter(function() { return $(this).val().trim() != ""; }).data('id');
 
             if(subcategory == undefined) {
                 alert('Lütfen bir alt kategori seçiniz');

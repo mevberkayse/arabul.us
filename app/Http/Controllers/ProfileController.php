@@ -64,9 +64,18 @@ class ProfileController extends Controller
     }
 
     public function show($id)
-        {
-            $user = User::findOrFail($id); // Kullanıcıyı ID ile bul
-            return view('profile.show', compact('user')); // Veriyi profile.show blade dosyasına gönder
-        }
+    {
+        $user = User::findOrFail($id); // Kullanıcıyı ID ile bul
+        return view('profile.show', compact('user')); // Veriyi profile.show blade dosyasına gönder
+    }
 
+    public function chat(Request $request)
+    {
+        return view('chat');
+    }
+
+    public function editprofile(Request $request)
+    {
+        return view('auth.profile_edit');
+    }
 }
