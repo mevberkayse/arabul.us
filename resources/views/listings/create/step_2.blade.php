@@ -41,6 +41,17 @@
             --bs-btn-disabled-bg: #0d6efd;
             --bs-btn-disabled-border-color: #1A1B41;
         }
+        .category .circle {
+            border: 4px solid transparent; /* Varsayılan kenarlık görünmez */
+            border-radius: 50%; /* Çember için */
+            padding: 10px;
+            transition: border 0.3s ease; 
+        }
+
+        .category.selected .circle {
+            border-color: #37BC61; 
+        }
+
     </style>
 </head>
 
@@ -68,28 +79,25 @@
             <h5 class="text-center mb-3">Yüklenecek ürün kategorisi nedir?</h5>
             <!-- Kategoriler -->
             <div class="d-flex justify-content-between w-100">
-                <div class="category" id="cat-1">
-                    <div class="circle" style=" background-color: #1A1B41;">
+                <div class="category" id="cat-1" onclick="highlightCategory('cat-1')">
+                    <div class="circle" style="background-color: #1A1B41;">
                         <i class="fa-solid fa-mobile-screen-button" style="color:white;"></i>
                     </div>
                     <div class="category-name">Telefon & Aksesuar</div>
                 </div>
-                <div class="category" id="cat-2">
-                    <div class="circle" style=" background-color: #820933;">
+                <div class="category" id="cat-2" onclick="highlightCategory('cat-2')">
+                    <div class="circle" style="background-color: #820933;">
                         <i class="fa-solid fa-laptop" style="color:white;"></i>
                     </div>
                     <div class="category-name">Bilgisayar & Tablet</div>
                 </div>
-                <div class="category" id="cat-3">
-                    <div class="circle" style=" background-color: #52154E;">
-                        <i class="fa-solid fa-print " style="color:white;"></i>
+                <div class="category" id="cat-3" onclick="highlightCategory('cat-3')">
+                    <div class="circle" style="background-color: #52154E;">
+                        <i class="fa-solid fa-print" style="color:white;"></i>
                     </div>
                     <div class="category-name">Çevre Birimleri</div>
                 </div>
-            </div>
-
-
-
+                </div>
         </div>
         <button class="btn btn-outline-custom mt-3 w-25" id="next_step">Devam Et</button>
     </div>
@@ -123,6 +131,17 @@
             })
         })
     })
+        function highlightCategory(selectedId) {
+        //  'selected' sınıfını kaldır
+        document.querySelectorAll('.category').forEach(category => {
+            category.classList.remove('selected');
+        });
+
+        //  'selected' sınıfını ekle
+        const selectedCategory = document.getElementById(selectedId);
+        selectedCategory.classList.add('selected');
+    }
+
 </script>
 
 </html>
