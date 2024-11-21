@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -60,4 +62,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function show($id)
+        {
+            $user = User::findOrFail($id); // Kullanıcıyı ID ile bul
+            return view('profile.show', compact('user')); // Veriyi profile.show blade dosyasına gönder
+        }
+
 }
