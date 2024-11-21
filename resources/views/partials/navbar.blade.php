@@ -95,7 +95,8 @@
 
     /* Kırmızı Yuvarlak Çerçeve */
     .red-circle {
-        background-color: #ff8d8dc8;
+        background-color: #820933;
+        
         /* Kırmızı arka plan */
         width: 80px;
         /* Çember genişliği */
