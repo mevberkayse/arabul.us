@@ -39,26 +39,90 @@
                     <input type="radio" name="subcategory" id="{{$subCategory->id}}">
                     <span>{{$subCategory->name}}</span>
                 </label>
-                <hr>
                 @else 
-                <a href="#" class="custom-checkbox custom-checkbox-2 d-flex justify-content-between align-items-center">
-                    <span>{{$subCategory->name}}</span>
-                    <i class="fa fa-arrow-right"></i>
-                </a>
-                <hr>
+                <label for="" class="form-label">{{$subCategory->name}}</label>
+                <div class="input-group">
+                    <input type="text" id="subcategory-{{$subCategory->id}}-input" name="subcategory-input" class="form-control" placeholder="Seçiniz.." readonly
+                        data-bs-toggle="modal" data-bs-target="#subcategory-{{$subCategory->id}}"
+                        style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
+                    <span class="input-group-text"data-bs-toggle="modal" data-bs-target="#subcategory-{{$subCategory->id}}"
+                        style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none; ">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </span>
+                </div>
                 @endif
+                <hr>
                 @endforeach
             </div>
         </div>
-        <button class="btn btn-outline-custom mt-3 w-25">Devam Et</button>
+        <button class="btn btn-outline-custom mt-3 w-25" id="next_step">Devam Et</button>
     </div>
-    
-    
+    <script>
+        let chooseOption = (option, writeTo, id, subsubid) => {
+            $(writeTo).val(option).attr('data-id', subsubid);
+            $(`#subcategory-${id}`).modal('hide');
+
+            // clear other inputs
+            $('input[name="subcategory-input"]').not(writeTo).val('');
+            // clear radio inputs too
+            $('input[type="radio"]').prop('checked', false);
+
+        }
+    </script>
+    @foreach($subCategories as $subCategory) 
+    @if($subCategory->hasSubCategories())
+   
+    <div class="modal fade" id="subcategory-{{$subCategory->id}}" tabindex="-1" aria-labelledby="renkModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="renkModalLabel">{{$subCategory->name}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="renkList">
+                        @foreach($subCategory->getSubCategories() as $subSubCat)
+                            <li class="list-group-item" onclick="chooseOption('{{$subSubCat->name}}', '#subcategory-{{$subCategory->id}}-input', '{{$subCategory->id}}', '{{$subSubCat->id}}')">{{$subSubCat->name}}</li>
+                        @endForeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @endforeach
 
 </body>
 
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
 <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+<script>
+    $(()  => {
+        $('#next_step').click(() => {
+            // subcategory is either radio or input
+            let subcategory = $('input[type="radio"]:checked').length > 0 ? $('input[type="radio"]:checked').attr('id') : $('input[name="subcategory-input"]').attr('data-id');
+
+            if(subcategory == undefined) {
+                alert('Lütfen bir alt kategori seçiniz');
+                return;
+            }
+
+            $.ajax({
+                method: "POST",
+                url: "/api/create-listing/step-3",
+                data: {
+                    _token: "{{csrf_token()}}",
+                    subcategory: subcategory
+                },
+                success: data => {
+                    if(data.success) {
+                        window.location.href = '/ilan-yukle/4';
+                    }
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

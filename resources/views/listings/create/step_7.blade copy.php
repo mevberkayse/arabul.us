@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.arabul.us/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/preview.css">
+    <link rel="stylesheet" href="onizle.css">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
 
                 <!-- Ürün Fotoğrafı ve Thumbnail Kutusu -->
                 <div class="product-image-container">
-                    <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı" class="product-image">
+                    <img src="urunimg/iphone16.png" alt="Ürün Fotoğrafı" class="product-image">
                     <!-- Kalp İkonu -->
                     <div class="heart-icon">
                         <i class="fa-regular fa-heart"></i>
@@ -45,21 +45,16 @@
 
                     <!-- Küçük Ürün Fotoğrafları -->
                     <div class="thumbnail-container">
-                        @php
-                        $images = session()->get('create_listing_images');
-                        // İlk fotoğrafı çıkar
-                        array_shift($images);
-                        @endphp
-                        @foreach($images as $image)
-                        <img src="{{$image}}" alt="Küçük Fotoğraf 1" class="thumbnail">
-                        @endforeach
+                        <img src="urunimg/iphone16.png" alt="Küçük Fotoğraf 1" class="thumbnail">
+                        <img src="urunimg/iphone16.png" alt="Küçük Fotoğraf 2" class="thumbnail">
+                        <img src="urunimg/iphone16.png" alt="Küçük Fotoğraf 3" class="thumbnail">
                     </div>
                 </div>
 
                 <!-- Ürün Detayları Kutusu -->
                 <div class="product-details-container">
-                    <h5>{{session()->get('create_listing_data')['title']}}</h5>
-                    <p>{{session()->get('create_listing_data')['description']}}</p>
+                    <h5>Ürün Başlığı</h5>
+                    <p>Bu bölümde ürünle ilgili detaylı açıklamalar yer alacak.</p>
                 </div>
             </div>
 
@@ -72,27 +67,27 @@
                         <div class="profile-icon me-3">
                             <i class="fa-solid fa-user"></i> <!-- Profil simgesi -->
                         </div>
-                        <h5 class="mb-0 me-auto">{{auth()->user()->name}}</h5>
-                        <button class="btn btn-outline-custom disabled">Sohbet</button>
+                        <h5 class="mb-0 me-auto">Satıcı Adı</h5>
+                        <button class="btn btn-outline-custom">Sohbet</button>
                         <!-- Sohbet butonu satıcı adı hizasında -->
                     </div>
 
                     <!-- Profil Butonu Kısmı -->
                     <div class="profile-button-container p-2 mt-3">
-                        <button class="btn  w-100 btn-outline-custom disabled">Profil</button>
+                        <button class="btn  w-100 btn-outline-custom">Profil</button>
                         <!-- Profil butonu satıcı adının altında -->
                     </div>
                 </div>
 
                 <!-- Fiyat Bilgisi Kısmı -->
                 <div class="price-info mt-3">
-                    <h5>{{session()->get('create_listing_data')['price']}} TL</h5>
+                    <h5>99.000 TL</h5>
                     <p>Pazarlık: <span class="pazarlik-durumu">Yok</span></p>
                     <p>Takas: <span class="pazarlik-durumu">Yok</span></p>
                 </div>
                 <div class="location-info mt-3">
                     <h5>Konum</h5>
-                    <p>{{session()->get('create_listing_data')['location']}}</p>
+                    <p>Gaziantep</p>
                 </div>
                 <div class="yayin-info mt-3">
                     <button class="btn  w-100 btn-custom ilan-btn">İlanı Yayınla</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Listing;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $listings = Listing::where('user_id', $request->user()->id)->take(3)->get();
         return view('auth.profile', [
             'user' => $request->user(),
+            'listings' => $listings,
         ]);
     }
 

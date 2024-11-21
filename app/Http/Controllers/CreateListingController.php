@@ -16,7 +16,7 @@ class CreateListingController extends Controller
             return redirect()->route('listings.create', ['step' => 1]);
         }
         if ($step == 3) {
-            $parentCategory = $request->session()->get('create_listing.category');
+            $parentCategory = $request->session()->get('create_listing_category');
             if ($parentCategory == null) {
                 return redirect()->route('listings.create', ['step' => 2]);
             }

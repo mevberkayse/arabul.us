@@ -211,14 +211,16 @@
         /* `us` kısmını biraz daha büyük yap */
     }
 </style>
-<nav class="navbar navbar-expand-lg custom-navbar " style="background-color:">
+<nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-around" id="navbarTogglerDemo01">
-            <a class="navbar-brand logo-font" href="{{route('index')}}">AraBul.<span class="us">us</span></a>
+            <a class="navbar-brand" href="{{route('index')}}">
+                <img src="/assets/images/logo3.png" width="233" height="233">
+            </a>
             <form class="d-flex vw-25" role="search">
                 <input class="form-control me-4 w-100 searchw" type="search" placeholder="Search" aria-label="Search"
                     style="border: 1px solid #1A1B41;">
