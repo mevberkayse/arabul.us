@@ -29,8 +29,22 @@
           </div>
         </div>
         <div class="text-center mt-3">
-          <button class="btn btn-outline-custom me-3">Profili Paylaş</button>
-          <button class="btn btn-outline-custom"><i class="fa-solid fa-user-plus"></i></button>
+          <button class="btn btn-outline-custom me-3"id="share-button">Profili Paylaş</button>
+          <button class="btn btn-outline-custom"id="follow-button" data-user-id="{{ $user->id }}"><i class="fa-solid fa-user-plus"></i></button>
+
+        </div>
+        <!-- Toast -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11; top: 25%;">
+          <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">
+                Profil URL'si başarıyla kopyalandı!
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Kapat"></button>
+            </div>
+          </div>
         </div>
         <div class="text-center mt-3">
           <button class="btn report-btn"><i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et</button>
@@ -78,6 +92,64 @@
     </div>
   </footer>
 </body>
+
+
+<script>
+  document.getElementById('share-button').addEventListener('click', () => {
+    // Laravel'den gelen dinamik URL'yi alın
+    const profileUrl = "{{ route('profile.show', ['id' => $user->id]) }}";
+
+    // URL'yi kopyala
+    navigator.clipboard.writeText(profileUrl)
+      .then(() => {
+        const toastElement = document.getElementById('copyToast');
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+      })
+      .catch(err => {
+        console.error('URL kopyalanırken hata oluştu:', err);
+        alert('URL kopyalanamadı. Lütfen tekrar deneyin.');
+      });
+  });
+</script>
+
+<script>
+  document.getElementById('follow-button').addEventListener('click', function () {
+    const button = this;
+    const userId = button.getAttribute('data-user-id');
+
+    // Takip isteğini gönder
+    fetch(`/follow/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Takipçi sayısını güncelle
+        const followersElement = document.querySelector('.fa-people-group').nextElementSibling;
+        followersElement.textContent = `Takipçi: ${data.followersCount}`;
+
+        // Butonu "Takip Ediliyor" olarak değiştir
+        button.innerHTML = '<i class="fa-solid fa-check"></i> Takip Ediliyor';
+        button.classList.remove('btn-outline-custom');
+        button.classList.add('btn-success');
+        button.disabled = true;
+      } else {
+        alert(data.message || 'Bir hata oluştu.');
+      }
+    })
+    .catch(error => {
+      console.error('Takip işlemi sırasında hata oluştu:', error);
+      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    });
+  });
+</script>
+
+
 
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
