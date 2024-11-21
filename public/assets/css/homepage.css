@@ -1,4 +1,3 @@
-
 @media only screen and (min-width: 600px) {
     .navbar {
         height: 90px !important;
@@ -10,19 +9,21 @@
         height: 70px !important;
     }
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 .category-bg-1 {
     background-color: #1A1B41;
     font-family: "Nunito", sans-serif;
     font-weight: 500;
-        font-size: 18px;
+    font-size: 18px;
 }
 
 .category-bg-2 {
     background-color: #820933;
     font-family: "Nunito", sans-serif;
-        font-size: 18px;
-        font-weight: 500;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .category-bg-3 {
@@ -52,9 +53,12 @@
     border-radius: 0px;
 
 }
+
 .dropdown-item {
-    padding: 0.5rem 1rem; /* Varsayılan padding değerini artırabilirsiniz */
-    margin-bottom: 0.2rem; /* Alt kısma küçük bir boşluk ekleyin */
+    padding: 0.5rem 1rem;
+    /* Varsayılan padding değerini artırabilirsiniz */
+    margin-bottom: 0.2rem;
+    /* Alt kısma küçük bir boşluk ekleyin */
     font-family: "Nunito", "arial", "sans-serif";
     font-size: 18px;
 }
@@ -111,34 +115,49 @@
     min-width: 400px;
     /* Maksimum genişlik isteğe bağlı olarak ayarlanabilir */
 }
-.img-small{
-    max-width: 100%;  /* Görselin kartın genişliğini aşmadığından emin olur */
-    height: 170px; 
+
+.img-small {
+    max-width: 100%;
+    /* Görselin kartın genişliğini aşmadığından emin olur */
+    height: 170px;
 
 }
+
 .large-price {
-    font-size: 1rem; /* Boyutunu istediğiniz gibi ayarlayabilirsiniz */
+    font-size: 1rem;
+    /* Boyutunu istediğiniz gibi ayarlayabilirsiniz */
     font-weight: bold;
-}     
-.custom-btn{
+}
+
+.custom-btn {
     background-color: transparent;
-    border-color:#bdb2ff;
+    border-color: #bdb2ff;
     color: dimgray;
 }
-.custom-btn:hover{
-    background-color: #bdb2ff; /* Hover durumunda lila arka plan */
-    color: white; /* Hover durumunda yazı rengi beyaz */
+
+.custom-btn:hover {
+    background-color: #bdb2ff;
+    /* Hover durumunda lila arka plan */
+    color: white;
+    /* Hover durumunda yazı rengi beyaz */
 }
+
 .category-list-content {
-    list-style-type: none; /* Başındaki noktaları kaldırır */
-    padding: 0; /* Varsayılan padding'i kaldırır */
+    list-style-type: none;
+    /* Başındaki noktaları kaldırır */
+    padding: 0;
+    /* Varsayılan padding'i kaldırır */
 }
 
 .category-item a {
-    color: black; /* Rengi siyah yapar */
-    text-decoration: none; /* Alt çizgiyi kaldırır */
-    padding: 0.5rem 1rem; /* Varsayılan padding değerini artırabilirsiniz */
-    margin-bottom: 0.2rem; /* Alt kısma küçük bir boşluk ekleyin */
+    color: black;
+    /* Rengi siyah yapar */
+    text-decoration: none;
+    /* Alt çizgiyi kaldırır */
+    padding: 0.5rem 1rem;
+    /* Varsayılan padding değerini artırabilirsiniz */
+    margin-bottom: 0.2rem;
+    /* Alt kısma küçük bir boşluk ekleyin */
 }
 
 .category-item {
@@ -154,42 +173,58 @@
     transform: translateX(10px);
     /* Yazıyı sağa kaydır */
 }
+
 .transparent-button {
-    background-color: transparent; /* Arka planı transparan yap */
-    border: 2px solid #007bff; /* Mavi border */
-    color: #007bff; /* Metin rengi mavi */
-    padding: 0.5rem 1rem; /* Butonun iç boşlukları */
-    border-radius: 0.25rem; /* Kenarları yuvarlaştır */
+    background-color: transparent;
+    /* Arka planı transparan yap */
+    border: 2px solid #007bff;
+    /* Mavi border */
+    color: #007bff;
+    /* Metin rengi mavi */
+    padding: 0.5rem 1rem;
+    /* Butonun iç boşlukları */
+    border-radius: 0.25rem;
+    /* Kenarları yuvarlaştır */
 }
 
 .transparent-button:hover {
-    background-color: rgba(0, 123, 255, 0.1); /* Hover durumunda hafif bir arka plan rengi */
+    background-color: rgba(0, 123, 255, 0.1);
+    /* Hover durumunda hafif bir arka plan rengi */
     transition: none;
     transform: none;
 }
+
 .input-group {
-    align-items: center; /* İkon ve inputu aynı hizada tut */
+    align-items: center;
+    /* İkon ve inputu aynı hizada tut */
 }
 
 .input-group-text {
-    display: flex; /* İkonu ortalamak için */
-    align-items: center; /* İkonu dikeyde ortala */
+    display: flex;
+    /* İkonu ortalamak için */
+    align-items: center;
+    /* İkonu dikeyde ortala */
 }
 
 .heart-icon {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #d3d3d3; /* Gri arka plan */
-    border-radius: 50%; /* Yuvarlak görünüm */
-    padding: 5px; /* İç boşluk */
+    background-color: #d3d3d3;
+    /* Gri arka plan */
+    border-radius: 50%;
+    /* Yuvarlak görünüm */
+    padding: 5px;
+    /* İç boşluk */
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px; /* Yuvarlağın boyutu */
-    height: 30px; /* Yuvarlağın boyutu */
-  }
-  
+    width: 30px;
+    /* Yuvarlağın boyutu */
+    height: 30px;
+    /* Yuvarlağın boyutu */
+}
+
 
 .btn-outline-custom {
     --bs-btn-color: #1A1B41;
@@ -206,9 +241,9 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: #1A1B41;
     --bs-gradient: none;
-  }
-  
-  .btn-custom {
+}
+
+.btn-custom {
     --bs-btn-color: #fff;
     --bs-btn-bg: #1A1B41;
     --bs-btn-border-color: #1A1B41;
@@ -223,4 +258,4 @@
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #0d6efd;
     --bs-btn-disabled-border-color: #1A1B41;
-  }
+}

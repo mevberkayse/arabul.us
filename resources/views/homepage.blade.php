@@ -20,7 +20,7 @@
     <div class="container mt-5">
         <div class="row mb-5">
             <div class="col-12">
-                <img src="https://placehold.co/1275x400/png" alt="" style="border-radius: 10px;">
+                <img src="/assets/images/banner.jpg" alt="" style="border-radius: 10px;" width="1275" height="400">
             </div>
         </div>
         <div class="row justify-content-center gap-0" id="itemlist">
@@ -50,9 +50,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-auto py-3 fixed-bottom">
+    <footer class="bg-light text-center text-lg-start mt-auto py-3">
         <div class="container">
-            <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+            <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
         </div>
     </footer>
 

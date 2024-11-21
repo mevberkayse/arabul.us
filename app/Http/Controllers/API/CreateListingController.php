@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CreateListingController extends Controller
 {
@@ -46,7 +47,7 @@ class CreateListingController extends Controller
         ]);
 
         $images = $request->input('images');
-        $request->session()->put('create_listing.images', $images);
+        $request->session()->put('create_listing_images', $images);
 
         return response()->json(['success' => 'Images uploaded successfully'], 200);
 
@@ -56,16 +57,48 @@ class CreateListingController extends Controller
         // step 2: parent kategori secimi
         $cat = $request->input('category');
 
-        $request->session()->put('create_listing.category', $cat);
+        if(!$cat) {
+            return response()->json(['error' => 'Category is required'], 400);
+        }
+        if(Category::where('id', $cat)->where('parent_id', -1)->count() == 0) {
+            return response()->json(['error' => 'Invalid category'], 400);
+        }
+
+        $request->session()->put('create_listing_category', $cat);
 
         return response()->json(['success' => 'Category selected successfully'], 200);
         
     }
     private function step_3(Request $request) {
         // step 3: parent kategoriye göre subkategori seç
+        $subcat = $request->input('subcategory');
+
+        if(!$subcat) {
+            return response()->json(['error' => 'Subcategory is required'], 400);
+        }
+        if(Category::where('id', $subcat)->count() == 0) {
+            return response()->json(['error' => 'Invalid subcategory'], 400);
+        }
+
+        $request->session()->put('create_listing_subcategory', $subcat);
+
+        return response()->json(['success' => 'Subcategory selected successfully'], 200);
     }
     private function step_4(Request $request) {
-        // step 4: subkategoriye göre ya subkategori seçtiriyor ya da bi sonraki adıma atlıyor
+        // step 4: başlık, fiyat, açıklama, konum, telefon no bilgisi girilir
+        $request->validate([
+            'title' => 'required|string|min:3|max:255',
+            'price' => 'required|numeric|min:1|max:999999999',
+            'description' => 'required|string|max:1000',
+            'location' => 'required|string',
+            'phone' => 'required|string',
+        ]);
+
+        $data = $request->only(['title', 'price', 'description', 'location', 'phone']);
+        $request->session()->put('create_listing_data', $data);
+
+        return response()->json(['success' => 'Data saved successfully'], 200);
+
     }
     private function step_5(Request $request) {
         // step 5: title, fiyat, açıklama, konum, telefon no bilgisi girilir

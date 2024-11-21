@@ -190,8 +190,9 @@
                     reader.onload = e => {
                         $(`#slot-${slot}`).html(`<img src="${e.target.result}" alt="image" width="100%" height="80px">`);
                         window.files.append(`images[${slot - 1}]`, e.target.result);
-
+                        
                         slot++;
+                        console.log("next slot = " +  slot);
                     }
                     reader.readAsDataURL(input.files[0]);
                     // add to form data
@@ -199,11 +200,6 @@
                 }
             }
 
-            $.each($("input[type=file]"), function (i, obj) {
-                $.each(obj.files, function (j, file) {
-                    window.files.append('photo[' + j + ']', file);
-                })
-            });
             $('input[type="file"]').on('change', function () { readUrl(this); });
             let triggerUploadFile = () => {
                 $('#images').attr('accept', '.jpg, .png, .jpeg');
