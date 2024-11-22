@@ -19,9 +19,8 @@
             <form action="{{route('register')}}" method="post">
                 <h1>Hesap Oluştur</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-
+                    <a href="/login/google/redirect" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="/login/facebook/redirect" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>veya kayıt için e-postanızı kullanın</span>
                 <input type="text" name="name" placeholder="İsim">
@@ -36,8 +35,8 @@
             <form action="{{route('login')}}" method="post">
                 <h1>Hesabına Gir</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="/login/google/redirect" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="/login/facebook/redirect" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
 
                 </div>
                 <span>veya e-mail şifreni kullan</span>
@@ -71,12 +70,12 @@
     <script src="/assets/js/login.js"></script>
     @if(isset($errors))
     <script>
-      // when document is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            @foreach($errors->all() as $error)
+        // when document is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            @foreach($errors -> all() as $error)
             PNotify.error({
-            text: '{{$error}}',
-            delay: 5000
+                text: '{{$error}}',
+                delay: 5000
             });
             @endforeach
         });
