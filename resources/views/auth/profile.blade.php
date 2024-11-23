@@ -218,6 +218,8 @@
           </div>
         </div>
       </div>
+      
+      
 
       <!-- Soldaki Ürünler Bölümü -->
       <div class="col-md-8">

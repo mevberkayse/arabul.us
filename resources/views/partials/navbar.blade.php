@@ -228,6 +228,23 @@
                 <button class="btn btn-outline-custom" type="submit">Search</button>
             </form>
 
+<!-- Harita Modal -->
+<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mapModalLabel">Mevcut Konum</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Harita Buraya Yüklenecek -->
+                <div id="map" style="height: 500px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
             <div class="d-flex gap-5 align-items-center">
                 <!-- konum -->
                 <div class="border rounded p-2 d-flex align-items-center">
@@ -248,7 +265,7 @@
                             </li>
                             <li>
                                 <a class="dropdown-item text-primary transparent-button" href="#"
-                                    onclick="requestLocation();" role="button">
+                                onclick="showMap();" role="button">
                                     Mevcut Konum Kullan
                                 </a>
                             </li>
@@ -405,4 +422,59 @@
             });
         });
     }
+
+    
 </script>
+
+<!-- Leaflet.js CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-oK3b4xiZr5GhoWqzDy6tVlgz6B9E4a3kDQ5w+1LV720=" crossorigin="" />
+
+<!-- Leaflet.js JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-oK2mMz4wBOc8GJzkJUS3NEy9kFd9URx2zVckOQ1sEwg=" crossorigin=""></script>
+
+<!-- Leaflet.js CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- Leaflet.js JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    function showMap() {
+        // Kullanıcının konumunu al
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            // Harita modalını göster
+            $('#mapModal').modal('show');
+
+            // Modal açıldığında haritayı yükle
+            $('#mapModal').on('shown.bs.modal', function () {
+                // Haritayı başlat
+                const map = L.map('map').setView([lat, lng], 15); // Kullanıcı konumu
+
+                // OpenStreetMap Katmanı
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap Katkıda Bulunanlar'
+                }).addTo(map);
+
+                // Konumu işaretle
+                const userMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('Mevcut Konumunuz')
+                    .openPopup();
+
+                // Modal kapatıldığında haritayı temizle
+                $('#mapModal').on('hidden.bs.modal', function () {
+                    map.remove();
+                });
+            });
+        }, (error) => {
+            alert('Konum alınamadı. Lütfen tarayıcınızın konum izni verdiğinden emin olun.');
+        });
+    }
+</script>
+
+</script>
+
+

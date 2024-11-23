@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
+
 class ProfileController extends Controller
 {
     /**
@@ -78,4 +79,7 @@ class ProfileController extends Controller
     {
         return view('auth.profile_edit');
     }
+
+   
+
 }
