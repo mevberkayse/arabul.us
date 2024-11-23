@@ -212,12 +212,13 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn bildir-btn">Bildir</button>
+                <button type="button" class="btn bildir-btn" id="reportButton">Bildir</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
 
       <!-- Soldaki Ürünler Bölümü -->
       <div class="col-md-8">
@@ -316,26 +317,12 @@
   });
 </script>
 
-<script>
-  // Modalı manuel açma ve kapatma örneği
-  document.addEventListener('DOMContentLoaded', () => {
-    const reportButton = document.querySelector('.report-btn');
-    const modal = new bootstrap.Modal(document.getElementById('reportModal'));
 
-    // Butona tıklandığında modalı aç
-    reportButton.addEventListener('click', () => {
-      modal.show();
-    });
-
-    // Kullanıcıyı Bildir butonuna basıldığında (örnek işlem)
-    document.querySelector('.btn-danger').addEventListener('click', () => {
-      alert('Şikayetiniz iletildi.'); // Örnek bir geri bildirim
-      modal.hide(); // Modalı kapat
-    });
-  });
-</script>
 
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+
+
+
 
 </html>
