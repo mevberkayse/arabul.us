@@ -11,6 +11,9 @@
 
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/homepage.css?{{time();}}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 
 </head>
 
@@ -48,6 +51,7 @@
     <div class="text-center dahafazlayukle-btn my-4">
         <button class="btn btn-outline-custom" id="loadMore">Daha Fazla Yükle </button>
     </div>
+    
 
     <!-- Footer -->
     <footer class="bg-light text-center text-lg-start mt-auto py-3">
@@ -56,6 +60,8 @@
         </div>
     </footer>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
@@ -146,6 +152,7 @@
 
         });
     </script>
+
 </body>
 
 </html>

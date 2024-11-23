@@ -118,7 +118,7 @@
 
     <!-- Devam Et Butonu -->
     <div class="text-center mt-5">
-        <button class="btn btn-outline-custom mt-5 w-25">Devam Et</button>
+        <button class="btn btn-outline-custom mt-5 w-25" id="next_step">Devam Et</button>
     </div>
 
     <!-- Modal (Renk Dropdown) -->
@@ -264,6 +264,14 @@
     </script>
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+
+    <script>
+  document.getElementById('next_step').addEventListener('click', function () {
+    // Yönlendirme işlemi
+    window.location.href = '/ilan-yukle/6';
+  });
+</script>
+
 </body>
 
 </html>

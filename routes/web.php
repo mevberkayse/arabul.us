@@ -26,9 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
+
 
 });
-Route::post('/follow/{id}', [FollowController::class, 'follow'])->name('follow');
 
 Route::get("/search?{query}", [SearchController::class, 'index'])->name('search.index');
 
@@ -40,5 +41,6 @@ Route::prefix('api')->group(function() {
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider',['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider',['google', 'facebook'])->name('google.callback');
+
 
 require __DIR__.'/auth.php';
