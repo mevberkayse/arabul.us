@@ -34,7 +34,8 @@
 
                 <!-- Ürün Fotoğrafı ve Thumbnail Kutusu -->
                 <div class="product-image-container">
-                    <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı" class="product-image">
+                    <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı"
+                        class="product-image">
                     <!-- Kalp İkonu -->
                     <div class="heart-icon">
                         <i class="fa-regular fa-heart"></i>
@@ -87,15 +88,48 @@
                 <!-- Fiyat Bilgisi Kısmı -->
                 <div class="price-info mt-3">
                     <h5>{{session()->get('create_listing_data')['price']}} TL</h5>
-                    <p>Pazarlık: <span class="pazarlik-durumu">Yok</span></p>
-                    <p>Takas: <span class="pazarlik-durumu">Yok</span></p>
+                    @php
+                    $parameters = session()->get('create_listing_parameters');
+                    @endphp
+                    @foreach($parameters as $parameter)
+                    <p>{{$parameter['name']}}: <span class="pazarlik-durumu">{{$parameter['value']}}</span></p>
+                    @endforeach
+
                 </div>
                 <div class="location-info mt-3">
                     <h5>Konum</h5>
                     <p>{{session()->get('create_listing_data')['location']}}</p>
                 </div>
                 <div class="yayin-info mt-3">
-                    <button class="btn  w-100 btn-custom ilan-btn">İlanı Yayınla</button>
+                    <button class="btn  w-100 btn-custom ilan-btn" id="create">İlanı Yayınla</button>
                     <!-- Profil butonu satıcı adının altında -->
                 </div>
             </div>
+        </div>
+    </div>
+
+    <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $('#create').click(
+                () => {
+                    $.ajax({
+                        url: '/api/create-listing/step-6',
+                        type: 'POST',
+                        data: {
+                            _token: '{{csrf_token()}}'
+                        }
+                    }).done((response) => {
+                            console.log(response.data);
+                            window.location.href = response.link;
+                    });
+                }
+            );
+        })
+    </script>
+
+</body>
+
+</html>

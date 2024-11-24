@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 class Listing extends Model
 {
 
@@ -25,11 +25,13 @@ class Listing extends Model
 
     public function getImagesArray()
     {
+        // remove first image (thumbnail)
         $parameters = json_decode($this->parameters, true);
-        if (isset($parameters['images']) && count($parameters['images']) > 0) {
-            return $parameters['images'];
+        if (isset($parameters['images'])) {
+            return ($parameters['images']);
         }
-        return [config('app.default_listing_thumbnail')];
+        return [];
+
     }
     public function getBasicAddress()
     {
@@ -53,4 +55,20 @@ class Listing extends Model
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function getSlug()
+    {
+        return Str::slug($this->title);
+    }
+
+
+    public function getParameters() {
+        // remove images from parameters
+        $parameters = json_decode($this->parameters, true);
+        unset($parameters['images']);
+        debugbar()->info($parameters);
+        return $parameters;
+
+    }
+
 }
