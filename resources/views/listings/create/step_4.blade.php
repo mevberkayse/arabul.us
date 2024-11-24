@@ -154,14 +154,6 @@
             })
         })
     </script>
-
-<script>
-  document.getElementById('next_step').addEventListener('click', function () {
-    // Yönlendirme işlemi
-    window.location.href = '/ilan-yukle/5';
-  });
-</script>
-
 </body>
 
 </html>
