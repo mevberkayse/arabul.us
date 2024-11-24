@@ -96,7 +96,7 @@
     /* Kırmızı Yuvarlak Çerçeve */
     .red-circle {
         background-color: #820933;
-        
+
         /* Kırmızı arka plan */
         width: 80px;
         /* Çember genişliği */
@@ -228,21 +228,21 @@
                 <button class="btn btn-outline-custom" type="submit">Search</button>
             </form>
 
-<!-- Harita Modal -->
-<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mapModalLabel">Mevcut Konum</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Harita Modal -->
+            <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mapModalLabel">Mevcut Konum</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Harita Buraya Yüklenecek -->
+                            <div id="map" style="height: 500px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <!-- Harita Buraya Yüklenecek -->
-                <div id="map" style="height: 500px; width: 100%;"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
             <div class="d-flex gap-5 align-items-center">
@@ -264,8 +264,8 @@
                                 </div>
                             </li>
                             <li>
-                                <a class="dropdown-item text-primary transparent-button" href="#"
-                                onclick="showMap();" role="button">
+                                <a class="dropdown-item text-primary transparent-button" href="#" onclick="showMap();"
+                                    role="button">
                                     Mevcut Konum Kullan
                                 </a>
                             </li>
@@ -423,14 +423,16 @@
         });
     }
 
-    
+
 </script>
 
 <!-- Leaflet.js CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-oK3b4xiZr5GhoWqzDy6tVlgz6B9E4a3kDQ5w+1LV720=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-oK3b4xiZr5GhoWqzDy6tVlgz6B9E4a3kDQ5w+1LV720=" crossorigin="" />
 
 <!-- Leaflet.js JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-oK2mMz4wBOc8GJzkJUS3NEy9kFd9URx2zVckOQ1sEwg=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-oK2mMz4wBOc8GJzkJUS3NEy9kFd9URx2zVckOQ1sEwg=" crossorigin=""></script>
 
 <!-- Leaflet.js CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -476,5 +478,3 @@
 </script>
 
 </script>
-
-

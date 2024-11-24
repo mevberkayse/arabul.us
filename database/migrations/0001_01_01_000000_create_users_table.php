@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps(); // created_at ve updated_at alanlari
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {// sifre sifirlama icin  tablo
+        Schema::create('password_reset_tokens', function (Blueprint $table) { // sifre sifirlama icin  tablo
             $table->string('email')->primary();  // email alani, tabloda yalnizca 1 tane olabilir
             $table->string('token'); // gizli sifre email sifirlama ekrani icin
             $table->timestamp('created_at')->nullable(); // sifirlama ne zmn istendi

@@ -7,6 +7,11 @@
     <title>AraBulus</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/create_listing.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
+
     <style>
         .btn-outline-custom {
             --bs-btn-color: #1A1B41 !;
@@ -176,7 +181,16 @@
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
     <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
-
+    @if($errors->any())
+    <script>
+        $(document).ready(() => {
+            PNotify.error({
+                text: '{{$errors->first()}}',
+                delay: 2000
+            })
+        });
+    </script>
+    @endif
     <script>
 
         $(document).ready(() => {
@@ -190,9 +204,9 @@
                     reader.onload = e => {
                         $(`#slot-${slot}`).html(`<img src="${e.target.result}" alt="image" width="100%" height="80px">`);
                         window.files.append(`images[${slot - 1}]`, e.target.result);
-                        
+
                         slot++;
-                        console.log("next slot = " +  slot);
+                        console.log("next slot = " + slot);
                     }
                     reader.readAsDataURL(input.files[0]);
                     // add to form data
@@ -224,6 +238,12 @@
                     data: window.files,
                     success: (data) => {
                         window.location.href = "{{route('listings.create',[2])}}";
+                    },
+                    error: (err) => {
+                        PNotify.error({
+                            text: 'Lütfen en az 1 en fazla 12 resim yükleyiniz.',
+                            delay: 2000
+                        })
                     }
 
                 })

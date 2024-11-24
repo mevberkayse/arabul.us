@@ -12,7 +12,7 @@ use App\Http\Controllers\SocialLoginController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::get('/ilan-yukle/{step?}', [CreateListingController::class, 'create'])->name('listings.create')->whereIn('step', [null, 0, 1,2,3,4,5,6,7,8]);
+Route::get('/ilan-yukle/{step?}', [CreateListingController::class, 'create'])->name('listings.create')->whereIn('step', [null, 0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
 // static page for development purposes
 Route::get("/ilan/{id}{dash?}{slug?}", [ListingController::class, 'show'])->name('listings.show')->whereNumber('id')->where('dash', '-');
@@ -27,20 +27,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
-
-
 });
+Route::get('/clear-session', function () {
+    session()->forget('create_listing_images');
+    session()->forget('create_listing_category');
+    session()->forget('create_listing_subcategory');
+    session()->forget('create_listing_subsubcategory');
+    session()->forget('create_listing_data');
+    session()->forget('create_listing_parameters');
 
+    return redirect()->back();
+});
 Route::get("/search?{query}", [SearchController::class, 'index'])->name('search.index');
 
-Route::prefix('api')->group(function() {
+Route::prefix('api')->group(function () {
     Route::post('/save-location', [APIIndexController::class, 'saveLocation']);
     Route::get('/homepage/listings-by-location', [APIIndexController::class, 'getItemListByLocation']);
 
-    Route::post('/create-listing/step-{step}', [APICreateListingController::class, 'createListing'])->whereIn('step', [null, 0, 1,2,3,4,5,6,7,8]);
+    Route::post('/create-listing/step-{step}', [APICreateListingController::class, 'createListing'])->whereIn('step', [null, 0, 1, 2, 3, 4, 5, 6, 7, 8]);
 });
-Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider',['google', 'facebook'])->name('google.redirect');
-Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider',['google', 'facebook'])->name('google.callback');
+Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
+Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

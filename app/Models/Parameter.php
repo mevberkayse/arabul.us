@@ -14,5 +14,4 @@ class Parameter extends Model
     {
         return self::where('category_id', 'like', '%"' . $categoryId . '"%')->get();
     }
-
 }

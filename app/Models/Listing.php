@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
 class Listing extends Model
 {
 
@@ -19,7 +20,8 @@ class Listing extends Model
         return config('app.default_listing_thumbnail');
     }
 
-    public function getCategory() {
+    public function getCategory()
+    {
         return Category::findOrFail($this->category_id);
     }
 
@@ -31,7 +33,6 @@ class Listing extends Model
             return ($parameters['images']);
         }
         return [];
-
     }
     public function getBasicAddress()
     {
@@ -52,7 +53,8 @@ class Listing extends Model
         return Listing::where('lat', 'LIKE', $lat . "%")->where('long', 'LIKE', $lng . "%");
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
@@ -62,13 +64,12 @@ class Listing extends Model
     }
 
 
-    public function getParameters() {
+    public function getParameters()
+    {
         // remove images from parameters
         $parameters = json_decode($this->parameters, true);
         unset($parameters['images']);
         debugbar()->info($parameters);
         return $parameters;
-
     }
-
 }

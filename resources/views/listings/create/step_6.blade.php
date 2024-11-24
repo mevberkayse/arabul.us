@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.arabul.us/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/preview.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -92,7 +98,8 @@
                     $parameters = session()->get('create_listing_parameters');
                     @endphp
                     @foreach($parameters as $parameter)
-                    <p>{{$parameter['name']}}: <span class="pazarlik-durumu">{{$parameter['value']}}</span></p>
+                    <p>{{$parameter['parameter_name']}}: <span
+                            class="pazarlik-durumu">{{$parameter['parameter_value']}}</span></p>
                     @endforeach
 
                 </div>
@@ -111,6 +118,16 @@
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
     <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+    @if($errors->any())
+    <script>
+        $(document).ready(() => {
+            PNotify.error({
+                text: '{{$errors->first()}}',
+                delay: 2000
+            })
+        });
+    </script>
+    @endif
     <script>
         $(document).ready(() => {
             $('#create').click(
@@ -122,8 +139,8 @@
                             _token: '{{csrf_token()}}'
                         }
                     }).done((response) => {
-                            console.log(response.data);
-                            window.location.href = response.link;
+                        console.log(response.data);
+                        window.location.href = response.link;
                     });
                 }
             );

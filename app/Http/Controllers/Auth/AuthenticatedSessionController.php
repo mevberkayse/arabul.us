@@ -45,7 +45,8 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    public function edit(Request $request) {
+    public function edit(Request $request)
+    {
         return view('auth.profile');
     }
 }

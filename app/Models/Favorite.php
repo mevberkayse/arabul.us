@@ -10,7 +10,8 @@ class Favorite extends Model
 {
 
     use HasFactory;
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id', 'id'); // favorites.user_id = users.id
     }
 }

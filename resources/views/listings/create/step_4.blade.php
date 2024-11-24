@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.arabul.us/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/step_7_8.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
 
 <body>
@@ -43,7 +48,9 @@
         <!-- İlan Başlığı -->
         <div class="mb-3 w-100">
             <label for="ilan-basligi" class="form-label">İlan Başlığı *</label>
-            <input type="text" id="ilan-basligi" class="form-control" placeholder="Başlık giriniz" @if(session()->has('create_listing_data')) value="{{session()->get('create_listing_data')['title']}}" @endif>
+            <input type="text" id="ilan-basligi" class="form-control" placeholder="Başlık giriniz"
+                @if(session()->has('create_listing_data')) value="{{session()->get('create_listing_data')['title']}}"
+            @endif>
             <small class="text-danger">Zorunlu alan, min 3 karakter</small>
         </div>
 
@@ -51,7 +58,9 @@
         <div class="mb-3 w-100">
             <label for="fiyat" class="form-label">Fiyat</label>
             <div class="input-group">
-                <input type="text" id="fiyat" class="form-control" placeholder="Fiyat giriniz" @if(session()->has('create_listing_data')) value="{{session()->get('create_listing_data')['price']}}" @endif>
+                <input type="text" id="fiyat" class="form-control" placeholder="Fiyat giriniz"
+                    @if(session()->has('create_listing_data'))
+                value="{{session()->get('create_listing_data')['price']}}" @endif>
                 <span class="input-group-text" style="font-size: 18px; border-left: none!important;">₺</span>
             </div>
             <small class="text-danger">Doğru fiyatlandırınız</small>
@@ -60,7 +69,8 @@
         <!-- Açıklama -->
         <div class="mb-3 w-100">
             <label for="aciklama" class="form-label">Açıklama</label>
-            <textarea id="aciklama" class="form-control" rows="5" placeholder="Açıklama giriniz">@if(session()->has('create_listing_data')) {{session()->get('create_listing_data')['description']}} @endif</textarea>
+            <textarea id="aciklama" class="form-control" rows="5"
+                placeholder="Açıklama giriniz">@if(session()->has('create_listing_data')) {{session()->get('create_listing_data')['description']}} @endif</textarea>
             <div class="d-flex justify-content-between">
                 <small class="text-danger">Zorunlu alan</small>
                 <small>0/1000</small>
@@ -84,7 +94,9 @@
         </div>
         <div class="mb-3 w-100">
             <label for="telefon" class="form-label">Telefon Numarası</label>
-            <input type="text" id="telefon" class="form-control" placeholder="Bir telefon numarası giriniz" @if(session()->has('create_listing_data')) value="{{session()->get('create_listing_data')['phone']}}" @endif>
+            <input type="text" id="telefon" class="form-control" placeholder="Bir telefon numarası giriniz"
+                @if(session()->has('create_listing_data')) value="{{session()->get('create_listing_data')['phone']}}"
+            @endif>
         </div>
 
     </div>
@@ -100,6 +112,16 @@
 
     <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
     <script src="/assets/js/jquery.mask.min.js"></script>
+    @if($errors->any())
+    <script>
+        $(document).ready(() => {
+            PNotify.error({
+                text: '{{$errors->first()}}',
+                delay: 2000
+            })
+        });
+    </script>
+    @endif
 
 
     <script>
