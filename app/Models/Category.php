@@ -19,13 +19,14 @@ class Category extends Model
     {
         return Category::where('parent_id', $this->id)->get();
     }
-    public function getListingCount() {
-        if($this->parent_id == -1) {
+    public function getListingCount()
+    {
+        if ($this->parent_id == -1) {
             $subcategories = $this->getSubCategories();
             $subcategories = $subcategories->pluck('id');
             return Listing::whereIn('category_id', $subcategories)->count();
         }
-        
+
         return Listing::where('category_id', $this->id)->count();
     }
 
@@ -46,6 +47,7 @@ class Category extends Model
                 $params[] = $param;
             }
         }
+        debugbar()->info($params);
         return $params;
     }
 }

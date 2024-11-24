@@ -29,8 +29,8 @@
                     @if(count($listing->getImagesArray()) > 1)
                     <i class="fa-solid fa-arrow-left icon-left"></i>
                     <i class="fa-solid fa-arrow-right icon-right"></i>
-                    
-                    
+
+
                     <!-- Küçük Ürün Fotoğrafları -->
                     <div class="thumbnail-container">
                         @foreach($listing->getImagesArray() as $image)
@@ -38,7 +38,7 @@
                         @endforeach
                     </div>
                     @endif
-                    
+
                 </div>
 
                 <!-- Ürün Detayları Kutusu -->
@@ -73,9 +73,9 @@
                 <div class="price-info mt-3">
                     <h5>{{$listing->price}} ₺</h5>
                     @foreach($listing->getParameters() as $parameter)
-                    <p>{{$parameter['name']}}: {{$parameter['value']}}</p>
+                    <p>{{$parameter['parameter_name']}}: {{$parameter['parameter_value']}}</p>
                     @endforeach
-                    
+
                 </div>
                 <div class="location-info mt-3">
                     <h5><b>Konum:</b>{{$listing->location}}</h5>
@@ -86,14 +86,15 @@
         </div>
     </div>
     <div class="container-fluid mt-4" style="max-width: 80%;">
-        
+
 
         <div class="row justify-content-center ml-5">
             <h4>İlginizi Çekebilecek Ürünler</h4>
             <!-- Ürün Kartı 1 -->
             @foreach($listings as $listing)
             <div class="col-3 ">
-                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" class="card" style="text-decoration: none; width: 20rem;">
+                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" class="card"
+                    style="text-decoration: none; width: 20rem;">
                     <img src="{{$listing->getThumbnail()}}" class="card-img-top p-3 pt-4" style="height: 300px">
                     <div class="heart-icon">
                         <i class="fa-regular fa-heart"></i>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+
 class IndexController extends Controller
 {
     //
@@ -22,14 +23,14 @@ class IndexController extends Controller
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&result_type=administrative_area_level_2&key=" . env('GOOGLE_MAPS_API_KEY'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);   
+        $output = curl_exec($ch);
         curl_close($ch);
         $output = json_decode($output, true);
         $address = $output['results']['0']['formatted_address'];
 
         $request->session()->put('address', $address);
 
-        return response()->json(['message' => 'success', 'address'=>$address]);
+        return response()->json(['message' => 'success', 'address' => $address]);
     }
     public function getItemListByLocation(Request $request)
     {

@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.arabul.us/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/step_7_8.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -39,6 +45,7 @@
         @foreach($categoryParameters as $categoryParam)
         @php
         $paramValues = explode(',', $categoryParam->parameter_values);
+
         @endphp
         <div class="mb-3 w-100">
             <label for="model" class="form-label">{{$categoryParam->parameter_name}}</label>
@@ -77,10 +84,11 @@
             </div>
         </div>
         @endforeach
+
         @foreach($subCategoryParameters as $subCategoryParam)
         @php
         $paramValues = explode(',', $subCategoryParam->parameter_value);
-        debugbar()->info($subCategoryParam);
+        debugbar()->info($subCategoryParam->parameter_values);
         @endphp
         <div class="mb-3 w-100">
             <label for="model" class="form-label">{{$subCategoryParam->parameter_name}}</label>
@@ -118,11 +126,11 @@
             </div>
         </div>
         @endforeach
-
+        @if(count(array_diff($subCategoryParameters, $subSubCategoryParameters)) > 0)
         @foreach($subSubCategoryParameters as $subCategoryParam)
         @php
         $paramValues = explode(',', $subCategoryParam->parameter_value);
-        debugbar()->info($subCategoryParam);
+        debugbar()->info($subCategoryParam->parameter_values);
         @endphp
         <div class="mb-3 w-100">
             <label for="model" class="form-label">{{$subCategoryParam->parameter_name}}</label>
@@ -160,13 +168,68 @@
             </div>
         </div>
         @endforeach
+        @endif
+        @foreach($generalParameters as $generalParam)
+        @php
+        $paramValues = explode(',', $generalParam->parameter_value);
+        debugbar()->info($generalParam->parameter_values);
+        @endphp
+        <div class="mb-3 w-100">
+            <label for="model" class="form-label">{{$generalParam->parameter_name}}</label>
+            <div class="input-group">
+                <input type="text" id="param_{{$generalParam->id}}-sec" class="form-control" placeholder="Seçiniz.."
+                    readonly data-bs-toggle="modal" data-bs-target="#param_{{$generalParam->id}}Modal"
+                    data-name="{{$generalParam->parameter_name}}"
+                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
+                <span class="input-group-text" data-bs-toggle="modal" data-bs-target="#param_{{$generalParam->id}}Modal"
+                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none;">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </span>
+            </div>
 
+        </div>
+        <div class="modal fade" id="param_{{$generalParam->id}}Modal" tabindex="-1" aria-labelledby=""
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="renkModalLabel">{{$generalParam->parameter_name}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" id="renkList">
+                            @foreach($paramValues as $paramValue)
+                            <li class="list-group-item"
+                                onclick="chooseOption('{{$generalParam->id}}','{{$paramValue}}')">
+                                {{$paramValue}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 
     <!-- Devam Et Butonu -->
     <div class="text-center mt-5">
         <button class="btn btn-outline-custom mt-5 w-25" id="next_step">Devam Et</button>
     </div>
+
+    <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+
+    @if($errors->any())
+    <script>
+        $(document).ready(() => {
+            PNotify.error({
+                text: '{{$errors->first()}}',
+                delay: 2000
+            })
+        });
+    </script>
+    @endif
 
     <script>
 
@@ -176,77 +239,48 @@
             let modal = bootstrap.Modal.getInstance(document.getElementById("param_" + parameterName + 'Modal'));
             modal.hide();
         }
-        function renkSec(renk) {
-            // Seçilen rengi input alanına yaz
-            document.getElementById("renk-sec").value = renk;
-            // Modal'ı kapat
-            const modal = bootstrap.Modal.getInstance(document.getElementById('renkModal'));
-            modal.hide();
-        }
-        function modelSec(model) {
-            document.getElementById('model-sec').value = model; // Seçilen model input'a yazılıyor
-            var modal = bootstrap.Modal.getInstance(document.getElementById('modelModal'));
-            modal.hide(); // Modal kapatılıyor
-        }
-        function hafizaSec(hafiza) {
-            // Hafıza kutusuna seçilen değeri yaz
-            document.getElementById('hafiza-sec').value = hafiza;
 
-            // Modalı kapat
-            const modal = bootstrap.Modal.getInstance(document.getElementById('hafizaModal'));
-            modal.hide()
-        }
-        function garantiSec(garanti) {
-            // Hafıza kutusuna seçilen değeri yaz
-            document.getElementById('garanti-sec').value = garanti;
-
-            // Modalı kapat
-            const modal = bootstrap.Modal.getInstance(document.getElementById('garantiModal'));
-            modal.hide()
-        }
-        function durumSec(durum) {
-            // Hafıza kutusuna seçilen değeri yaz
-            document.getElementById('durum-sec').value = durum;
-
-            // Modalı kapat
-            const modal = bootstrap.Modal.getInstance(document.getElementById('durumModal'));
-            modal.hide()
-        }
-    </script>
-    <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
-    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
-
-    <script>
-
-    </script>
-    <script>
         document.getElementById('next_step').addEventListener('click', function () {
             window.parameters = [];
             // get all inputs that id starts with param_
             let inputs = document.querySelectorAll('input[id^="param_"]');
+            let run = false;
 
-            inputs.forEach((input) => {
-                window.parameters.push({
-                    id: input.id.split('-')[0].replace('param_', ''),
-                    name: input.getAttribute('data-name'),
-                    value: input.value
-                });
-            });
+            for (let i = 0; i < inputs.length; i++) {
 
-            $.ajax({
-                url: '/api/create-listing/step-5',
-
-                method: 'POST',
-                data: {
-                    _token: "{{csrf_token()}}",
-                    parameters: window.parameters
-                },
-                success: (data) => {
-                    window.location.href = '/ilan-yukle/6';
-                    console.log(data);
+                let parameterId = inputs[i].id.split('-')[0].replace('param_', '');
+                let parameterName = inputs[i].getAttribute('data-name');
+                let parameterValue = inputs[i].value;
+                if (parameterValue == '') {
+                    alert('Lütfen tüm alanları doldurunuz');
+                    console.log(`Parameter ${parameterName} is empty`);
+                    run = false;
+                    break;
+                    return;
                 }
-            })
+                window.parameters.push({
+                    parameter_id: parameterId,
+                    parameter_name: parameterName,
+                    parameter_value: parameterValue
+                });
+                run = true;
+            }
+            if (run) {
+                $.ajax({
+                    url: '/api/create-listing/step-5',
+
+                    method: 'POST',
+                    data: {
+                        _token: "{{csrf_token()}}",
+                        parameters: window.parameters
+                    },
+                    success: (data) => {
+                        window.location.href = '/ilan-yukle/6';
+                        console.log(data);
+                    }
+                })
+
+            }
         });
     </script>
 

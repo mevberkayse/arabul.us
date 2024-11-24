@@ -33,8 +33,6 @@ class CreateListingController extends Controller
                 return $this->step_5($request);
             case 6:
                 return $this->step_6($request);
-            case 7:
-                return $this->step_7($request);
             default:
                 return response()->json(['error' => 'Invalid step'], 400);
         }
@@ -84,10 +82,6 @@ class CreateListingController extends Controller
         if (Category::where('id', $subsubcat)->count() == 0) {
             return response()->json(['error' => 'Invalid subcategory'], 400);
         }
-        if (Category::where('id', $subsubcat)->where('parent_id', $cat)->count() == 0) {
-            return response()->json(['error' => 'Invalid subcategory'], 400);
-        }
-
         $request->session()->put('create_listing_subcategory', $cat);
         $request->session()->put('create_listing_subsubcategory', $subsubcat);
 
@@ -127,7 +121,7 @@ class CreateListingController extends Controller
         $subsubcategory = $request->session()->get('create_listing_subsubcategory');
         $data = $request->session()->get('create_listing_data');
         $parameters = $request->session()->get('create_listing_parameters');
-       
+
 
         $listing = new Listing();
         $listing->user_id = $user->id;
@@ -161,7 +155,7 @@ class CreateListingController extends Controller
         $request->session()->forget('create_listing_data');
         $request->session()->forget('create_listing_parameters');
 
-        
+
         return response()->json([
             'success' => 'Listing created successfully',
             'link' => route('listings.show', ['id' => $listing->id, 'dash' => '-', 'slug' => $listing->slug])
@@ -184,28 +178,28 @@ class CreateListingController extends Controller
             $path = public_path("/listings/{$listing_id}/image_{$index}.png");
             $this->base64_to_jpeg($image, $path);
             $paths[] = "/listings/{$listing_id}/image_{$index}.png";
-
         }
 
-        
+
 
         return $paths;
     }
-    private function base64_to_jpeg($base64_string, $output_file) {
+    private function base64_to_jpeg($base64_string, $output_file)
+    {
         // open the output file for writing
-        $ifp = fopen( $output_file, 'wb' ); 
-    
+        $ifp = fopen($output_file, 'wb');
+
         // split the string on commas
         // $data[ 0 ] == "data:image/png;base64"
         // $data[ 1 ] == <actual base64 string>
-        $data = explode( ',', $base64_string );
-    
+        $data = explode(',', $base64_string);
+
         // we could add validation here with ensuring count( $data ) > 1
-        fwrite( $ifp, base64_decode( $data[ 1 ] ) );
-    
+        fwrite($ifp, base64_decode($data[1]));
+
         // clean up the file resource
-        fclose( $ifp ); 
-    
-        return $output_file; 
+        fclose($ifp);
+
+        return $output_file;
     }
 }

@@ -10,105 +10,108 @@
 
 </head>
 <style>
+  /* Radio butonlar arasında gri çizgi */
+  .form-check {
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+  }
 
-/* Radio butonlar arasında gri çizgi */
-.form-check {
-  border-bottom: 1px solid #ddd;
-  font-size: 18px;
-}
+  /* Son form-check için çizgi kaldır */
+  .form-check:last-of-type {
+    border-bottom: none;
+  }
 
-/* Son form-check için çizgi kaldır */
-.form-check:last-of-type {
-  border-bottom: none;
-}
+  .report-btn {
+    color: white;
+    background-color: #820933;
+    border-color: #820933;
+  }
 
-.report-btn{
-  color: white;
-  background-color:#820933;
-  border-color:#820933 ;
-}
-.report-btn:hover{
-  color: #820933;
-  background-color:white;
-  border-color:#820933 ;
-}
-.reason-radio:checked{
-  accent-color: red;
-}
-/* Custom Radio Button */
-.custom-radio .form-check-input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
+  .report-btn:hover {
+    color: #820933;
+    background-color: white;
+    border-color: #820933;
+  }
 
-.custom-radio .form-check-label {
-  position: relative;
-  padding-left: 30px;
-  cursor: pointer;
-  user-select: none;
-}
+  .reason-radio:checked {
+    accent-color: red;
+  }
 
-.custom-radio .form-check-label::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ddd;
-  border-radius: 50%;
-  background-color: white;
-}
+  /* Custom Radio Button */
+  .custom-radio .form-check-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
 
-.custom-radio .form-check-input:checked + .form-check-label::before {
-  border-color: #ddd;
-  background-color: red;
-}
+  .custom-radio .form-check-label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    user-select: none;
+  }
 
-.custom-radio .form-check-label::after {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-}
+  .custom-radio .form-check-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background-color: white;
+  }
 
-.custom-radio .form-check-input:checked + .form-check-label::after {
-  opacity: 1;
-}
+  .custom-radio .form-check-input:checked+.form-check-label::before {
+    border-color: #ddd;
+    background-color: red;
+  }
 
-/* Şikayet Nedeni sola hizalı */
-.modal-title {
-  text-align: left;
-  margin-left: 0;
-}
+  .custom-radio .form-check-label::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
 
-/* Modal genişlik */
-.modal-lg {
-  max-width: 500px;
-  max-height: 500px;
-}
-.bildir-btn{
-  color: white;
-  background-color:#820933;
-  border-color:#820933 ;
-  width: 500px;
-}
-.bildir-btn:hover{
-  color: #820933;
-  background-color:white;
-  border-color:#820933 ;
-  width: 500px;
-}
+  .custom-radio .form-check-input:checked+.form-check-label::after {
+    opacity: 1;
+  }
 
+  /* Şikayet Nedeni sola hizalı */
+  .modal-title {
+    text-align: left;
+    margin-left: 0;
+  }
+
+  /* Modal genişlik */
+  .modal-lg {
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .bildir-btn {
+    color: white;
+    background-color: #820933;
+    border-color: #820933;
+    width: 500px;
+  }
+
+  .bildir-btn:hover {
+    color: #820933;
+    background-color: white;
+    border-color: #820933;
+    width: 500px;
+  }
 </style>
 
 <body>
@@ -122,7 +125,8 @@
         </div>
         <div class="text-center">
           <p><strong>{{$user->name}}</strong></p>
-          <p><i class="fa-regular fa-calendar-check"></i> <strong>Üyelik Tarihi:</strong> {{$user->created_at->format('d F Y')}}</p>
+          <p><i class="fa-regular fa-calendar-check"></i> <strong>Üyelik Tarihi:</strong> {{$user->created_at->format('d
+            F Y')}}</p>
           <div class="d-flex justify-content-center align-items-center">
             <p><i class="fa-solid fa-people-group"></i> <strong>Takipçi:</strong> 0</p>
             <div class="mx-2" style="border-left: 1px solid #ddd; height: 20px;"></div>
@@ -130,8 +134,9 @@
           </div>
         </div>
         <div class="text-center mt-3">
-          <button class="btn btn-outline-custom me-3"id="share-button">Profili Paylaş</button>
-          <button class="btn btn-outline-custom"id="follow-button" data-user-id="{{ $user->id }}"><i class="fa-solid fa-user-plus"></i></button>
+          <button class="btn btn-outline-custom me-3" id="share-button">Profili Paylaş</button>
+          <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}"><i
+              class="fa-solid fa-user-plus"></i></button>
 
         </div>
         <!-- Toast -->
@@ -175,31 +180,36 @@
 
                     <!-- Radio 2 -->
                     <div class="form-check border-bottom py-2 custom-radio">
-                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason2" value="offensive">
+                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason2"
+                        value="offensive">
                       <label class="form-check-label" for="reason2">Hakaret</label>
                     </div>
 
                     <!-- Radio 3 -->
                     <div class="form-check border-bottom py-2 custom-radio">
-                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason3" value="fraud">
+                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason3"
+                        value="fraud">
                       <label class="form-check-label" for="reason3">Dolandırıcılık</label>
                     </div>
 
                     <!-- Radio 4 -->
                     <div class="form-check border-bottom py-2 custom-radio">
-                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason4" value="misleading">
+                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason4"
+                        value="misleading">
                       <label class="form-check-label" for="reason4">Yanıltıcı Bilgi</label>
                     </div>
 
                     <!-- Radio 5 -->
                     <div class="form-check border-bottom py-2 custom-radio">
-                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason5" value="harassment">
+                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason5"
+                        value="harassment">
                       <label class="form-check-label" for="reason5">Taciz</label>
                     </div>
 
                     <!-- Radio 6 -->
                     <div class="form-check py-2 custom-radio">
-                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason6" value="other">
+                      <input class="form-check-input reason-radio" type="radio" name="reason" id="reason6"
+                        value="other">
                       <label class="form-check-label" for="reason6">Diğer</label>
                     </div>
                   </div>
@@ -207,7 +217,8 @@
                   <!-- Detaylı Açıklama -->
                   <div class="mb-2">
                     <label for="details" class="form-label">Detaylı Açıklama</label>
-                    <textarea class="form-control" id="details" rows="4" placeholder="Açıklamanızı buraya yazın..."></textarea>
+                    <textarea class="form-control" id="details" rows="4"
+                      placeholder="Açıklamanızı buraya yazın..."></textarea>
                   </div>
                 </form>
               </div>
@@ -218,7 +229,7 @@
           </div>
         </div>
       </div>
-      
+
 
       <!-- Soldaki Ürünler Bölümü -->
       <div class="col-md-8">
@@ -294,26 +305,26 @@
         'X-CSRF-TOKEN': '{{ csrf_token() }}'
       }
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Takipçi sayısını güncelle
-        const followersElement = document.querySelector('.fa-people-group').nextElementSibling;
-        followersElement.textContent = `Takipçi: ${data.followersCount}`;
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Takipçi sayısını güncelle
+          const followersElement = document.querySelector('.fa-people-group').nextElementSibling;
+          followersElement.textContent = `Takipçi: ${data.followersCount}`;
 
-        // Butonu "Takip Ediliyor" olarak değiştir
-        button.innerHTML = '<i class="fa-solid fa-check"></i> Takip Ediliyor';
-        button.classList.remove('btn-outline-custom');
-        button.classList.add('btn-success');
-        button.disabled = true;
-      } else {
-        alert(data.message || 'Bir hata oluştu.');
-      }
-    })
-    .catch(error => {
-      console.error('Takip işlemi sırasında hata oluştu:', error);
-      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-    });
+          // Butonu "Takip Ediliyor" olarak değiştir
+          button.innerHTML = '<i class="fa-solid fa-check"></i> Takip Ediliyor';
+          button.classList.remove('btn-outline-custom');
+          button.classList.add('btn-success');
+          button.disabled = true;
+        } else {
+          alert(data.message || 'Bir hata oluştu.');
+        }
+      })
+      .catch(error => {
+        console.error('Takip işlemi sırasında hata oluştu:', error);
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+      });
   });
 </script>
 

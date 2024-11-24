@@ -79,7 +79,4 @@ class ProfileController extends Controller
     {
         return view('auth.profile_edit');
     }
-
-   
-
 }

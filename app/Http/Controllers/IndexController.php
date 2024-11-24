@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+
 class IndexController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         // find 20 latest listings
 
         // if user has lat and lng in session, find listings near them
@@ -15,7 +17,7 @@ class IndexController extends Controller
         $lat = $request->session()->get('lat');
         $lng = $request->session()->get('lng');
         $run_script = true;
-        if($lat && $lng) {
+        if ($lat && $lng) {
             $listings = Listing::nearestTo($lat, $lng)->take(20)->get();
             $run_script = false;
         } else {

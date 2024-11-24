@@ -1,5 +1,6 @@
 /* Genel Yapıyı Büyütme ve Box Shadow Eklemek */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   display: flex;
@@ -21,18 +22,21 @@ html, body {
 .steps {
   display: flex;
   gap: 12px;
-  position: relative;  /* Konumlandırma için gerekli */
-  top: 80px;  /* Steplerin logo yüksekliğinin biraz altına inmesini sağlar */
+  position: relative; /* Konumlandırma için gerekli */
+  top: 80px; /* Steplerin logo yüksekliğinin biraz altına inmesini sağlar */
 }
 
-.step-circle1, .step-circle2, .step-circle3, .step-circle4 {
-  width: 20px;  /* Çemberleri büyüttüm */
+.step-circle1,
+.step-circle2,
+.step-circle3,
+.step-circle4 {
+  width: 20px; /* Çemberleri büyüttüm */
   height: 20px;
   background-color: red;
   border-radius: 50%;
 }
-.step-circle{
-  width: 20px;  /* Çemberleri büyüttüm */
+.step-circle {
+  width: 20px; /* Çemberleri büyüttüm */
   height: 20px;
   background-color: #ddd;
   border-radius: 50%;
@@ -42,7 +46,6 @@ html, body {
 .text-muted {
   font-size: 18px; /* Yazı boyutunu büyütme */
 }
-
 
 /* Geri Tuşu Boyutunu Büyütme */
 .back-button {
@@ -97,12 +100,10 @@ html, body {
   position: relative;
 }
 
-
 /* Checkbox'ı gizle */
 .custom-checkbox input[type="radio"] {
   display: none;
 }
-
 
 /* Arrow Boyutunu Büyütme */
 .arrow {
@@ -128,5 +129,5 @@ hr {
 }
 .text-center {
   margin-top: auto;
-  margin-bottom: 30px;  /* Butonun altına boşluk ekledim */
+  margin-bottom: 30px; /* Butonun altına boşluk ekledim */
 }

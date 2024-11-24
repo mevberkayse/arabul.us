@@ -7,6 +7,11 @@
     <title>AraBulus</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/create_listing.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
+
     <style>
         .btn-outline-custom {
             --bs-btn-color: #1A1B41 !;
@@ -41,17 +46,19 @@
             --bs-btn-disabled-bg: #0d6efd;
             --bs-btn-disabled-border-color: #1A1B41;
         }
+
         .category .circle {
-            border: 4px solid transparent; /* Varsayılan kenarlık görünmez */
-            border-radius: 50%; /* Çember için */
+            border: 4px solid transparent;
+            /* Varsayılan kenarlık görünmez */
+            border-radius: 50%;
+            /* Çember için */
             padding: 10px;
-            transition: border 0.3s ease; 
+            transition: border 0.3s ease;
         }
 
         .category.selected .circle {
-            border-color: #37BC61; 
+            border-color: #37BC61;
         }
-
     </style>
 </head>
 
@@ -97,7 +104,7 @@
                     </div>
                     <div class="category-name">Çevre Birimleri</div>
                 </div>
-                </div>
+            </div>
         </div>
         <button class="btn btn-outline-custom mt-3 w-25" id="next_step">Devam Et</button>
     </div>
@@ -108,6 +115,16 @@
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
 <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+@if($errors->any())
+<script>
+    $(document).ready(() => {
+        PNotify.error({
+            text: '{{$errors->first()}}',
+            delay: 2000
+        })
+    });
+</script>
+@endif
 <script>
     $(document).ready(() => {
         let selectedCategory = 0;
@@ -127,11 +144,17 @@
                 },
                 success: (data) => {
                     window.location.href = "{{route('listings.create',[3])}}";
+                },
+                error: (err) => {
+                    PNotify.error({
+                        text: 'Lütfen bir kategori seçin.',
+                        delay: 2000
+                    })
                 }
             })
         })
     })
-        function highlightCategory(selectedId) {
+    function highlightCategory(selectedId) {
         //  'selected' sınıfını kaldır
         document.querySelectorAll('.category').forEach(category => {
             category.classList.remove('selected');
