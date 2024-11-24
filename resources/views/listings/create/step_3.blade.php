@@ -43,7 +43,7 @@
                 <label for="" class="form-label">{{$subCategory->name}}</label>
                 <div class="input-group">
                     <input type="text" id="subcategory-{{$subCategory->id}}-input" name="subcategory-input" class="form-control" placeholder="Seçiniz.." readonly
-                        data-bs-toggle="modal" data-bs-target="#subcategory-{{$subCategory->id}}"
+                        data-bs-toggle="modal" data-bs-target="#subcategory-{{$subCategory->id}}" data-category-id="{{$subCategory->id}}"
                         style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
                     <span class="input-group-text"data-bs-toggle="modal" data-bs-target="#subcategory-{{$subCategory->id}}"
                         style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none; ">
@@ -102,7 +102,7 @@
         $('#next_step').click(() => {
             // subcategory is either radio or input
             let subcategory = $('input[type="radio"]:checked').length > 0 ? $('input[type="radio"]:checked').attr('id') : $('input[name=subcategory-input]').filter(function() { return $(this).val().trim() != ""; }).data('id');
-
+            let category = $('input[type="radio"]:checked').length > 0 ? $('input[type="radio"]:checked').attr('name') : $('input[name=subcategory-input]').filter(function() { return $(this).val().trim() != ""; }).data('category-id');
             if(subcategory == undefined) {
                 alert('Lütfen bir alt kategori seçiniz');
                 return;
@@ -113,7 +113,8 @@
                 url: "/api/create-listing/step-3",
                 data: {
                     _token: "{{csrf_token()}}",
-                    subcategory: subcategory
+                    subcategory: subcategory,
+                    category: category
                 },
                 success: data => {
                     if(data.success) {

@@ -29,90 +29,137 @@
         <div class="border p-3 my-3 w-100">
             <div class="d-flex justify-content-between align-items-center">
                 <span>Seçilen Kategori</span>
-                <a href="#" class="text-primary">Değiştir</a>
+                <a href="{{route('listings.create', [2])}}" class="text-primary">Değiştir</a>
             </div>
             <div class="mt-2">
-                <strong>Telefon</strong>
+                <strong>{{$subCategory->name}}</strong>
             </div>
         </div>
         <!-- Model Başlığı -->
+        @foreach($categoryParameters as $categoryParam)
+        @php
+        $paramValues = explode(',', $categoryParam->parameter_values);
+        @endphp
         <div class="mb-3 w-100">
-            <label for="model" class="form-label">Model</label>
+            <label for="model" class="form-label">{{$categoryParam->parameter_name}}</label>
             <div class="input-group">
-                <input type="text" id="model-sec" class="form-control" placeholder="Seçiniz.." readonly
-                    data-bs-toggle="modal" data-bs-target="#modelModal"
+                <input type="text" id="{{$categoryParam->parameter_name}}-sec" class="form-control"
+                    placeholder="Seçiniz.." readonly data-bs-toggle="modal"
+                    data-bs-target="#{{$categoryParam->parameter_name}}Modal"
+                    data-name="{{$categoryParam->parameter_name}}"
                     style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
-                <span class="input-group-text" data-bs-toggle="modal" data-bs-target="#modelModal"
+                <span class="input-group-text" data-bs-toggle="modal"
+                    data-bs-target="#{{$categoryParam->parameter_name}}Modal"
                     style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none;">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </span>
             </div>
 
         </div>
-
+        <div class="modal fade" id="{{$categoryParam->parameter_name}}Modal" tabindex="-1" aria-labelledby=""
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="renkModalLabel">{{$categoryParam->parameter_name}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" id="renkList">
+                            @foreach($paramValues as $paramValue)
+                            <li class="list-group-item"
+                                onclick="chooseOption('{{$categoryParam->parameter_name}}','{{$paramValue}}')">
+                                {{$paramValue}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @foreach($subCategoryParameters as $subCategoryParam)
+        @php
+        $paramValues = explode(',', $subCategoryParam->parameter_value);
+        debugbar()->info($subCategoryParam);
+        @endphp
         <div class="mb-3 w-100">
-            <label for="hafiza" class="form-label">Hafıza</label>
+            <label for="model" class="form-label">{{$subCategoryParam->parameter_name}}</label>
             <div class="input-group">
-                <input type="text" id="hafiza-sec" class="form-control" placeholder="Seçiniz.." readonly
-                    data-bs-toggle="modal" data-bs-target="#hafizaModal"
+                <input type="text" id="param_{{$subCategoryParam->id}}-sec" class="form-control" placeholder="Seçiniz.."
+                    readonly data-bs-toggle="modal" data-bs-target="#param_{{$subCategoryParam->id}}Modal"
+                    data-name="{{$subCategoryParam->parameter_name}}"
                     style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
-                <span class="input-group-text" data-bs-toggle="modal" data-bs-target="#hafizaModal"
-                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none; ">
+                <span class="input-group-text" data-bs-toggle="modal"
+                    data-bs-target="#param_{{$subCategoryParam->id}}Modal"
+                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none;">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </span>
             </div>
-        </div>
 
-        <!-- Garanti Başlığı -->
-        <div class="mb-3 w-100">
-            <label for="garanti" class="form-label">Garanti</label>
-            <div class="input-group">
-                <input type="text" id="garanti-sec" class="form-control" placeholder="Seçiniz.." readonly
-                    data-bs-toggle="modal" data-bs-target="#garantiModal"
-                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
-                <!-- Sağ kenarlık kaldırıldı -->
-                <span class="input-group-text" data-bs-toggle="modal" data-bs-target="#garantiModal"
-                    style="background-color: #f8f9fa; border: 1px solid #ced4da; border-left: none; cursor: pointer;">
-                    <!-- Sol kenarlık kaldırıldı -->
-                    <i class="fa fa-chevron-right" aria-hidden="true" style="color: #000;"></i>
-                    <!-- Ok rengi siyah yapıldı -->
-                </span>
+        </div>
+        <div class="modal fade" id="param_{{$subCategoryParam->id}}Modal" tabindex="-1" aria-labelledby=""
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="renkModalLabel">{{$subCategoryParam->parameter_name}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" id="renkList">
+                            @foreach($paramValues as $paramValue)
+                            <li class="list-group-item"
+                                onclick="chooseOption('{{$subCategoryParam->id}}','{{$paramValue}}')">
+                                {{$paramValue}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- Renk Başlığı -->
+        @endforeach
+
+        @foreach($subSubCategoryParameters as $subCategoryParam)
+        @php
+        $paramValues = explode(',', $subCategoryParam->parameter_value);
+        debugbar()->info($subCategoryParam);
+        @endphp
         <div class="mb-3 w-100">
-            <label for="renk" class="form-label">Renk</label>
+            <label for="model" class="form-label">{{$subCategoryParam->parameter_name}}</label>
             <div class="input-group">
-                <input type="text" id="renk-sec" class="form-control" placeholder="Seçiniz.." readonly
-                    data-bs-toggle="modal" data-bs-target="#renkModal"
+                <input type="text" id="param_{{$subCategoryParam->id}}-sec" class="form-control" placeholder="Seçiniz.."
+                    readonly data-bs-toggle="modal" data-bs-target="#param_{{$subCategoryParam->id}}Modal"
+                    data-name="{{$subCategoryParam->parameter_name}}"
                     style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
-                <!-- Sağ kenarlık kaldırıldı -->
-                <span class="input-group-text" data-bs-toggle="modal" data-bs-target="#renkModal"
-                    style="background-color: #f8f9fa; border: 1px solid #ced4da; border-left: none; cursor: pointer;">
-                    <!-- Sol kenarlık kaldırıldı -->
-                    <i class="fa fa-chevron-right" aria-hidden="true" style="color: #000;"></i>
-                    <!-- Ok rengi siyah yapıldı -->
+                <span class="input-group-text" data-bs-toggle="modal"
+                    data-bs-target="#param_{{$subCategoryParam->id}}Modal"
+                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-left: none;">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </span>
             </div>
+
         </div>
-
-
-        <!-- Durum Başlığı -->
-        <div class="mb-3 w-100">
-            <label for="durum" class="form-label">Durum</label>
-            <div class="input-group">
-                <input type="text" id="durum-sec" class="form-control" placeholder="Seçiniz.." readonly
-                    data-bs-toggle="modal" data-bs-target="#durumModal"
-                    style="background-color: #f8f9fa; border: 1px solid #ced4da; cursor: pointer; border-right: none;">
-                <!-- Sağ kenarlık kaldırıldı -->
-                <span class="input-group-text" data-bs-toggle="modal" data-bs-target="#durumModal"
-                    style="background-color: #f8f9fa; border: 1px solid #ced4da; border-left: none; cursor: pointer;">
-                    <!-- Sol kenarlık kaldırıldı -->
-                    <i class="fa fa-chevron-right" aria-hidden="true" style="color: #000;"></i>
-                    <!-- Ok rengi siyah yapıldı -->
-                </span>
+        <div class="modal fade" id="param_{{$subCategoryParam->id}}Modal" tabindex="-1" aria-labelledby=""
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="renkModalLabel">{{$subCategoryParam->parameter_name}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" id="renkList">
+                            @foreach($paramValues as $paramValue)
+                            <li class="list-group-item"
+                                onclick="chooseOption('{{$subCategoryParam->id}}','{{$paramValue}}')">
+                                {{$paramValue}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+        @endforeach
 
     </div>
 
@@ -121,110 +168,14 @@
         <button class="btn btn-outline-custom mt-5 w-25" id="next_step">Devam Et</button>
     </div>
 
-    <!-- Modal (Renk Dropdown) -->
-    <div class="modal fade" id="renkModal" tabindex="-1" aria-labelledby="renkModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="renkModalLabel">Renk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group" id="renkList">
-                        <li class="list-group-item" onclick="renkSec('Siyah')">Siyah</li>
-                        <li class="list-group-item" onclick="renkSec('Beyaz')">Beyaz</li>
-                        <li class="list-group-item" onclick="renkSec('Mavi')">Mavi</li>
-                        <li class="list-group-item" onclick="renkSec('Yeşil')">Yeşil</li>
-                        <li class="list-group-item" onclick="renkSec('Pembe')">Pembe</li>
-                        <li class="list-group-item" onclick="renkSec('Kırmızı')">Kırmızı</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal (Model Dropdown) -->
-    <div class="modal fade" id="modelModal" tabindex="-1" aria-labelledby="modelModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modelModalLabel">Model</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group" id="modelList">
-                        <li class="list-group-item" onclick="modelSec('Model A')">Model A</li>
-                        <li class="list-group-item" onclick="modelSec('Model B')">Model B</li>
-                        <li class="list-group-item" onclick="modelSec('Model C')">Model C</li>
-                        <li class="list-group-item" onclick="modelSec('Model D')">Model D</li>
-                        <li class="list-group-item" onclick="modelSec('Model E')">Model E</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal (Hafıza Dropdown) -->
-    <div class="modal fade" id="hafizaModal" tabindex="-1" aria-labelledby="hafizaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="hafizaModalLabel">Hafıza</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group" id="hafizaList">
-                        <li class="list-group-item" onclick="hafizaSec('Hafiza A')">Hafıza A</li>
-                        <li class="list-group-item" onclick="hafizaSec('Hafiza B')">Hafıza B</li>
-                        <li class="list-group-item" onclick="hafizaSec('Hafiza C')">Hafıza C</li>
-                        <li class="list-group-item" onclick="hafizaSec('Hafiza D')">Hafıza D</li>
-                        <li class="list-group-item" onclick="hafizaSec('Hafiza E')">Hafıza E</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal (Garanti Dropdown) -->
-    <div class="modal fade" id="garantiModal" tabindex="-1" aria-labelledby="garantiModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="garantiModalLabel">Garanti</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group" id="garantiList">
-                        <li class="list-group-item" onclick="garantiSec('Garanti A')">Garanti A</li>
-                        <li class="list-group-item" onclick="garantiSec('Garanti B')">Garanti B</li>
-                        <li class="list-group-item" onclick="garantiSec('Garanti C')">Garanti C</li>
-                        <li class="list-group-item" onclick="garantiSec('Garanti D')">Garanti D</li>
-                        <li class="list-group-item" onclick="garantiSec('Garanti E')">Garanti E</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal (Durum Dropdown) -->
-    <div class="modal fade" id="durumModal" tabindex="-1" aria-labelledby="durumModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="durumModalLabel">Garanti</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group" id="durumList">
-                        <li class="list-group-item" onclick="durumSec('Durum A')">Durum A</li>
-                        <li class="list-group-item" onclick="durumSec('Durum A')">Durum A</li>
-                        <li class="list-group-item" onclick="durumSec('Durum A')">Durum A</li>
-                        <li class="list-group-item" onclick="durumSec('Durum A')">Durum A</li>
-                        <li class="list-group-item" onclick="durumSec('Durum A')">Durum A</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
+
+        let chooseOption = (parameterName, value) => {
+            console.log(parameterName, value);
+            document.getElementById("param_" + parameterName + '-sec').value = value;
+            let modal = bootstrap.Modal.getInstance(document.getElementById("param_" + parameterName + 'Modal'));
+            modal.hide();
+        }
         function renkSec(renk) {
             // Seçilen rengi input alanına yaz
             document.getElementById("renk-sec").value = renk;
@@ -264,13 +215,40 @@
     </script>
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 
     <script>
-  document.getElementById('next_step').addEventListener('click', function () {
-    // Yönlendirme işlemi
-    window.location.href = '/ilan-yukle/6';
-  });
-</script>
+
+    </script>
+    <script>
+        document.getElementById('next_step').addEventListener('click', function () {
+            window.parameters = [];
+            // get all inputs that id starts with param_
+            let inputs = document.querySelectorAll('input[id^="param_"]');
+
+            inputs.forEach((input) => {
+                window.parameters.push({
+                    id: input.id.split('-')[0].replace('param_', ''),
+                    name: input.getAttribute('data-name'),
+                    value: input.value
+                });
+            });
+
+            $.ajax({
+                url: '/api/create-listing/step-5',
+
+                method: 'POST',
+                data: {
+                    _token: "{{csrf_token()}}",
+                    parameters: window.parameters
+                },
+                success: (data) => {
+                    window.location.href = '/ilan-yukle/6';
+                    console.log(data);
+                }
+            })
+        });
+    </script>
 
 </body>
 

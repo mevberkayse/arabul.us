@@ -26,15 +26,19 @@
                         <i class="fa-regular fa-heart"></i>
                     </div>
                     <!-- Sol ve Sağ İkonlar -->
+                    @if(count($listing->getImagesArray()) > 1)
                     <i class="fa-solid fa-arrow-left icon-left"></i>
                     <i class="fa-solid fa-arrow-right icon-right"></i>
-
+                    
+                    
                     <!-- Küçük Ürün Fotoğrafları -->
                     <div class="thumbnail-container">
-                        <img src="urunimg/iphone16.png" alt="Küçük Fotoğraf 1" class="thumbnail">
-                        <img src="urunimg/iphone16.png" alt="Küçük Fotoğraf 2" class="thumbnail">
-                        <img src="urunimg/iphone16.png" alt="Küçük Fotoğraf 3" class="thumbnail">
+                        @foreach($listing->getImagesArray() as $image)
+                        <img src="{{$image}}" alt="Küçük Fotoğraf 1" class="thumbnail">
+                        @endforeach
                     </div>
+                    @endif
+                    
                 </div>
 
                 <!-- Ürün Detayları Kutusu -->
@@ -68,8 +72,10 @@
                 <!-- Fiyat Bilgisi Kısmı -->
                 <div class="price-info mt-3">
                     <h5>{{$listing->price}} ₺</h5>
-                    <p>Pazarlık: <span class="pazarlik-durumu">Yok</span></p>
-                    <p>Takas: <span class="pazarlik-durumu">Yok</span></p>
+                    @foreach($listing->getParameters() as $parameter)
+                    <p>{{$parameter['name']}}: {{$parameter['value']}}</p>
+                    @endforeach
+                    
                 </div>
                 <div class="location-info mt-3">
                     <h5><b>Konum:</b>{{$listing->location}}</h5>
