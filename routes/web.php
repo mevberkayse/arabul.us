@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -21,12 +22,16 @@ Route::get('/ilanlar/{category?}', [ListingController::class, 'index'])->name('l
 
 Route::get('/chat', [ProfileController::class, 'chat'])->name('chat');
 Route::get('/edit-profile', [ProfileController::class, 'editprofile'])->name('editprofile');
+
+Route::get('/kullanici-profili/{id?}', [UserController::class, 'showProfile'])->whereNumber('id');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show')->whereNumber('id');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
+
 });
 Route::get('/clear-session', function () {
     session()->forget('create_listing_images');
@@ -45,6 +50,8 @@ Route::prefix('api')->group(function () {
     Route::get('/homepage/listings-by-location', [APIIndexController::class, 'getItemListByLocation']);
 
     Route::post('/create-listing/step-{step}', [APICreateListingController::class, 'createListing'])->whereIn('step', [null, 0, 1, 2, 3, 4, 5, 6, 7, 8]);
+
+    Route::post('/profile/report', [APIIndexController::class, 'reportProfile']);
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');

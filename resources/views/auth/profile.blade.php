@@ -7,6 +7,9 @@
   <title>AraBulus</title>
   <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/profile.css">
+  <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 
 </head>
 <style>
@@ -66,7 +69,7 @@
 
   .custom-radio .form-check-input:checked+.form-check-label::before {
     border-color: #ddd;
-    background-color: red;
+    background-color: #820933;
   }
 
   .custom-radio .form-check-label::after {
@@ -77,7 +80,7 @@
     transform: translateY(-50%);
     width: 10px;
     height: 10px;
-    background-color: red;
+    background-color: #820933;
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
@@ -125,8 +128,7 @@
         </div>
         <div class="text-center">
           <p><strong>{{$user->name}}</strong></p>
-          <p><i class="fa-regular fa-calendar-check"></i> <strong>Üyelik Tarihi:</strong> {{$user->created_at->format('d
-            F Y')}}</p>
+          <p><i class="fa-regular fa-calendar-check"></i> <strong>Üyelik Tarihi:</strong> {{$user->created_at->format('d F Y')}}</p>
           <div class="d-flex justify-content-center align-items-center">
             <p><i class="fa-solid fa-people-group"></i> <strong>Takipçi:</strong> 0</p>
             <div class="mx-2" style="border-left: 1px solid #ddd; height: 20px;"></div>
@@ -135,8 +137,10 @@
         </div>
         <div class="text-center mt-3">
           <button class="btn btn-outline-custom me-3" id="share-button">Profili Paylaş</button>
+          @if($user->id !== Auth::id())
           <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}"><i
               class="fa-solid fa-user-plus"></i></button>
+          @endif
 
         </div>
         <!-- Toast -->
@@ -153,11 +157,13 @@
           </div>
         </div>
         <!-- Şikayet Et Butonu -->
+        @if($user->id !== Auth::id())
         <div class="text-center mt-4">
           <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
             <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
           </button>
         </div>
+        @endif
 
         <!-- Şikayet Modal -->
         <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
@@ -223,7 +229,7 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn bildir-btn">Bildir</button>
+                <button type="button" class="btn bildir-btn" id="bildir">Bildir</button>
               </div>
             </div>
           </div>
@@ -346,6 +352,43 @@
       modal.hide(); // Modalı kapat
     });
   });
+
+  $('#bildir').click(() => {
+    let checked = $('input[name="reason"]:checked').val();
+    let details = $('#details').val();
+
+    if (!checked || details == null) {
+      PNotify.error({
+        text: 'Tüm alanlar zorunludur.'
+      })
+      return;
+    }
+
+    $.ajax({
+      url: '/api/profile/report',
+      method: 'POST',
+      data: {
+        _token: "{{csrf_token()}}",
+        user_id: "{{$user->id}}",
+        reason: checked,
+        details: details
+      },
+      success: (data) => {
+        if (data.success) {
+          const modal = new bootstrap.Modal(document.getElementById('reportModal'));
+          modal.hide();
+          PNotify.success({
+            text: 'Şikayetiniz alınmıştır.'
+          })
+        } else {
+          PNotify.error({
+            text: 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.'
+          })
+        }
+      }
+    })
+  });
+
 </script>
 
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
