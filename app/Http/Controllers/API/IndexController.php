@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use App\Models\Report;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -62,5 +66,31 @@ class IndexController extends Controller
         }
 
         return response()->json(['items' => $arr, 'q' => $q->getBindings(), 'lat' => $lat, 'lng' => $lng]);
+    }
+
+    public function reportProfile(Request $request) {
+        $user_id = $request->input('user_id');
+        $reason = $request->input('reason');
+        $details = $request->input('details');
+        if(!Auth::check()) {
+            return response()->json(['success' => false, 'msg' => 'Lütfen giriş yapınız.' ]);
+        }
+        if(!$user_id || !$reason || !$details) {
+            return response()->json(['success' => false, 'msg' => 'Tüm alanlar zorunludur.']);
+        }
+
+        if(!User::findOrFail($user_id)) {
+            return response()->json(['success' => false, 'msg' => 'Şikayet etmek istediğiniz kullanıcı bulunamadı.']);
+        }
+
+        $report = new Report();
+        $report->reporter_id = Auth::id();
+        $report->reported_id = $user_id;
+        $report->report_category = $reason;
+        $report->text = $details;
+
+        $report->save();
+
+        return response()->json(['success' => true]);
     }
 }

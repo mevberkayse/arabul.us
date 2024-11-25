@@ -64,7 +64,7 @@
 
                     <!-- Profil Butonu Kısmı -->
                     <div class="profile-button-container p-2 mt-3">
-                        <button class="btn btn-outline-custom w-100">Profil</button>
+                        <a href="/profile/{{$listing->user->id}}" class="btn btn-outline-custom w-100">Profil</a>
                         <!-- Profil butonu satıcı adının altında -->
                     </div>
                 </div>
