@@ -12,8 +12,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">    
 </head>
 
 <body>
@@ -67,6 +66,19 @@
                 <div class="product-details-container">
                     <h5>{{session()->get('create_listing_data')['title']}}</h5>
                     <p>{{session()->get('create_listing_data')['description']}}</p>
+                    <hr>
+                    <h5>Özellikler</h5>
+                    <table class="table table-striped">
+                        <tbody>
+                            @foreach(session()->get('create_listing_parameters') as $parameter)
+                            <tr>
+                                <td>{{$parameter['parameter_name']}}</td>
+                                <td>{{$parameter['parameter_value']}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
 
@@ -97,10 +109,6 @@
                     @php
                     $parameters = session()->get('create_listing_parameters');
                     @endphp
-                    @foreach($parameters as $parameter)
-                    <p>{{$parameter['parameter_name']}}: <span
-                            class="pazarlik-durumu">{{$parameter['parameter_value']}}</span></p>
-                    @endforeach
 
                 </div>
                 <div class="location-info mt-3">
