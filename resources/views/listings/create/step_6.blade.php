@@ -12,7 +12,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">    
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
 
 <body>
@@ -42,9 +42,7 @@
                     <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı"
                         class="product-image">
                     <!-- Kalp İkonu -->
-                    <div class="heart-icon">
-                        <i class="fa-regular fa-heart"></i>
-                    </div>
+
                     <!-- Sol ve Sağ İkonlar -->
                     <i class="fa-solid fa-arrow-left icon-left"></i>
                     <i class="fa-solid fa-arrow-right icon-right"></i>

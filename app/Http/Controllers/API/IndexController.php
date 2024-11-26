@@ -26,7 +26,7 @@ class IndexController extends Controller
         // save address in session
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&result_type=administrative_area_level_2&key=" . env('GOOGLE_MAPS_API_KEY'));
+        curl_setopt($ch, CURLOPT_URL, "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&result_type=administrative_area_level_4&key=" . env('GOOGLE_MAPS_API_KEY'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($ch);
         curl_close($ch);
