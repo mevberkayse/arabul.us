@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/listing.css">
 
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,9 +27,12 @@
                 <div class="product-image-container">
                     <img src="{{$listing->getThumbnail()}}" alt="Ürün Fotoğrafı" class="product-image">
                     <!-- Kalp İkonu -->
-                    <div class="heart-icon">
-                        <i class="fa-regular fa-heart"></i>
+                    @if(Auth::check() && $listing->user->id !== Auth::id())
+                    <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
+                        <i class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
                     </div>
+                    @endif
+
                     <!-- Sol ve Sağ İkonlar -->
                     @if(count($listing->getImagesArray()) > 1)
                     <i class="fa-solid fa-arrow-left icon-left"></i>
@@ -45,6 +53,18 @@
                 <div class="product-details-container">
                     <h5>{{$listing->title}}</h5>
                     <p>{!! $listing->descriptions !!}</p>
+                    <hr>
+                    <h5>Özellikler</h5>
+                    <table class="table table-striped">
+                        <tbody>
+                            @foreach($listing->getParameters() as $parameter)
+                            <tr>
+                                <td>{{$parameter['parameter_name']}}</td>
+                                <td>{{$parameter['parameter_value']}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -72,10 +92,6 @@
                 <!-- Fiyat Bilgisi Kısmı -->
                 <div class="price-info mt-3">
                     <h5>{{$listing->price}} ₺</h5>
-                    @foreach($listing->getParameters() as $parameter)
-                    <p>{{$parameter['parameter_name']}}: {{$parameter['parameter_value']}}</p>
-                    @endforeach
-
                 </div>
                 <div class="location-info mt-3">
                     <h5><b>Konum:</b>{{$listing->location}}</h5>
@@ -92,22 +108,29 @@
             <h4>İlginizi Çekebilecek Ürünler</h4>
             <!-- Ürün Kartı 1 -->
             @foreach($listings as $listing)
-            <div class="col-3 ">
-                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" class="card"
-                    style="text-decoration: none; width: 20rem;">
-                    <img src="{{$listing->getThumbnail()}}" class="card-img-top p-3 pt-4" style="height: 300px">
-                    <div class="heart-icon">
-                        <i class="fa-regular fa-heart"></i>
+            <div class="col">
+                <div class="card" style="width: 18rem; text-decoration: none;">
+                    <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" style="text-decoration: none;">
+                        <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
+                            style="height: 300px">
+                    </a>
+                    @if(Auth::check() && $listing->user->id !== Auth::id())
+                    <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
+                        <i class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
                     </div>
+                    @endif
+
                     <div class="card-body">
-                        <h5 class="item-price large-price">{{$listing->price}}</h5>
-                        <p class="item-text mt-2">{{$listing->title}}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="location">{{$listing->location}}</p>
-                            <p class="time">{{$listing->created_at->diffForHumans()}}</p>
-                        </div>
+                        <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" style="text-decoration: none; color:inherit">
+                            <h5 class="item-price large-price">{{$listing->price}} ₺</h5>
+                            <p class="item-text mt-2">{{$listing->title}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="location">{{$listing->location}}</p>
+                                <p class="time">{{$listing->created_at->diffForHumans()}}</p>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
             @endforeach
             <!-- Ürün Kartı 4 -->
@@ -119,9 +142,43 @@
             <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
         </div>
     </footer>
-</body>
 
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+<script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+
+<script>
+    let addToFavorite = id => {
+        $.ajax({
+            url: '/api/favorite/add',
+            method: 'POST',
+            data: {
+                listing_id: id,
+                _token: '{{csrf_token()}}'
+            },
+            success: response => {
+                if (response.success) {
+
+                    PNotify.success({
+                        text: response.msg,
+                        delay: 2000
+                    })
+
+                    if(response.action === 'add') {
+                        $(`[onclick="addToFavorite('${id}');"]`).html('<i class="fa-solid fa-heart text-danger"></i>')
+                    } else {
+                        $(`[onclick="addToFavorite('${id}');"]`).html('<i class="fa-regular fa-heart"></i>')
+                    }
+                } else {
+                    PNotify.error({
+                        text: response.msg,
+                        delay: 2000
+                    })
+                }
+            }
+        })
+    }
+</script>
+</body>
 
 </html>

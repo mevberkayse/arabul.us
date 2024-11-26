@@ -52,6 +52,8 @@ Route::prefix('api')->group(function () {
     Route::post('/create-listing/step-{step}', [APICreateListingController::class, 'createListing'])->whereIn('step', [null, 0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
     Route::post('/profile/report', [APIIndexController::class, 'reportProfile']);
+
+    Route::post('/favorite/add', [APIIndexController::class, 'addFavorite']);
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');

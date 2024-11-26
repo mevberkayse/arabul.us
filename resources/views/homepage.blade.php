@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
+
 
 </head>
 
@@ -30,22 +34,31 @@
         </div>
         <div class="row justify-content-center gap-0" id="itemlist">
             @foreach($listings as $listing)
-            <div class="col-3 ">
-                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}" class="card"
-                    style="width: 18rem; text-decoration: none;">
-                    <img src="{{$listing->getThumbnail()}}" class="card-img-top p-3 pt-4" style="height: 300px">
-                    <div class="heart-icon">
-                        <i class="fa-regular fa-heart"></i>
+            <div class="col">
+                <div class="card" style="width: 18rem; text-decoration: none;">
+                    <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                        style="text-decoration: none;">
+                        <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4" style="height: 300px">
+                    </a>
+                    @if(Auth::check() && $listing->user->id !== Auth::id())
+                    <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
+                        <i
+                            class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
                     </div>
+                    @endif
+
                     <div class="card-body">
-                        <h5 class="item-price large-price">{{$listing->price}}</h5>
-                        <p class="item-text mt-2">{{$listing->title}}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="location">{{$listing->location}}</p>
-                            <p class="time">{{$listing->created_at->diffForHumans()}}</p>
-                        </div>
+                        <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                            style="text-decoration: none; color:inherit">
+                            <h5 class="item-price large-price">{{$listing->price}} ₺</h5>
+                            <p class="item-text mt-2">{{$listing->title}}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="location">{{$listing->location}}</p>
+                                <p class="time">{{$listing->created_at->diffForHumans()}}</p>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
             @endforeach
         </div>
@@ -100,22 +113,32 @@
                                                 success: (data) => {
                                                     $('#itemlist').empty();
                                                     data.items.forEach(listing => {
-                                                        $('#itemlist').append(`<div class="col-3 ">
-                                                        <a href="${listing.url}" class="card" style="width: 18rem; text-decoration: none;">
-                                                            <img src="${listing.thumbnail}" class="card-img-top p-3 pt-4" alt="..." style="height:300px">
-                                                             <div class="heart-icon">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                                                            <div class="card-body">
-                                                                <h5 class="item-price large-price">${listing.price} ₺</h5>
-                                                                <p class="item-text mt-2">${listing.title}</p>
-                                                                <div class="d-flex justify-content-between align-items-center">
-                                                                    <p class="location">${listing.location}</p>
-                                                                    <p class="time">${listing.time}</p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>`);
+
+                                                        $('#itemlist').append(`
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem; text-decoration: none;">
+                            <a href="${listing.url}" style="text-decoration: none;">
+                                <img src="${listing.thumbnail}" class="card-img-top  p-3 pt-4"
+                                    style="height: 300px">
+                            </a>
+                            ${listing.show_favorite_button ? `
+                            <div class="heart-icon" onclick="addToFavorite('${listing.id}');">
+                                <i class="${listing.is_favorited ? `fa-solid fa-heart text-danger` : `fa-regular fa-heart`}"></i>
+                            </div>` : ''}
+
+                            <div class="card-body">
+                                <a href="${listing.url}" style="text-decoration: none; color:inherit">
+                                    <h5 class="item-price large-price">${listing.price} ₺</h5>
+                                    <p class="item-text mt-2">${listing.title}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="location">${listing.location}</p>
+                                        <p class="time">${listing.time}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                                                    `);
 
                                                     });
                                                 }
@@ -127,22 +150,31 @@
                         } else {
                             $('#itemlist').empty();
                             data.items.forEach(listing => {
-                                $('#itemlist').append(`<div class="col-3 ">
-                <a href="${listing.url}" class="card" style="width: 18rem; text-decoration: none;">
-                    <img src="${listing.thumbnail}" class="card-img-top p-3 pt-4 alt="..." style="height:300px">
-                     <div class="heart-icon">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                    <div class="card-body">
-                        <h5 class="item-price large-price">${listing.price} ₺</h5>
-                        <p class="item-text mt-2">${listing.title}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="location">${listing.location}</p>
-                            <p class="time">${listing.time}</p>
+                                $('#itemlist').append(`
+                    <div class="col-3">
+                        <div class="card" style="width: 18rem; text-decoration: none;">
+                            <a href="${listing.url}" style="text-decoration: none;">
+                                <img src="${listing.thumbnail}" class="card-img-top  p-3 pt-4"
+                                    style="height: 300px">
+                            </a>
+                            ${listing.show_favorite_button ? `
+                            <div class="heart-icon" onclick="addToFavorite('${listing.id}');">
+                                <i class="${listing.is_favorited ? `fa-solid fa-heart text-danger` : `fa-regular fa-heart`}"></i>
+                            </div>` : ''}
+
+                            <div class="card-body">
+                                <a href="${listing.url}" style="text-decoration: none; color:inherit">
+                                    <h5 class="item-price large-price">${listing.price} ₺</h5>
+                                    <p class="item-text mt-2">${listing.title}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="location">${listing.location}</p>
+                                        <p class="time">${listing.time}</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </a>
-            </div>`);
+                                                    `);
                             });
                         }
 
@@ -153,6 +185,37 @@
             getItems();
 
         });
+
+        let addToFavorite = id => {
+            $.ajax({
+                url: '/api/favorite/add',
+                method: 'POST',
+                data: {
+                    listing_id: id,
+                    _token: '{{csrf_token()}}'
+                },
+                success: response => {
+                    if (response.success) {
+
+                        PNotify.success({
+                            text: response.msg,
+                            delay: 2000
+                        })
+
+                        if(response.action === 'add') {
+                            $(`[onclick="addToFavorite('${id}');"]`).html('<i class="fa-solid fa-heart text-danger"></i>')
+                        } else {
+                            $(`[onclick="addToFavorite('${id}');"]`).html('<i class="fa-regular fa-heart"></i>')
+                        }
+                    } else {
+                        PNotify.error({
+                            text: response.msg,
+                            delay: 2000
+                        })
+                    }
+                }
+            })
+        }
     </script>
 
 </body>
