@@ -83,4 +83,31 @@ class ProfileController extends Controller
     {
         return view('auth.profile_edit');
     }
+    public function updatePicture(Request $request)
+{
+    $request->validate([
+        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $user = $request->user();
+
+    // Eski resmi sil (Varsayılan resim değilse)
+    $profilePicturePath = public_path('image/' . $user->profile_picture);
+    if (file_exists($profilePicturePath) && $user->profile_picture !== config('auth.default_profile_picture_path')) {
+        unlink($profilePicturePath);
+    }
+
+    // Yeni resmi kaydet
+    $imageName = time() . '.' . $request->profile_picture->extension();
+    $destinationPath = public_path('image');
+    $request->profile_picture->move($destinationPath, $imageName);
+
+    // Kullanıcı profilini güncelle
+    $user->profile_picture = $imageName;
+    $user->save();
+
+    return Redirect::route('profile.edit')->with('success', 'Profil resmi başarıyla güncellendi!');
+}
+
+
 }
