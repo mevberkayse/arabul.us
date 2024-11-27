@@ -145,10 +145,14 @@ class IndexController extends Controller
         $listings = Listing::where('category_id', $cat->id);
 
         // Filter by price range
-        if (isset($filters['min_price']) && isset($filters['max_price'])) {
-            $listings = $listings->whereBetween('price', [$filters['min_price'], $filters['max_price']]);
+        if(isset($filters['min_price'])) {
+            $minPrice = $filters['min_price'];
+            $listings = $listings->where('price', '>=', $minPrice);
         }
-
+        if(isset($filters['max_price'])) {
+            $maxPrice = $filters['max_price'];
+            $listings = $listings->where('price', '<=', $maxPrice);
+        }
         // Filter by location
         if (isset($filters['sehir'])) {
             $location = $filters['sehir'];

@@ -66,4 +66,12 @@ class Listing extends Model
     {
         return Str::slug($this->title);
     }
+
+    public function getParameters()
+    {
+        $params = $this->parameters;
+        // remove first element from $params
+        array_shift($params);
+        return $params;
+    }
 }
