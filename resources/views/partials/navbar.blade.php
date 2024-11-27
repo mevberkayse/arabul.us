@@ -277,6 +277,7 @@
                     data-bs-target="#loginModal" @endif class="btn btn-outline-custom">
                     <i class="fa-solid fa-plus"></i>
                 </a>
+                
                 <div class="flex-shrink-0 dropdown">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
                         aria-expanded="false">
