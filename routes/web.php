@@ -56,6 +56,8 @@ Route::prefix('api')->group(function () {
     Route::post('/profile/report', [APIIndexController::class, 'reportProfile']);
 
     Route::post('/favorite/add', [APIIndexController::class, 'addFavorite']);
+
+    Route::post('/filter-listings/{category}', [APIIndexController::class, 'filterListings']);
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');

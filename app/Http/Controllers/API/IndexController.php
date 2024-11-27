@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Listing;
 use App\Models\Report;
 use App\Models\User;
+use App\Models\Category;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -133,5 +134,72 @@ class IndexController extends Controller
             $favorite->save();
             return response()->json(['success' => true, 'msg' => 'İlan favorilerinize eklendi.', 'action' => 'add']);
         }
+    }
+    public function filterListings(Request $request, $category)
+    {
+        // Get filters from the request
+        $filters = $request->input('params');
+        $cat = Category::findOrFail($category);
+
+        // Base query for listings in the category
+        $listings = Listing::where('category_id', $cat->id);
+
+        // Filter by price range
+        if (isset($filters['min_price']) && isset($filters['max_price'])) {
+            $listings = $listings->whereBetween('price', [$filters['min_price'], $filters['max_price']]);
+        }
+
+        // Filter by location
+        if (isset($filters['sehir'])) {
+            $location = $filters['sehir'];
+            $listings = $listings->where('location', 'LIKE', '%' . $location . '%');
+        }
+
+        // Filter by JSON parameters
+        foreach ($filters as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+
+            if (preg_match('/parameter_(\d+)/', $key, $matches)) {
+                $parameterId = $matches[1];
+
+                $listings = $listings->whereRaw(
+                    'JSON_CONTAINS(
+                    JSON_EXTRACT(parameters, "$.*"),
+                    ?,
+                    "$"
+                )',
+                    [json_encode(["parameter_id" => $parameterId, "parameter_value" => $value])]
+                );
+            }
+        }
+
+        // format the listings
+        $listings = $listings->get();
+        $arr = [];
+        foreach ($listings as $item) {
+            $a = [
+                'url' => route('listings.show', ['id' => $item->id, 'dash' => '-', 'slug' => $item->slug]),
+                'title' => $item->title,
+                'thumbnail' => $item->getThumbnail(),
+                'price' => $item->price,
+                'location' => $item->getBasicAddress(),
+                'time' => $item->created_at->diffForHumans(),
+                'id' => $item->id,
+            ];
+            if (Auth::check() && Auth::id() == $item->user_id) {
+                $a['show_favorite_button'] = false;
+                $a['is_favorited'] = false;
+            } else {
+                $user = Auth::user();
+                $a['show_favorite_button'] = true;
+                $a['is_favorited'] = Auth::check() ? $user->isFavorited($item->id) : false;
+            }
+            array_push($arr, $a);
+        }
+
+        return response()->json(['items' => $arr]);
+
     }
 }
