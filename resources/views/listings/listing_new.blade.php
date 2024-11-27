@@ -57,7 +57,7 @@
                     <h5>Özellikler</h5>
                     <table class="table table-striped">
                         <tbody>
-                            @foreach($listing->getParameters() as $parameter)
+                            @foreach($listing->parameters as $parameter)
                             <tr>
                                 <td>{{$parameter['parameter_name']}}</td>
                                 <td>{{$parameter['parameter_value']}}</td>

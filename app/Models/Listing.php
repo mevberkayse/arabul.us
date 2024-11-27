@@ -11,9 +11,13 @@ class Listing extends Model
 
     use HasFactory;
 
+    protected $casts = [
+        'parameters' => 'array'
+    ];
+
     public function getThumbnail()
     {
-        $parameters = json_decode($this->parameters, true);
+        $parameters = $this->parameters;
         if (isset($parameters['images']) && count($parameters['images']) > 0) {
             return $parameters['images'][0];
         }
@@ -28,7 +32,7 @@ class Listing extends Model
     public function getImagesArray()
     {
         // remove first image (thumbnail)
-        $parameters = json_decode($this->parameters, true);
+        $parameters = $this->parameters;
         if (isset($parameters['images'])) {
             return ($parameters['images']);
         }
@@ -61,15 +65,5 @@ class Listing extends Model
     public function getSlug()
     {
         return Str::slug($this->title);
-    }
-
-
-    public function getParameters()
-    {
-        // remove images from parameters
-        $parameters = json_decode($this->parameters, true);
-        unset($parameters['images']);
-        debugbar()->info($parameters);
-        return $parameters;
     }
 }
