@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show')->whereNumber('id');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
 
-
+    Route::get('/settings', [ProfileController::class, 'settings']);
 
 });
 Route::get('/clear-session', function () {

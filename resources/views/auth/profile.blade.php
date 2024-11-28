@@ -126,7 +126,7 @@
                 <div class="text-center mb-3">
                     <!-- Profil Fotoğrafını Göster -->
                     @if ($user->profile_picture)
-                        <img src="{{ asset('image/' . ($user->profile_picture ?? 'default.png')) }}" alt="Profil Fotoğrafı"
+                        <img src="{{ asset(($user->profile_picture ?? 'default.png')) }}" alt="Profil Fotoğrafı"
                             width="100" height="100" class="rounded-circle" style="object-fit: cover;">
                     @else
                         <div class="rounded-circle"
