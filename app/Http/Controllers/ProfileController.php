@@ -66,7 +66,7 @@ class ProfileController extends Controller
 
     public function show(Request $request, $id = null)
     {
-        if($id = null) {
+        if ($id = null) {
             $id = Auth::id();
         }
 
@@ -84,30 +84,33 @@ class ProfileController extends Controller
         return view('auth.profile_edit');
     }
     public function updatePicture(Request $request)
-{
-    $request->validate([
-        'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $user = $request->user();
+        $user = $request->user();
 
-    // Eski resmi sil (Varsayılan resim değilse)
-    $profilePicturePath = public_path('image/' . $user->profile_picture);
-    if (file_exists($profilePicturePath) && $user->profile_picture !== config('auth.default_profile_picture_path')) {
-        unlink($profilePicturePath);
+        // Eski resmi sil (Varsayılan resim değilse)
+        $profilePicturePath = public_path('image/' . $user->profile_picture);
+        if (file_exists($profilePicturePath) && $user->profile_picture !== config('auth.default_profile_picture_path')) {
+            unlink($profilePicturePath);
+        }
+
+        // Yeni resmi kaydet
+        $imageName = time() . '.' . $request->profile_picture->extension();
+        $destinationPath = public_path('image');
+        $request->profile_picture->move($destinationPath, $imageName);
+
+        // Kullanıcı profilini güncelle
+        $user->profile_picture = '/image/' . $imageName;
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('success', 'Profil resmi başarıyla güncellendi!');
     }
 
-    // Yeni resmi kaydet
-    $imageName = time() . '.' . $request->profile_picture->extension();
-    $destinationPath = public_path('image');
-    $request->profile_picture->move($destinationPath, $imageName);
+    public function settings(Request $request) {
 
-    // Kullanıcı profilini güncelle
-    $user->profile_picture = $imageName;
-    $user->save();
-
-    return Redirect::route('profile.edit')->with('success', 'Profil resmi başarıyla güncellendi!');
-}
-
-
+        return view('auth.settings');
+    }
 }
