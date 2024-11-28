@@ -93,14 +93,8 @@ class CreateListingController extends Controller
                 return redirect()->route('listings.create', ['step' => 4])->withErrors(['category' => 'Lütfen tüm bilgileri doldurun']);
             }
 
-            // find the actual parameter count, include categoryparams, subcategoryparams, subsubcategoryparams and generalparams, if subcategoryparams and subsubcategoryparams are the same, then we need to remove one of them
-            $actualParameteCount = count($category->getParameters()) + count($subCategory->getParameters()) + count($subSubCategory->getParameters()) + count(Parameter::where('category_id', '-1')->get());
-            if ($subCategory->id == $subSubCategory->id) {
-                $actualParameteCount -= count($subCategory->getParameters());
-            }
-
             $parameters = $request->session()->get('create_listing_parameters');
-            if ($parameters == null || count($parameters) != $actualParameteCount) {
+            if ($parameters == null) {
                 return redirect()->route('listings.create', ['step' => 5])->withErrors(['category' => 'Lütfen tüm bilgileri doldurun']);
             }
             return view('listings.create.step_' . $step, ['category' => $category, 'subCategory' => $subCategory, 'subSubCategory' => $subSubCategory, 'data' => $data, 'parameters' => $parameters]);

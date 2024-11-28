@@ -112,6 +112,7 @@
                 <div class="location-info mt-3">
                     <h5>Konum</h5>
                     <p>{{session()->get('create_listing_data')['location']}}</p>
+                    <div id="listing-map" style="height: 200px; width: 100%;"></div>
                 </div>
                 <div class="yayin-info mt-3">
                     <button class="btn  w-100 btn-custom ilan-btn" id="create">İlanı Yayınla</button>
@@ -124,6 +125,11 @@
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
     <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet.js JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     @if($errors->any())
     <script>
         $(document).ready(() => {
@@ -135,6 +141,25 @@
     </script>
     @endif
     <script>
+        $(document).ready(() => {
+            let lat = {{ session() -> get('lat')
+        }};
+        let lng = {{ session() -> get('lng') }};
+        const map2 = L.map('listing-map').setView([lat, lng], 15); // Kullanıcı konumu
+
+        // OpenStreetMap Katmanı
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap Katkıda Bulunanlar'
+        }).addTo(map2);
+
+        // Konumu işaretle
+        const userMarker = L.marker([lat, lng]).addTo(map2)
+            .bindPopup('Ürün Konumu')
+            .openPopup();
+
+        })
+
         $(document).ready(() => {
             $('#create').click(
                 () => {

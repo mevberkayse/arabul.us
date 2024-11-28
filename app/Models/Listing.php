@@ -69,7 +69,7 @@ class Listing extends Model
 
     public function getParameters()
     {
-        $params = $this->parameters;
+        $params = (array) $this->parameters;
         // remove first element from $params
         array_shift($params);
         return $params;

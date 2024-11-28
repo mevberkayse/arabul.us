@@ -21,7 +21,7 @@ class Category extends Model
     }
     public function getListingCount()
     {
-        if ($this->parent_id == -1) {
+        if ($this->parent_id == -1 || $this->hasSubCategories()) {
             $subcategories = $this->getSubCategories();
             $subcategories = $subcategories->pluck('id');
             return Listing::whereIn('category_id', $subcategories)->count();

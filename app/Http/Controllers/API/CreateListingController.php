@@ -143,7 +143,7 @@ class CreateListingController extends Controller
             ...$parameters
         ];
         debugbar()->info($params);
-        $listing->parameters = json_encode($params);
+        $listing->parameters = $params;
         $listing->save();
 
 

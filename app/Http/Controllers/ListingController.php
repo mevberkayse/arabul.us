@@ -32,7 +32,7 @@ class ListingController extends Controller
     public function index(Request $request, $category)
     {
         $cat = Category::findOrFail($category);
-        if ($cat->parent_id == -1) {
+        if ($cat->parent_id == -1 || $cat->hasSubCategories()) {
             $subcategories = $cat->getSubCategories();
             $subcategories = $subcategories->pluck('id');
             $listings = Listing::whereIn('category_id', $subcategories)->take(20)->get();

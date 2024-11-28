@@ -43,7 +43,9 @@
         </div>
         <!-- Model Başlığı -->
         @foreach($categoryParameters as $categoryParam)
+
         @php
+        if($categoryParam->category_id == -1) continue;
         $paramValues = explode(',', $categoryParam->parameter_values);
 
         @endphp
@@ -85,7 +87,16 @@
         </div>
         @endforeach
 
-        @foreach($subCategoryParameters as $subCategoryParam)
+        @php
+            debugbar()->info($subCategoryParameters);
+            debugbar()->info($categoryParameters);
+            // difference between subCategoryParameters and categoryParameters
+            $diff = $categoryParameters->diff($categoryParameters);
+            debugbar()->info($diff);
+        @endphp
+
+        @if($subCategoryParameters->diff($categoryParameters)->count() > 0)
+        @foreach($subCategoryParameters->diff($categoryParameters) as $subCategoryParam)
         @php
         $paramValues = explode(',', $subCategoryParam->parameter_value);
         debugbar()->info($subCategoryParam->parameter_values);
@@ -126,11 +137,19 @@
             </div>
         </div>
         @endforeach
-        @if(count(array_diff($subCategoryParameters, $subSubCategoryParameters)) > 0)
+        @endif
+
+        @php
+            debugbar()->info($subCategory);
+            debugbar()->info($subSubCategory);
+        @endphp
+
+        @if($subSubCategoryParameters->diff($subCategoryParameters)->count() > 0 || $subCategory->id !== $subSubCategory->id)
+
         @foreach($subSubCategoryParameters as $subCategoryParam)
         @php
         $paramValues = explode(',', $subCategoryParam->parameter_value);
-        debugbar()->info($subCategoryParam->parameter_values);
+
         @endphp
         <div class="mb-3 w-100">
             <label for="model" class="form-label">{{$subCategoryParam->parameter_name}}</label>
