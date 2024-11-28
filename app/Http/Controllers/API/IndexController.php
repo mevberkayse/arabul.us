@@ -145,11 +145,11 @@ class IndexController extends Controller
         $listings = Listing::where('category_id', $cat->id);
 
         // Filter by price range
-        if(isset($filters['min_price'])) {
+        if (isset($filters['min_price'])) {
             $minPrice = $filters['min_price'];
             $listings = $listings->where('price', '>=', $minPrice);
         }
-        if(isset($filters['max_price'])) {
+        if (isset($filters['max_price'])) {
             $maxPrice = $filters['max_price'];
             $listings = $listings->where('price', '<=', $maxPrice);
         }
@@ -204,6 +204,99 @@ class IndexController extends Controller
         }
 
         return response()->json(['items' => $arr]);
+    }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $listings = Listing::where('title', 'LIKE', '%' . $query . '%')->orWhere('descriptions', 'LIKE', '%' . $query . '%')->get();
+        $arr = [];
+
+        foreach ($listings as $item) {
+            $a = [
+                'url' => route('listings.show', ['id' => $item->id, 'dash' => '-', 'slug' => $item->slug]),
+                'title' => $item->title,
+                'thumbnail' => $item->getThumbnail(),
+                'price' => $item->price,
+                'location' => $item->getBasicAddress(),
+                'time' => $item->created_at->diffForHumans(),
+                'id' => $item->id,
+            ];
+
+            array_push($arr, $a);
+        }
+
+        return response()->json(['items' => $arr]);
+    }
+
+    public function searchFilter(Request $request)
+    {
+        // Get filters from the request
+        $filters = $request->input('params');
+        $query = $request->input('query');
+
+        // Base query for listings in the category
+        $listings = Listing::where('title', 'LIKE', '%' .  $query . '%')->orWhere('descriptions', 'LIKE', '%' . $query . '%');
+
+        // Filter by price range
+        if (isset($filters['min_price'])) {
+            $minPrice = $filters['min_price'];
+            $listings = $listings->where('price', '>=', $minPrice);
+        }
+        if (isset($filters['max_price'])) {
+            $maxPrice = $filters['max_price'];
+            $listings = $listings->where('price', '<=', $maxPrice);
+        }
+        // Filter by location
+        if (isset($filters['sehir'])) {
+            $location = $filters['sehir'];
+            $listings = $listings->where('location', 'LIKE', '%' . $location . '%');
+        }
+
+        // Filter by JSON parameters
+        foreach ($filters as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+
+            if (preg_match('/parameter_(\d+)/', $key, $matches)) {
+                $parameterId = $matches[1];
+
+                $listings = $listings->whereRaw(
+                    'JSON_CONTAINS(
+                        JSON_EXTRACT(parameters, "$.*"),
+                        ?,
+                        "$"
+                    )',
+                    [json_encode(["parameter_id" => $parameterId, "parameter_value" => $value])]
+                );
+            }
+        }
+
+        // format the listings
+        $listings = $listings->get();
+        $arr = [];
+        foreach ($listings as $item) {
+            $a = [
+                'url' => route('listings.show', ['id' => $item->id, 'dash' => '-', 'slug' => $item->slug]),
+                'title' => $item->title,
+                'thumbnail' => $item->getThumbnail(),
+                'price' => $item->price,
+                'location' => $item->getBasicAddress(),
+                'time' => $item->created_at->diffForHumans(),
+                'id' => $item->id,
+            ];
+            if (Auth::check() && Auth::id() == $item->user_id) {
+                $a['show_favorite_button'] = false;
+                $a['is_favorited'] = false;
+            } else {
+                $user = Auth::user();
+                $a['show_favorite_button'] = true;
+                $a['is_favorited'] = Auth::check() ? $user->isFavorited($item->id) : false;
+            }
+            array_push($arr, $a);
+        }
+
+        return response()->json(['items' => $arr]);
     }
 }

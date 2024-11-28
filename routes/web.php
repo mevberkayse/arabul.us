@@ -45,7 +45,7 @@ Route::get('/clear-session', function () {
 
     return redirect()->back();
 });
-Route::get("/search?{query}", [SearchController::class, 'index'])->name('search.index');
+Route::get("/search", [SearchController::class, 'index'])->name('search.index');
 
 Route::prefix('api')->group(function () {
     Route::post('/save-location', [APIIndexController::class, 'saveLocation']);
@@ -58,6 +58,10 @@ Route::prefix('api')->group(function () {
     Route::post('/favorite/add', [APIIndexController::class, 'addFavorite']);
 
     Route::post('/filter-listings/{category}', [APIIndexController::class, 'filterListings']);
+
+    Route::get('/search', [APIIndexController::class, 'search']);
+
+    Route::post('/search/filter', [APIIndexController::class, 'searchFilter']);
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');

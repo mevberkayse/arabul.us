@@ -211,6 +211,44 @@
         font-size: 3.5rem;
         /* `us` kısmını biraz daha büyük yap */
     }
+
+    .form-container {
+        position: relative;
+    }
+
+    #search-results {
+        position: absolute;
+        top: 100%;
+        /* Aligns top of results to bottom of the input field */
+        left: 0;
+        z-index: 1050;
+        /* High z-index to ensure it's above other elements */
+        width: 100%;
+        /* Matches width of the input field */
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-height: 300px;
+        /* Set a max height for scrollable results */
+        overflow-y: auto;
+    }
+
+    .search-result-item {
+        padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .search-result-item:last-child {
+        border-bottom: none;
+    }
+
+    .search-result-item:hover {
+        background-color: #f0f0f0;
+    }
 </style>
 <nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
@@ -222,11 +260,18 @@
             <a class="navbar-brand" href="{{route('index')}}">
                 <img src="/assets/images/logo3.png" width="233" height="233">
             </a>
-            <form class="d-flex vw-25" role="search">
-                <input class="form-control me-4 w-100 searchw" type="search" placeholder="Search" aria-label="Search"
-                    style="border: 1px solid #1A1B41;">
-                <button class="btn btn-outline-custom" type="submit">Search</button>
-            </form>
+            <div class="form-container">
+                <form class="d-flex vw-25" role="search" method="get" action="/search">
+                    <input id="search-input" class="form-control me-4 w-100 searchw" type="search" placeholder="Search"
+                        aria-label="Search" style="border: 1px solid #1A1B41;" name="query">
+                    <button class="btn btn-outline-custom" type="submit">Search</button>
+                </form>
+
+                <!-- Search Results Dropdown -->
+                <div id="search-results">
+                    <!-- Results will be dynamically appended here -->
+                </div>
+            </div>
 
             <!-- Harita Modal -->
             <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
@@ -277,7 +322,7 @@
                     data-bs-target="#loginModal" @endif class="btn btn-outline-custom">
                     <i class="fa-solid fa-plus"></i>
                 </a>
-                
+
                 <div class="flex-shrink-0 dropdown">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -442,6 +487,88 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
+
+    $(document).ready(function () {
+        const $searchInput = $("#search-input");
+        const $resultsContainer = $("#search-results");
+
+        // Debounce function to limit AJAX calls
+        let debounceTimer;
+        const debounce = (callback, delay) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(callback, delay);
+        };
+
+        // Function to handle AJAX search
+        $searchInput.on("input", function () {
+            const query = $(this).val().trim();
+
+            // If input is empty, hide the results container
+            if (query === "") {
+                $resultsContainer.hide();
+                return;
+            }
+
+            debounce(() => {
+                $.ajax({
+                    url: `/api/search?query=${encodeURIComponent(query)}`,
+                    method: "GET",
+                    success: function (data) {
+                        if (data && data.items && data.items.length > 0) {
+                            // Populate the results container
+                            const resultsHtml = data.items.map(listing =>
+                                `<div class="search-result-item p-2">
+                                    <div class="col-3">
+    <div class="card d-flex flex-row align-items-center p-2" style="width: 100%; height: auto; text-decoration: none; border: 1px solid #ddd;">
+        <!-- Thumbnail Section -->
+        <a href="${listing.url}" style="text-decoration: none;">
+            <img src="${listing.thumbnail}" class="card-img-left me-3"
+                 style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+        </a>
+
+        <!-- Content Section -->
+        <div class="card-body p-2 d-flex flex-column justify-content-between" style="flex: 1;">
+            <a href="${listing.url}" style="text-decoration: none; color: inherit;">
+                <h6 class="item-price small-price mb-1">${listing.price} ₺</h6>
+                <p class="item-text text-truncate mb-1" style="font-size: 14px; max-width: 100%;">${listing.title}</p>
+                <div class="d-flex justify-content-between align-items-center" style="font-size: 12px;">
+                    <span class="location">${listing.location}</span>
+                    <span class="time text-muted">${listing.time}</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+                                </div>`).join("");
+
+                            $resultsContainer.html(resultsHtml).show();
+                        } else {
+                            // No results found
+                            $resultsContainer.html('<div class="p-2 text-muted">No results found</div>').show();
+                        }
+                    },
+                    error: function () {
+                        $resultsContainer.html('<div class="p-2 text-danger">Error fetching results</div>').show();
+                    }
+                });
+            }, 300); // Debounce delay: 300ms
+        });
+
+        // Close results when clicking outside
+        $(document).on("click", function (e) {
+            if (!$(e.target).closest("#search-input, #search-results").length) {
+                $resultsContainer.hide();
+            }
+        });
+
+        // Optional: Add a hover effect to results
+        $resultsContainer.on("mouseenter", ".search-result-item", function () {
+            $(this).css("background-color", "#f0f0f0");
+        }).on("mouseleave", ".search-result-item", function () {
+            $(this).css("background-color", "");
+        });
+    });
     function showMap() {
         // Kullanıcının konumunu al
         navigator.geolocation.getCurrentPosition((position) => {

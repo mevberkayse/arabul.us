@@ -37,21 +37,20 @@ class Category extends Model
 
     public function getParameters()
     {
-        $allParams = Parameter::where('category_id', 'like', '%' . $this->id . '%')->get();
-        // if $this->id is 1 and category_id contains 10,11,12 in any way then it will return all parameters with category_id 10,11,12.
-        // So we need to filter out the parameters that are not related to this category.
-        $params = [];
-        foreach ($allParams as $param) {
-            $categoryIds = explode(',', $param->category_id);
-            if (in_array($this->id, $categoryIds)) {
-                $params[] = $param;
-            }
-        }
-        // also add parameters with category_id as -1
+        // Fetch parameters directly matching the category
+        $params = Parameter::where('category_id', 'like', '%' . $this->id . '%')
+            ->get()
+            ->filter(function ($param) {
+                // Filter to ensure the current category ID is explicitly listed in category_id
+                $categoryIds = explode(',', $param->category_id);
+                return in_array($this->id, $categoryIds);
+            });
+
+        // Fetch general parameters (category_id = -1)
         $generalParams = Parameter::where('category_id', -1)->get();
-        foreach ($generalParams as $param) {
-            $params[] = $param;
-        }
-        return $params;
+
+        // Combine both sets of parameters
+        return $params->merge($generalParams);
     }
+
 }
