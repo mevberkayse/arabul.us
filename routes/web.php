@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/settings', [ProfileController::class, 'settings']);
+
 Route::get('/clear-session', function () {
     session()->forget('create_listing_images');
     session()->forget('create_listing_category');
