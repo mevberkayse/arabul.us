@@ -149,6 +149,7 @@
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">Güncelle</button>
+                    <a href="/delete-picture" class="btn btn-danger mt-2">Fotoğrafı Sil</a>
 
 
 
