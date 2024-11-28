@@ -109,6 +109,16 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('success', 'Profil resmi başarıyla güncellendi!');
     }
 
+    public function deletePicture(Request $request) {
+        $user = $request->user();
+
+        // Varsayılan resmi kullan
+        $user->profile_picture = config('auth.default_profile_picture_path');
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('success', 'Profil resmi başarıyla silindi');
+    }
+
     public function settings(Request $request) {
 
         return view('auth.settings');

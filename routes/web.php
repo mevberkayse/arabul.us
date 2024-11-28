@@ -31,8 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show')->whereNumber('id');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
-
+    Route::any('/delete-picture', [ProfileController::class, 'deletePicture'])->name('profile.delete-picture');
     Route::get('/settings', [ProfileController::class, 'settings']);
+
+
 
 });
 Route::get('/clear-session', function () {
