@@ -43,8 +43,9 @@
 
     /* Şikayet Nedeni sola hizalı */
     .modal-title {
-        text-align: left;
+        text-align: center;
         margin-left: 0;
+
     }
 
     /* Modal genişlik */
@@ -250,22 +251,48 @@
         pointer-events: auto;
         /* Tıklanabilir yap */
     }
+    .checkboxbildirim {
+        font-size: 18px;
+    }
+    .toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 24px; /* İkon boyutunu ayarlamak için */
+    color: #28a745; /* İkon rengi (isteğe bağlı) */
+}
+.rounded-circle {
+    object-fit: cover; /* Profil resmini düzgün şekilde kesmek için */
+}
+.bildir-btn {
+        color: white;
+        background-color: #820933;
+        border-color: #820933;
+        width: 100px;
+    }
+
+    .bildir-btn:hover {
+        color: #820933;
+        background-color: white;
+        border-color: #820933;
+        width: 100px;
+    }
 </style>
 
 <body>
     @include('partials.navbar')
 
-    <div class="container mt-5">
+    <div class="container mt-5 " id="gizlilik">
         <div class="row">
             <!-- Sol taraftaki 3 kolonluk bölüm -->
             <div class="col-3">
                 <ul class="list-unstyled">
                     <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Gizlilik</a></li>
                     <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Bildirimler</a></li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none">İletişim Tercihleri</a></li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Tüm cihazlardan çıkış yap</a>
-                    </li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Hesabımı sil</a></li>
+                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none">Profilimi Düzenle</a></li>
+                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none"  data-bs-toggle="modal" data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a></li>
+                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal">Hesabımı sil</a></li>
                 </ul>
             </div>
 
@@ -273,6 +300,7 @@
             <div class="col-6">
                 <div class="border p-3 mb-4" style="border-radius: 15px;">
                     <h5 class="mb-4 mt-2">Şifre Değiştir</h5>
+                    <hr class="my-3 line">
                     <div class="position-relative mb-3">
                         <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin"
                             id="current-password" name="current-password">
@@ -295,24 +323,96 @@
                     </div>
                 </div>
                 <!-- Kaydet Butonu -->
-                <button class="btn btn-outline-custom w-100">Kaydet</button>
+                <button class="btn btn-custom w-100">Kaydet</button>
+            </div>
+        <div class="container mt-5 " id="bildirimler">
+        <div class="row">
+            <!-- Sol taraftaki 3 kolonluk bölüm -->
+            <div class="col-3">
             </div>
 
-
-
-
-        </div>
+            <!-- Sağ taraftaki 6 kolonluk bölüm -->
+            <div class="col-6">
+                <div class="border p-3 mb-4" style="border-radius: 15px;">
+                    <h5 class="mb-4 mt-2 ">Bildirimler</h5>
+                    <hr class="my-3 line">
+                    <div class="position-relative mb-3 justify-content-between align-items-center ">
+                        <p class="checkboxbildirim mb-0">Güncellemeler ve kampanyalar hakkında bildirim al</p>
+                        <i class="fa-solid fa-toggle-on toggle-icon"></i>
+                    </div>
+                   
+            </div>
+             </div>
     </div>
+</div>
+<div class="container mt-5 " id="profil">
+        <div class="row">
+            <!-- Sol taraftaki 3 kolonluk bölüm -->
+            <div class="col-3">
+            </div>
 
+            <!-- Sağ taraftaki 6 kolonluk bölüm -->
+            <div class="col-6">
+                <div class="border p-3 mb-4" style="border-radius: 15px;">
+                    <h5 class="mb-4 mt-2 ">Profili Düzenle</h5>
+                    <hr class="my-3 line">
+                    <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
+                    <div class="d-flex align-items-center mb-4">
+            <img src="https://via.placeholder.com/100" alt="Profil Resmi" class="rounded-circle me-3" style="width: 100px; height: 100px;">
+            <button class="btn btn-outline-custom ms-auto">Değiştir</button>
+        </div>
+        <hr class="my-3 line">
+        <h5 class="mb-2 mt-4" style="font-size:18px;">Kullanıcı Adı</h5>
+        <div class="d-flex align-items-center mb-4 mt-3">
+            <input type="text" class="form-control me-3" placeholder="Kullanıcı Adı">
+            <button class="btn btn-outline-custom">Değiştir</button>
+        </div>
+        <hr class="my-3 line">
+        <h5 class="mb-2" style="font-size:18px;">İletişim Bilgileri</h5>
+        <p class="mb-2 mt-4">E-mail</p>
+        <div class="d-flex align-items-center mt-3">
+            <input type="email" class="form-control me-3" placeholder="E-mail">
+            <button class="btn btn-outline-custom">Değiştir</button>
+        </div>
+            </div>
+             </div>
+    </div>
+</div>
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-auto py-3 fixed-bottom">
+    <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
         <div class="container">
             <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
         </div>
     </footer>
 
-
-
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-header flex-column border-0">
+                <h5 class="modal-title w-100" id="logoutModalLabel">Tüm cihazlardan çıkış yap</h5>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3 mt-2">Tüm hesaplardan ve cihazlardan çıkış yapılacaktır. Devam etmek istiyor musunuz?</p>
+                <button type="button" class="btn bildir-btn me-3">Çıkış Yap</button>
+                <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-header flex-column border-0">
+                <h5 class="modal-title w-100" id="deletModalLabel">Hesabımı sil</h5>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3 mt-2">Hesabınız devre dışı bırakıldığında işlem geri alınamaz.Hesabınızı silmek istediğinizden emin misiniz?</p>
+                <button type="button" class="btn bildir-btn me-3 w-25">Hesabımı Sil</button>
+                <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
         document.querySelectorAll('.toggle-password').forEach(function (icon) {
             icon.addEventListener('click', function () {
