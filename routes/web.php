@@ -24,6 +24,7 @@ Route::get('/chat', [ProfileController::class, 'chat'])->name('chat');
 Route::get('/edit-profile', [ProfileController::class, 'editprofile'])->name('editprofile');
 
 Route::get('/kullanici-profili/{id?}', [UserController::class, 'showProfile'])->whereNumber('id');
+Route::get('/settings', [ProfileController::class, 'settings']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,11 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show')->whereNumber('id');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
     Route::any('/delete-picture', [ProfileController::class, 'deletePicture'])->name('profile.delete-picture');
-
 });
-
-Route::get('/settings', [ProfileController::class, 'settings']);
-
 Route::get('/clear-session', function () {
     session()->forget('create_listing_images');
     session()->forget('create_listing_category');
