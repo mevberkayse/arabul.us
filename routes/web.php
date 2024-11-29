@@ -26,6 +26,8 @@ Route::get('/edit-profile', [ProfileController::class, 'editprofile'])->name('ed
 Route::get('/kullanici-profili/{id?}', [UserController::class, 'showProfile'])->whereNumber('id');
 Route::get('/settings', [ProfileController::class, 'settings']);
 
+Route::get('/yardim', [ProfileController::class, 'yardim']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
