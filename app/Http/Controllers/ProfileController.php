@@ -123,4 +123,9 @@ class ProfileController extends Controller
 
         return view('auth.settings');
     }
+    public function yardim(Request $request) {
+
+        return view('yardim');
+    }
 }
+
