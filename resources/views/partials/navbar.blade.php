@@ -1,4 +1,7 @@
 <style>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
     /* Modalın Boyutunu Küçültme ve Karemsi Yapma */
     .custom-modal {
         max-width: 400px;
@@ -187,8 +190,6 @@
         text-align: center;
         /* Dropdown içeriğini ortalama */
     }
-
-    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
     .logo-font {
         font-family: 'Bangers', cursive;
