@@ -14,7 +14,54 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
+<style>
+    
+.product-details-container .table {
+    background-color: white !important;
+  border: none; 
+}
 
+
+.product-details-container .table th {
+    background-color: white !important;
+  color: inherit;
+}
+
+/* Tablo hücrelerinin stilleri */
+.product-details-container .table td {
+  background-color: transparent; 
+  border: none;
+  color: #333; 
+}
+.product-details-container .table tr:nth-child(odd) {
+  background-color: white !important;
+}
+
+.product-details-container .table tr:nth-child(even) {
+  background-color: white !important;
+}
+
+.product-details-container .table td:first-child {
+  color: #777; 
+}
+
+.product-details-container .table td:last-child {
+  color: #000; 
+}
+
+.product-details-container .table {
+  border-spacing: 0 10px;
+}
+
+
+.product-details-container .table td,
+.product-details-container .table th {
+  padding: 10px; 
+  background-color: white !important;
+ 
+}
+
+</style>
 <body>
     <!-- Geri Tuşu ve Logo -->
     <div class="header d-flex align-items-center w-100 mb-4">

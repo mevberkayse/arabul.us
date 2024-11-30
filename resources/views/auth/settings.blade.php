@@ -279,118 +279,107 @@
         border-color: #820933;
         width: 100px;
     }
+    .fw-bold {
+    font-weight: bold;
+    color: black !important;
+}
 </style>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
+    <div class="container mt-5">
+    <div class="row">
+        <!-- Sol taraftaki 3 kolonluk menü -->
+        <div class="col-3">
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none" onclick="openTab(1);" data-opener="1">Gizlilik</a>
+                </li>
+                <li class="mb-3">
+                    <a href="#" id="tab-2" class="text-dark text-decoration-none" onclick="openTab(2);" data-opener="2">Bildirimler</a>
+                </li>
+                <li class="mb-3">
+                    <a href="#" id="tab-3" class="text-dark text-decoration-none" onclick="openTab(3);" data-opener="3">Profilimi Düzenle</a>
+                </li>
+                <li class="mb-3">
+                    <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a>
+                </li>
+                <li class="mb-3">
+                    <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal">Hesabımı sil</a>
+                </li>
+            </ul>
+        </div>
 
-    <div class="container mt-5 " id="gizlilik">
-        <div class="row">
-            <!-- Sol taraftaki 3 kolonluk bölüm -->
-            <div class="col-3">
-                <ul class="list-unstyled">
-                    <li class="mb-3"><a href="#" class="fw-bold text-dark text-decoration-none" onclick="openTab(1);"
-                            data-opener="1">Gizlilik</a></li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none" onclick="openTab(2);"
-                            data-opener="2">Bildirimler</a></li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none" onclick="openTab(3);"
-                            data-opener="3">Profilimi
-                            Düzenle</a></li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal"
-                            data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a></li>
-                    <li class="mb-3"><a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal">Hesabımı sil</a></li>
-                </ul>
+        <!-- Sağ taraftaki 6 kolonluk içerik -->
+        <div class="col-6">
+            <!-- Şifre Değiştir Bölümü -->
+            <div id="content-1" class="content-section">
+                <div class="border p-3 mb-4" style="border-radius: 15px;">
+                    <h5 class="mb-4 mt-2">Şifre Değiştir</h5>
+                    <hr class="my-3 line">
+                    <div class="position-relative mb-3">
+                        <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin" id="current-password" name="current-password">
+                        <div class="toggle-password" data-input="current-password">
+                            <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                        </div>
+                    </div>
+                    <div class="position-relative mb-3">
+                        <input type="password" class="form-control" placeholder="Yeni şifrenizi girin" id="new-password" name="new-password">
+                        <div class="toggle-password" data-input="new-password">
+                            <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                        </div>
+                    </div>
+                    <div class="position-relative mb-3">
+                        <input type="password" class="form-control" placeholder="Yeni şifreyi onaylayın" id="confirm-password" name="confirm-password">
+                        <div class="toggle-password" data-input="confirm-password">
+                            <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-custom w-100">Kaydet</button>
             </div>
 
-            <!-- Sağ taraftaki 6 kolonluk bölüm -->
-            <div class="col-9">
-                <div id="gizlilik" data-id="1">
-                    <div class="border p-3 mb-4" style="border-radius: 15px;">
-                        <h5 class="mb-4 mt-2">Şifre Değiştir</h5>
-                        <hr class="my-3 line">
-                        <div class="position-relative mb-3">
-                            <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin"
-                                id="current-password" name="current-password">
-                            <div class="toggle-password" data-input="current-password"><i
-                                    class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3"
-                                    style="cursor: pointer;"></i></div>
-                        </div>
-                        <!-- Yeni şifre girişi -->
-                        <div class="position-relative mb-3">
-                            <input type="password" class="form-control" placeholder="Yeni şifrenizi girin"
-                                id="new-password" name="new-password">
-                            <div class="toggle-password" data-input="new-password"><i
-                                    class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3"
-                                    style="cursor: pointer;"></i></div>
-                        </div>
-                        <!-- Yeni şifreyi onaylama -->
-                        <div class="position-relative mb-3">
-                            <input type="password" class="form-control" placeholder="Yeni şifreyi onaylayın"
-                                id="confirm-password" name="confirm-password">
-                            <div class="toggle-password" data-input="confirm-password"><i
-                                    class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3"
-                                    style="cursor: pointer;"></i></div>
-                        </div>
-                    </div>
-                    <!-- Kaydet Butonu -->
-                    <button class="btn btn-custom w-100">Kaydet</button>
-                </div>
-                <div class="container d-none" id="bildirimler" data-id="2">
-                    <div class="row">
-                        <!-- Sol taraftaki 3 kolonluk bölüm -->
-                        <div class="col-3">
-                        </div>
-
-                        <!-- Sağ taraftaki 6 kolonluk bölüm -->
-                        <div class="col-6">
-                            <div class="border p-3 mb-4" style="border-radius: 15px;">
-                                <h5 class="mb-4 mt-2 ">Bildirimler</h5>
-                                <hr class="my-3 line">
-                                <div class="position-relative mb-3 justify-content-between align-items-center ">
-                                    <p class="checkboxbildirim mb-0">Güncellemeler ve kampanyalar hakkında bildirim al
-                                    </p>
-                                    <i class="fa-solid fa-toggle-on toggle-icon"></i>
-                                </div>
-
-                            </div>
-                        </div>
+            <!-- Bildirimler Bölümü -->
+            <div id="content-2" class="content-section d-none">
+                <div class="border p-3 mb-4" style="border-radius: 15px;">
+                    <h5 class="mb-4 mt-2">Bildirimler</h5>
+                    <hr class="my-3 line">
+                    <div class="position-relative mb-3 d-flex justify-content-between align-items-center">
+                        <p class="checkboxbildirim mb-0">Güncellemeler ve kampanyalar hakkında bildirim al</p>
+                        <i class="fa-solid fa-toggle-on toggle-icon"></i>
                     </div>
                 </div>
-                <div class="container d-none" id="profil" data-id="3">
-                    <div class="row">
-                        <!-- Sol taraftaki 3 kolonluk bölüm -->
-                        <div class="col-3">
-                        </div>
+            </div>
 
-                        <!-- Sağ taraftaki 6 kolonluk bölüm -->
-                        <div class="col-6">
-                            <div class="border p-3 mb-4" style="border-radius: 15px;">
-                                <h5 class="mb-4 mt-2 ">Profili Düzenle</h5>
-                                <hr class="my-3 line">
-                                <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
-                                <div class="d-flex align-items-center mb-4">
-                                    <img src="https://via.placeholder.com/100" alt="Profil Resmi"
-                                        class="rounded-circle me-3" style="width: 100px; height: 100px;">
-                                    <button class="btn btn-outline-custom ms-auto">Değiştir</button>
-                                </div>
-                                <hr class="my-3 line">
-                                <h5 class="mb-2 mt-4" style="font-size:18px;">Kullanıcı Adı</h5>
-                                <div class="d-flex align-items-center mb-4 mt-3">
-                                    <input type="text" class="form-control me-3" placeholder="Kullanıcı Adı">
-                                    <button class="btn btn-outline-custom">Değiştir</button>
-                                </div>
-                                <hr class="my-3 line">
-                                <h5 class="mb-2" style="font-size:18px;">İletişim Bilgileri</h5>
-                                <p class="mb-2 mt-4">E-mail</p>
-                                <div class="d-flex align-items-center mt-3">
-                                    <input type="email" class="form-control me-3" placeholder="E-mail">
-                                    <button class="btn btn-outline-custom">Değiştir</button>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Profili Düzenle Bölümü -->
+            <div id="content-3" class="content-section d-none">
+                <div class="border p-3 mb-4" style="border-radius: 15px;">
+                    <h5 class="mb-4 mt-2">Profili Düzenle</h5>
+                    <hr class="my-3 line">
+                    <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="https://via.placeholder.com/100" alt="Profil Resmi" class="rounded-circle me-3" style="width: 100px; height: 100px;">
+                        <button class="btn btn-outline-custom ms-auto">Değiştir</button>
+                    </div>
+                    <hr class="my-3 line">
+                    <h5 class="mb-2 mt-4" style="font-size:18px;">Kullanıcı Adı</h5>
+                    <div class="d-flex align-items-center mb-4 mt-3">
+                        <input type="text" class="form-control me-3" placeholder="Kullanıcı Adı">
+                        <button class="btn btn-outline-custom">Değiştir</button>
+                    </div>
+                    <hr class="my-3 line">
+                    <h5 class="mb-2" style="font-size:18px;">İletişim Bilgileri</h5>
+                    <p class="mb-2 mt-4">E-mail</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <input type="email" class="form-control me-3" placeholder="E-mail">
+                        <button class="btn btn-outline-custom">Değiştir</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                 <!-- Footer -->
                 <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
                     <div class="container">
@@ -436,25 +425,34 @@
                 <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 
                 <script>
-                    let openTab = id => {
-                        document.querySelectorAll('[data-id]').forEach(tab => {
-                            if (tab.getAttribute('data-id') == id) {
-                                tab.classList.remove('d-none');
-                            } else {
-                                tab.classList.add('d-none');
-                            }
-                        });
+   
+document.addEventListener("DOMContentLoaded", () => {
 
-                        document.querySelectorAll('[data-opener]').forEach(opener => {
-                            if (opener.getAttribute('data-opener') == id) {
-                                opener.classList.add('fw-bold');
-                            } else {
-                                opener.classList.remove('fw-bold');
-                            }
-                        });
+    openTab(1);
+
+    // Başlangıçta "Gizlilik" sekmesini koyu yap
+    const defaultTab = document.getElementById("tab-1");
+    defaultTab.classList.add("fw-bold");
+});
+
+function openTab(tabId) {
+    const allContents = document.querySelectorAll(".content-section");
+    allContents.forEach(content => content.classList.add("d-none"));
+
+    document.getElementById(`content-${tabId}`).classList.remove("d-none");
+
+  
+    const allTabs = document.querySelectorAll('ul.list-unstyled a');
+    allTabs.forEach(tab => {
+        tab.classList.remove("fw-bold");
+    });
+
+   
+    const activeTab = document.getElementById(`tab-${tabId}`);
+    activeTab.classList.add("fw-bold");
+}
 
 
-                    }
                 </script>
                 <script>
                     document.querySelectorAll('.toggle-password').forEach(function (icon) {

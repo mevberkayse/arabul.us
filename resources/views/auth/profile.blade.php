@@ -7,12 +7,17 @@
     <title>AraBulus</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/profile.css">
+    <link rel="stylesheet" href="/assets/css/homepage.css?{{time();}}">
     <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 
 </head>
 <style>
+    body {
+        font-family: 'Nunito', sans-serif;
+    }
+
     /* Radio butonlar arasında gri çizgi */
     .form-check {
         border-bottom: 1px solid #ddd;
@@ -117,41 +122,28 @@
     }
 </style>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
     <div class="container mt-5">
         <div class="row p-3">
-            <!-- Sağdaki Profil Bilgileri Bölümü -->
             <div class="col-md-4">
-                <div class="text-center mb-3">
-                    <!-- Profil Fotoğrafını Göster -->
-                    @if ($user->profile_picture)
-                        <img src="{{ asset(($user->profile_picture ?? 'default.png')) }}" alt="Profil Fotoğrafı"
-                            width="100" height="100" class="rounded-circle" style="object-fit: cover;">
-                    @else
-                        <div class="rounded-circle"
-                            style="width: 100px; height: 100px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #ccc;">
-                            <i class="fas fa-user"></i> <!-- İkon yerine istediğiniz bir şey de ekleyebilirsiniz -->
+                <div class="container border p-3 rounded" style="border: 1px solid #ccc !important;">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-5">
+                            @if ($user->profile_picture)
+                                <img src="{{ asset(($user->profile_picture ?? 'default.png')) }}" alt="Profil Fotoğrafı"
+                                    width="100" height="100" class="rounded-circle" style="object-fit: cover;">
+                            @else
+                                <div class="rounded-circle"
+                                    style="width: 100px; height: 100px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #ccc;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            @endif
                         </div>
-                    @endif
-                </div>
-
-                <!-- Profil Fotoğrafı Yükleme Formu -->
-                <form action="{{ route('profile.update-picture') }}" method="POST" enctype="multipart/form-data"
-                    class="mt-3" id="profile-picture-form">
-                    @csrf
-                    <div class="form-group">
-                        <label for="profile_picture">Yeni Profil Fotoğrafı Yükle:</label>
-                        <input type="file" name="profile_picture" id="profile_picture"
-                            class="form-control @error('profile_picture') is-invalid @enderror">
-                        @error('profile_picture')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
+                        <div>
+                            <p style="font-size:20px;" class="mb-2 mt-2"><strong>{{$user->name}}</strong></p>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2">Güncelle</button>
-                    <a href="/delete-picture" class="btn btn-danger mt-2">Fotoğrafı Sil</a>
-
-                </form>
 
                     <!-- Başarı Mesajı -->
                     @if (session('success'))
@@ -161,121 +153,132 @@
                         </div>
                     @endif
 
-                    <div class="text-center">
-                        <p><strong>{{$user->name}}</strong></p>
-                        <p><i class="fa-regular fa-calendar-check"></i> <strong>Üyelik Tarihi:</strong>
-                            {{$user->created_at->format('d F Y')}}</p>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <p><i class="fa-solid fa-people-group"></i> <strong>Takipçi:</strong> 0</p>
-                            <div class="mx-2" style="border-left: 1px solid #ddd; height: 20px;"></div>
-                            <p><strong>Takip Edilen:</strong> 0</p>
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-outline-custom me-3" id="share-button">Profili Paylaş</button>
-                        @if($user->id !== Auth::id())
-                            <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}"><i
-                                    class="fa-solid fa-user-plus"></i></button>
-                        @endif
-
-                    </div>
-                    <!-- Toast -->
-                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11; top: 25%;">
-                        <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert"
-                            aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-                                    Profil URL'si başarıyla kopyalandı!
-                                </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                                    data-bs-dismiss="toast" aria-label="Kapat"></button>
-                            </div>
-                        </div>
+                    <div class="d-flex mt-5">
+                        <!-- Üyelik Tarihi -->
+                        <p><i class="fa-regular fa-calendar-check " style="color:a1a1a1; margin-right:5px;"></i>
+                            {{$user->created_at->format('d F Y')}}
+                        </p>
+                        <span class="ms-2">tarihinden beri üye</span> <!-- 'ms-2' ile margin ekledik -->
                     </div>
 
-
-                    <!-- Şikayet Et Butonu -->
-                    @if($user->id !== Auth::id())
-                        <div class="text-center mt-4">
-                            <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
-                            </button>
-                        </div>
-                    @endif
-
-                    <!-- Şikayet Modal -->
-                    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title mt-3" id="reportModalLabel">Şikayet Nedeni</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <!-- Şikayet Nedenleri -->
-                                        <div class="mb-4 mt-3">
-
-                                            <!-- Radio 1 -->
-                                            <div class="form-check border-bottom py-2 custom-radio">
-                                                <input class="form-check-input reason-radio" type="radio" name="reason"
-                                                    id="reason1" value="spam">
-                                                <label class="form-check-label" for="reason1">Spam</label>
-                                            </div>
-
-                                            <!-- Radio 2 -->
-                                            <div class="form-check border-bottom py-2 custom-radio">
-                                                <input class="form-check-input reason-radio" type="radio" name="reason"
-                                                    id="reason2" value="offensive">
-                                                <label class="form-check-label" for="reason2">Hakaret</label>
-                                            </div>
-
-                                            <!-- Radio 3 -->
-                                            <div class="form-check border-bottom py-2 custom-radio">
-                                                <input class="form-check-input reason-radio" type="radio" name="reason"
-                                                    id="reason3" value="fraud">
-                                                <label class="form-check-label" for="reason3">Dolandırıcılık</label>
-                                            </div>
-
-                                            <!-- Radio 4 -->
-                                            <div class="form-check border-bottom py-2 custom-radio">
-                                                <input class="form-check-input reason-radio" type="radio" name="reason"
-                                                    id="reason4" value="misleading">
-                                                <label class="form-check-label" for="reason4">Yanıltıcı Bilgi</label>
-                                            </div>
-
-                                            <!-- Radio 5 -->
-                                            <div class="form-check border-bottom py-2 custom-radio">
-                                                <input class="form-check-input reason-radio" type="radio" name="reason"
-                                                    id="reason5" value="harassment">
-                                                <label class="form-check-label" for="reason5">Taciz</label>
-                                            </div>
-
-                                            <!-- Radio 6 -->
-                                            <div class="form-check py-2 custom-radio">
-                                                <input class="form-check-input reason-radio" type="radio" name="reason"
-                                                    id="reason6" value="other">
-                                                <label class="form-check-label" for="reason6">Diğer</label>
-                                            </div>
-                                        </div>
-
-                                        <!-- Detaylı Açıklama -->
-                                        <div class="mb-2">
-                                            <label for="details" class="form-label">Detaylı Açıklama</label>
-                                            <textarea class="form-control" id="details" rows="4"
-                                                placeholder="Açıklamanızı buraya yazın..."></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn bildir-btn" id="bildir">Bildir</button>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Takipçi ve Takip Edilen -->
+                    <div class="d-flex  mt-3">
+                        <p><i class="fa-solid fa-people-group" style="color:a1a1a1; "></i> <strong>0</strong> takipçi
+                        </p>
+                        <div class="mx-2" style="border-left: 1px solid #ddd; height: 20px;"></div>
+                        <p><strong>0</strong> takip edilen</p>
                     </div>
+                </div>
+                <!-- "Profili Paylaş" Butonu Konteyner Dışında -->
+                <div class="text-center mt-3">
+                    <button class="btn btn-outline-custom me-3" id="share-button">Profili Paylaş</button>
+                </div>
+
+                <!-- Takip Et Butonu -->
+                @if($user->id !== Auth::id())
+                    <div class="text-center mt-2">
+                        <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </button>
+                    </div>
+                @endif
             </div>
+            <!-- Toast -->
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11; top: 25%;">
+                <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert"
+                    aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Profil URL'si başarıyla kopyalandı!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Kapat"></button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Şikayet Et Butonu -->
+            @if($user->id !== Auth::id())
+                <div class="text-center mt-4">
+                    <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
+                    </button>
+                </div>
+            @endif
+
+            <!-- Şikayet Modal -->
+            <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title mt-3" id="reportModalLabel">Şikayet Nedeni</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <!-- Şikayet Nedenleri -->
+                                <div class="mb-4 mt-3">
+
+                                    <!-- Radio 1 -->
+                                    <div class="form-check border-bottom py-2 custom-radio">
+                                        <input class="form-check-input reason-radio" type="radio" name="reason"
+                                            id="reason1" value="spam">
+                                        <label class="form-check-label" for="reason1">Spam</label>
+                                    </div>
+
+                                    <!-- Radio 2 -->
+                                    <div class="form-check border-bottom py-2 custom-radio">
+                                        <input class="form-check-input reason-radio" type="radio" name="reason"
+                                            id="reason2" value="offensive">
+                                        <label class="form-check-label" for="reason2">Hakaret</label>
+                                    </div>
+
+                                    <!-- Radio 3 -->
+                                    <div class="form-check border-bottom py-2 custom-radio">
+                                        <input class="form-check-input reason-radio" type="radio" name="reason"
+                                            id="reason3" value="fraud">
+                                        <label class="form-check-label" for="reason3">Dolandırıcılık</label>
+                                    </div>
+
+                                    <!-- Radio 4 -->
+                                    <div class="form-check border-bottom py-2 custom-radio">
+                                        <input class="form-check-input reason-radio" type="radio" name="reason"
+                                            id="reason4" value="misleading">
+                                        <label class="form-check-label" for="reason4">Yanıltıcı Bilgi</label>
+                                    </div>
+
+                                    <!-- Radio 5 -->
+                                    <div class="form-check border-bottom py-2 custom-radio">
+                                        <input class="form-check-input reason-radio" type="radio" name="reason"
+                                            id="reason5" value="harassment">
+                                        <label class="form-check-label" for="reason5">Taciz</label>
+                                    </div>
+
+                                    <!-- Radio 6 -->
+                                    <div class="form-check py-2 custom-radio">
+                                        <input class="form-check-input reason-radio" type="radio" name="reason"
+                                            id="reason6" value="other">
+                                        <label class="form-check-label" for="reason6">Diğer</label>
+                                    </div>
+                                </div>
+
+                                <!-- Detaylı Açıklama -->
+                                <div class="mb-2">
+                                    <label for="details" class="form-label">Detaylı Açıklama</label>
+                                    <textarea class="form-control" id="details" rows="4"
+                                        placeholder="Açıklamanızı buraya yazın..."></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bildir-btn" id="bildir">Bildir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
 
@@ -323,9 +326,9 @@
     </div>
     </div>
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-auto py-3 sticky-bottom">
+    <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
         <div class="container">
-            <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+            <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
         </div>
     </footer>
 </body>

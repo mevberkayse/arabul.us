@@ -13,6 +13,9 @@
 
 </head>
 <style>
+     body {
+        font-family: 'Nunito', sans-serif;
+    }
     /* Radio butonlar arasında gri çizgi */
     .form-check {
         border-bottom: 1px solid #ddd;
@@ -115,20 +118,33 @@
         border-color: #820933;
         width: 500px;
     }
+    .container.mt-5 {
+  padding-bottom: 60px; /* Footer'ın yüksekliği kadar boşluk bırakın */
+}
+.container.mt-3 {
+  display: flex;
+  justify-content: center;  /* Yatayda ortalama */
+  flex-direction: column;
+  align-items: center;  /* Dikeyde ortalama */
+}
+h4.text-center.mb-2 {
+  text-align: center;  /* Yalnızca başlık ortalanacak */
+  white-space: nowrap;
+
+}
 </style>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="row p-3">
-            <!-- Soldaki Ürünler Bölümü -->
-            <div class="col-md-8">
-                <h4 class="text-center mb-3">Favori İlanlarım</h4>
+            <h4 class="text-center mb-2">Favori İlanlarım</h4>
+
                 <!-- Ürün Kartları -->
-                <div class="row gap-0">
+                <div class="row gap-3 mt-2">
                     @foreach($listings as $listing)
-                        <div class="col">
-                            <div class="card" style="width: 18rem; text-decoration: none;">
+                        <div class="col-4">
+                            <div class="card" style="width: 100%; text-decoration: none;">
                                 <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                                     style="text-decoration: none;">
                                     <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
@@ -165,9 +181,9 @@
     </div>
     </div>
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-auto py-3 sticky-bottom">
+    <footer class="bg-light text-center text-lg-start py-3 mt-auto">
         <div class="container">
-            <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+            <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
         </div>
     </footer>
 </body>
