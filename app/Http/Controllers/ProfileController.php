@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Favorite;
 use App\Models\Listing;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -127,5 +128,18 @@ class ProfileController extends Controller
 
         return view('yardim');
     }
+
+    public function favorites(Request $request) {
+        $user = $request->user();
+        $favorites = Favorite::where('user_id', $user->id)->get();
+        $f = [];
+        foreach ($favorites as $favorite) {
+            $f[] = Listing::find($favorite->listing_id);
+         }
+
+        return view('auth.favorites', ['listings' => $f, 'user' => $user]);
+
+    }
+
 }
 

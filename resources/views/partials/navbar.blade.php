@@ -1,5 +1,4 @@
 <style>
-    
     @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
     /* Modalın Boyutunu Küçültme ve Karemsi Yapma */
@@ -250,6 +249,10 @@
     .search-result-item:hover {
         background-color: #f0f0f0;
     }
+
+    .dropdown-item {
+        padding: 0.2rem 1rem !important;
+    }
 </style>
 <nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
@@ -330,12 +333,22 @@
                         <img src="@if(auth()->check()){{ auth()->user()->profile_picture}}@else{{config('auth.default_profile_picture_path')}} @endif"
                             alt="" width="32" height="32" class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start text-small shadow">
-                        <li><a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a></li>
+                    <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start text-small shadow"
+                        style="margin-top:17px;left:-120px">
+                        @if(auth()->check())
+                        <li><a class="dropdown-item" href="{{route('profile.edit')}}">Hesabım</a></li>
+                        <li><a class="dropdown-item" href="/settings">Ayarlar</a></li>
+                        <li><a class="dropdown-item" href="/favorilerim">Favori İlanlarım</a></li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="{{route('logout')}}">Sign out</a></li>
+                        @else
+                        <li><a class="dropdown-item" href="{{route('login')}}">Giriş Yap</a></li>
+                        <li><a class="dropdown-item" href="{{route('login')}}">Kayıt Ol</a></li>
+                        @endif
+
                     </ul>
                 </div>
             </div>
