@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Session;
 
 
 class ProfileController extends Controller
@@ -140,6 +142,35 @@ class ProfileController extends Controller
         return view('auth.favorites', ['listings' => $f, 'user' => $user]);
 
     }
+    public function updateUsername(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        DB::table('users')
+            ->where('id', Auth::id())
+            ->update(['name' => $request->username]);
+
+        return response()->json(['message' => 'Username updated successfully!'], 200);
+    }
+public function logoutFromAllDevices()
+    {
+        // Giriş yapan kullanıcının oturumunu alın
+        $user = Auth::user();
+
+        // Kullanıcıya ait oturumları sil (session tablosunu kullanarak)
+        Session::where('user_id', $user->id)->delete();
+
+        // Mevcut oturumu da kapat
+        Auth::logout();
+
+        // Yanıt döndür
+        return response()->json(['message' => 'Tüm cihazlardan çıkış yapıldı.'], 200);
+    }
 
 }
-
