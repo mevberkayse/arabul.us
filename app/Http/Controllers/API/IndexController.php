@@ -47,8 +47,8 @@ class IndexController extends Controller
             // respond with "message" => "trigger_location"
             return response()->json(['message' => 'trigger_location']);
         }
-        $lat = round($lat, 3);
-        $lng = round($lng, 3);
+        $lat = round($lat, 2);
+        $lng = round($lng, 2);
 
         // map Listing model to get items where `location` = ($lat, $lng)
         $q = Listing::where([['lat', 'LIKE', $lat . "%"], ['long', 'LIKE', $lng . "%"]]);
