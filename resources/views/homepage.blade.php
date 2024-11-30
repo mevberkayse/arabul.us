@@ -23,7 +23,7 @@
 
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
 
     <div class="container mt-5">

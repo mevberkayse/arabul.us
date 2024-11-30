@@ -283,7 +283,7 @@
     }
 </style>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
 
 
@@ -442,6 +442,11 @@
         
         </div>
     </div>
+    <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
+                    <div class="container">
+                        <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
+                    </div>
+                </footer>
 </body>
 
 </html>

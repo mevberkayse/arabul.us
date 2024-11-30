@@ -10,6 +10,9 @@
 
 </head>
 <style>
+   body {
+        font-family: 'Nunito', sans-serif;
+    }
   /* Radio butonlar arasında gri çizgi */
   .form-check {
     border-bottom: 1px solid #ddd;
@@ -114,7 +117,7 @@
   }
 </style>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
   @include('partials.navbar')
   <div class="container mt-5">
     <div class="row p-3">
@@ -265,11 +268,11 @@
   </div>
   </div>
   <!-- Footer -->
-  <footer class="bg-light text-center text-lg-start mt-auto py-3 sticky-bottom">
-    <div class="container">
-      <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
-    </div>
-  </footer>
+  <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
+                    <div class="container">
+                        <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
+                    </div>
+                </footer>
 </body>
 
 
