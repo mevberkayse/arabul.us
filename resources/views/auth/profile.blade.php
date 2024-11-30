@@ -138,7 +138,7 @@
 
                 <!-- Profil Fotoğrafı Yükleme Formu -->
                 <form action="{{ route('profile.update-picture') }}" method="POST" enctype="multipart/form-data"
-                    class="mt-3">
+                    class="mt-3" id="profile-picture-form">
                     @csrf
                     <div class="form-group">
                         <label for="profile_picture">Yeni Profil Fotoğrafı Yükle:</label>
@@ -151,7 +151,7 @@
                     <button type="submit" class="btn btn-primary mt-2">Güncelle</button>
                     <a href="/delete-picture" class="btn btn-danger mt-2">Fotoğrafı Sil</a>
 
-
+                </form>
 
                     <!-- Başarı Mesajı -->
                     @if (session('success'))
