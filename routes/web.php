@@ -27,6 +27,8 @@ Route::get('/kullanici-profili/{id?}', [UserController::class, 'showProfile'])->
 Route::get('/settings', [ProfileController::class, 'settings']);
 
 Route::get('/yardim', [ProfileController::class, 'yardim']);
+Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show')->whereNumber('id');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
     Route::any('/delete-picture', [ProfileController::class, 'deletePicture'])->name('profile.delete-picture');
+    Route::post('/profile/update-username', [ProfileController::class, 'updateUsername'])->name('profile.update.username');
+    Route::post('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.update.email');
+    Route::post('/logout-all', [ProfileController::class, 'logoutFromAllDevices'])->middleware('auth');
 
     Route::get('/favorilerim', [ProfileController::class, 'favorites'])->name('profile.favorites');
 });
