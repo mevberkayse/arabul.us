@@ -20,7 +20,6 @@
                 <h1>Hesap Oluştur</h1>
                 <div class="social-icons">
                     <a href="/login/google/redirect" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="/login/facebook/redirect" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>veya kayıt için e-postanızı kullanın</span>
                 <input type="text" name="name" placeholder="İsim">
@@ -36,7 +35,6 @@
                 <h1>Hesabına Gir</h1>
                 <div class="social-icons">
                     <a href="/login/google/redirect" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                    <a href="/login/facebook/redirect" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
 
                 </div>
                 <span>veya e-mail şifreni kullan</span>
