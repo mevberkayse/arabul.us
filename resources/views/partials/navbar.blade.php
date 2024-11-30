@@ -298,21 +298,13 @@
                 <!-- konum -->
                 <div class="border rounded p-2 d-flex align-items-center">
                     <i class="fa-solid fa-map-marker-alt"></i>
-                    <span class="ms-2">@if(session()->has('address')){{session()->get('address')}} @else Türkiye
+                    <span class="ms-2" id="addressText">@if(session()->has('address')){{session()->get('address')}} @else Türkiye
                         @endif</span>
                     <div class="dropdown ms-2">
                         <i class="fa-solid fa-chevron-down dropdown-toggle" id="locationDropdown"
                             data-bs-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" aria-labelledby="locationDropdown">
-                            <li>
-                                <div class="input-group">
-                                    <span class="input-group-text border-0 bg-transparent"><i
-                                            class="fa-solid fa-magnifying-glass"></i></span>
-                                    <input type="text" class="form-control" placeholder="İl ve İlçe Gir"
-                                        aria-label="Search">
-                                </div>
-                            </li>
-                            <li>
+                        <ul class="dropdown-menu p-3" aria-labelledby="locationDropdown">
+                            <li class="mt-2">
                                 <a class="dropdown-item text-primary transparent-button" href="#" onclick="showMap();"
                                     role="button">
                                     Mevcut Konum Kullan
@@ -610,6 +602,22 @@
                 $('#mapModal').on('hidden.bs.modal', function () {
                     map.remove();
                 });
+            });
+
+            $.ajax({
+                url: '/api/save-location',
+                method: 'POST',
+                data: {
+                    lat: lat,
+                    lng: lng,
+                    _token: "{{csrf_token()}}"
+                },
+                success: (data) => {
+                    if (data.message == 'success') {
+//                        location.reload();
+                        $('#addressText').text(data.address);
+                    }
+                }
             });
         }, (error) => {
             alert('Konum alınamadı. Lütfen tarayıcınızın konum izni verdiğinden emin olun.');
