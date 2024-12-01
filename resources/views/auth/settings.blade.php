@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        FontAwesomeConfig = { autoReplaceSvg: false }
+        FontAwesomeConfig = {
+            autoReplaceSvg: false
+        }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -279,215 +281,375 @@
         border-color: #820933;
         width: 100px;
     }
+
     .fw-bold {
-    font-weight: bold;
-    color: black !important;
-}
+        font-weight: bold;
+        color: black !important;
+    }
+
+    /* Başarı mesajı stil */
+    .success-message {
+        display: none;
+        background-color: #4CAF50;
+        /* Yeşil renk */
+        color: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 1s;
+    }
+
+    /* Hata mesajı stil */
+    .error-message {
+        display: none;
+        background-color: #f44336;
+        /* Kırmızı renk */
+        color: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        animation: fadeIn 1s;
+    }
+
+    /* Fade in animasyonu */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 </style>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
     <div class="container mt-5">
-    <div class="row">
-        <!-- Sol taraftaki 3 kolonluk menü -->
-        <div class="col-3">
-            <ul class="list-unstyled">
-                <li class="mb-3">
-                    <a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none" onclick="openTab(1);" data-opener="1">Gizlilik</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" id="tab-2" class="text-dark text-decoration-none" onclick="openTab(2);" data-opener="2">Bildirimler</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" id="tab-3" class="text-dark text-decoration-none" onclick="openTab(3);" data-opener="3">Profilimi Düzenle</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal">Hesabımı sil</a>
-                </li>
-            </ul>
-        </div>
+        <div class="row">
+            <!-- Sol taraftaki 3 kolonluk menü -->
+            <div class="col-3">
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none" onclick="openTab(1);" data-opener="1">Gizlilik</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" id="tab-2" class="text-dark text-decoration-none" onclick="openTab(2);" data-opener="2">Bildirimler</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" id="tab-3" class="text-dark text-decoration-none" onclick="openTab(3);" data-opener="3">Profilimi Düzenle</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal">Hesabımı sil</a>
+                    </li>
+                </ul>
+            </div>
 
-        <!-- Sağ taraftaki 6 kolonluk içerik -->
-        <div class="col-6">
-            <!-- Şifre Değiştir Bölümü -->
-            <div id="content-1" class="content-section">
-                <div class="border p-3 mb-4" style="border-radius: 15px;">
-                    <h5 class="mb-4 mt-2">Şifre Değiştir</h5>
-                    <hr class="my-3 line">
-                    <div class="position-relative mb-3">
-                        <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin" id="current-password" name="current-password">
-                        <div class="toggle-password" data-input="current-password">
-                            <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+            <!-- Sağ taraftaki 6 kolonluk içerik -->
+            <div class="col-6">
+                <!-- Şifre Değiştir Bölümü -->
+                <div id="content-1" class="content-section">
+                    <div class="border p-3 mb-4" style="border-radius: 15px;">
+                        <h5 class="mb-4 mt-2">Şifre Değiştir</h5>
+                        <hr class="my-3 line">
+                        <div class="position-relative mb-3">
+                            <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin" id="current-password" name="current-password">
+                            <div class="toggle-password" data-input="current-password">
+                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div class="position-relative mb-3">
+                            <input type="password" class="form-control" placeholder="Yeni şifrenizi girin" id="new-password" name="new-password">
+                            <div class="toggle-password" data-input="new-password">
+                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div class="position-relative mb-3">
+                            <input type="password" class="form-control" placeholder="Yeni şifreyi onaylayın" id="confirm-password" name="confirm-password">
+                            <div class="toggle-password" data-input="confirm-password">
+                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                            </div>
                         </div>
                     </div>
-                    <div class="position-relative mb-3">
-                        <input type="password" class="form-control" placeholder="Yeni şifrenizi girin" id="new-password" name="new-password">
-                        <div class="toggle-password" data-input="new-password">
-                            <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
-                        </div>
-                    </div>
-                    <div class="position-relative mb-3">
-                        <input type="password" class="form-control" placeholder="Yeni şifreyi onaylayın" id="confirm-password" name="confirm-password">
-                        <div class="toggle-password" data-input="confirm-password">
-                            <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                    <button class="btn btn-custom w-100">Kaydet</button>
+                </div>
+
+                <!-- Bildirimler Bölümü -->
+                <div id="content-2" class="content-section d-none">
+                    <div class="border p-3 mb-4" style="border-radius: 15px;">
+                        <h5 class="mb-4 mt-2">Bildirimler</h5>
+                        <hr class="my-3 line">
+                        <div class="position-relative mb-3 d-flex justify-content-between align-items-center">
+                            <p class="checkboxbildirim mb-0">Güncellemeler ve kampanyalar hakkında bildirim al</p>
+                            <i class="fa-solid fa-toggle-on toggle-icon"></i>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-custom w-100">Kaydet</button>
-            </div>
 
-            <!-- Bildirimler Bölümü -->
-            <div id="content-2" class="content-section d-none">
-                <div class="border p-3 mb-4" style="border-radius: 15px;">
-                    <h5 class="mb-4 mt-2">Bildirimler</h5>
-                    <hr class="my-3 line">
-                    <div class="position-relative mb-3 d-flex justify-content-between align-items-center">
-                        <p class="checkboxbildirim mb-0">Güncellemeler ve kampanyalar hakkında bildirim al</p>
-                        <i class="fa-solid fa-toggle-on toggle-icon"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Profili Düzenle Bölümü -->
-            <div id="content-3" class="content-section d-none">
-                <div class="border p-3 mb-4" style="border-radius: 15px;">
-                    <h5 class="mb-4 mt-2">Profili Düzenle</h5>
-                    <hr class="my-3 line">
-                    <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
-                    <div class="d-flex align-items-center mb-4">
-                        <img src="https://via.placeholder.com/100" alt="Profil Resmi" class="rounded-circle me-3" style="width: 100px; height: 100px;">
-                        <button class="btn btn-outline-custom ms-auto">Değiştir</button>
-                    </div>
-                    <hr class="my-3 line">
-                    <h5 class="mb-2 mt-4" style="font-size:18px;">İsim Soyisim</h5>
-                    <div class="d-flex align-items-center mb-4 mt-3">
-                        <input type="text" class="form-control me-3" placeholder="İsim Soyisim">
-                        <button class="btn btn-outline-custom">Değiştir</button>
-                    </div>
-                    <hr class="my-3 line">
-                    <h5 class="mb-2" style="font-size:18px;">İletişim Bilgileri</h5>
-                    <p class="mb-2 mt-4">E-mail</p>
-                    <div class="d-flex align-items-center mt-3">
-                        <input type="email" class="form-control me-3" placeholder="E-mail">
-                        <button class="btn btn-outline-custom">Değiştir</button>
+                <!-- Profili Düzenle Bölümü -->
+                <div id="content-3" class="content-section d-none">
+                    <div class="border p-3 mb-4" style="border-radius: 15px;">
+                        <h5 class="mb-4 mt-2">Profili Düzenle</h5>
+                        <hr class="my-3 line">
+                        <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://via.placeholder.com/100" alt="Profil Resmi"
+                                class="rounded-circle me-3" style="width: 100px; height: 100px;">
+                            <label for="profile_picture_input" class="btn btn-outline-custom ms-auto" style="cursor: pointer;">
+                                Değiştir
+                            </label>
+                        </div>
+                        <form method="POST" action="{{ route('profile.update-picture') }}" enctype="multipart/form-data">
+                            @csrf
+                            <!-- Dosya seçiciyi gizle ve butona bağla -->
+                            <input type="file" id="profile_picture_input" name="profile_picture" style="display: none;" required onchange="this.form.submit()">
+                        </form>
+                        <hr class="my-3 line">
+                        <h5 class="mb-2 mt-4" style="font-size:18px;">İsim-Soyisim</h5>
+                        <div class="d-flex align-items-center mb-4 mt-3">
+                            <!-- Eski İsim-Soyisim -->
+                            <input type="text" class="form-control me-3" id="current_name" value="{{ Auth::user()->name }}" disabled>
+                            <!-- Yeni İsim-Soyisim -->
+                            <input type="text" class="form-control me-3" id="new_name" placeholder="Yeni İsim-Soyisim">
+                            <button class="btn btn-outline-custom" id="changeNameBtn">Değiştir</button>
+                        </div>
+                        <hr class="my-3 line">
+                        <h5 class="mb-2" style="font-size:18px;">İletişim Bilgileri</h5>
+                        <p class="mb-2 mt-4">E-mail</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <!-- Eski E-mail -->
+                            <input type="email" class="form-control me-3" id="current_email" value="{{ Auth::user()->email }}" disabled>
+                            <!-- Yeni E-mail -->
+                            <input type="email" class="form-control me-3" id="new_email" placeholder="Yeni E-mail">
+                            <button class="btn btn-outline-custom" id="changeMail">Değiştir</button>
+    
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-                <!-- Footer -->
-                <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
-                    <div class="container">
-                        <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
-                    </div>
-                </footer>
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
+        <div class="container">
+            <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
+        </div>
+    </footer>
 
-                <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content text-center">
-                            <div class="modal-header flex-column border-0">
-                                <h5 class="modal-title w-100" id="logoutModalLabel">Tüm cihazlardan çıkış yap</h5>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-3 mt-2">Tüm hesaplardan ve cihazlardan çıkış yapılacaktır. Devam etmek
-                                    istiyor
-                                    musunuz?</p>
-                                <button type="button" class="btn bildir-btn me-3">Çıkış Yap</button>
-                                <button type="button" class="btn btn-outline-custom"
-                                    data-bs-dismiss="modal">Vazgeç</button>
-                            </div>
-                        </div>
-                    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-header flex-column border-0">
+                    <h5 class="modal-title w-100" id="logoutModalLabel">Tüm cihazlardan çıkış yap</h5>
                 </div>
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content text-center">
-                            <div class="modal-header flex-column border-0">
-                                <h5 class="modal-title w-100" id="deletModalLabel">Hesabımı sil</h5>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-3 mt-2">Hesabınız devre dışı bırakıldığında işlem geri alınamaz.Hesabınızı
-                                    silmek istediğinizden emin misiniz?</p>
-                                <button type="button" class="btn bildir-btn me-3 w-25">Hesabımı Sil</button>
-                                <button type="button" class="btn btn-outline-custom"
-                                    data-bs-dismiss="modal">Vazgeç</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    <p class="mb-3 mt-2">Tüm hesaplardan ve cihazlardan çıkış yapılacaktır. Devam etmek
+                        istiyor
+                        musunuz?</p>
+                    <button type="button" class="btn bildir-btn me-3">Çıkış Yap</button>
+                    <button type="button" class="btn btn-outline-custom"
+                        data-bs-dismiss="modal">Vazgeç</button>
                 </div>
-                <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-header flex-column border-0">
+                    <h5 class="modal-title w-100" id="deletModalLabel">Hesabımı sil</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3 mt-2">Hesabınız devre dışı bırakıldığında işlem geri alınamaz.Hesabınızı
+                        silmek istediğinizden emin misiniz?</p>
+                    <button type="button" class="btn bildir-btn me-3 w-25">Hesabımı Sil</button>
+                    <button type="button" class="btn btn-outline-custom"
+                        data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="successMessage" class="success-message"></div>
+    <div id="errorMessage" class="error-message"></div>
 
-                <script>
-   
-document.addEventListener("DOMContentLoaded", () => {
+    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 
-    openTab(1);
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-    // Başlangıçta "Gizlilik" sekmesini koyu yap
-    const defaultTab = document.getElementById("tab-1");
-    defaultTab.classList.add("fw-bold");
-});
+            openTab(1);
 
-function openTab(tabId) {
-    const allContents = document.querySelectorAll(".content-section");
-    allContents.forEach(content => content.classList.add("d-none"));
+            // Başlangıçta "Gizlilik" sekmesini koyu yap
+            const defaultTab = document.getElementById("tab-1");
+            defaultTab.classList.add("fw-bold");
+        });
 
-    document.getElementById(`content-${tabId}`).classList.remove("d-none");
+        function openTab(tabId) {
+            const allContents = document.querySelectorAll(".content-section");
+            allContents.forEach(content => content.classList.add("d-none"));
 
-  
-    const allTabs = document.querySelectorAll('ul.list-unstyled a');
-    allTabs.forEach(tab => {
-        tab.classList.remove("fw-bold");
+            document.getElementById(`content-${tabId}`).classList.remove("d-none");
+
+
+            const allTabs = document.querySelectorAll('ul.list-unstyled a');
+            allTabs.forEach(tab => {
+                tab.classList.remove("fw-bold");
+            });
+
+
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            activeTab.classList.add("fw-bold");
+        }
+    </script>
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(icon) {
+            icon.addEventListener('click', function() {
+                // 'data-input' özniteliğinden input id'sini al
+                var inputField = document.getElementById(this.getAttribute('data-input'));
+
+                if (!inputField) {
+                    console.error('Input alanı bulunamadı: ' + this.getAttribute('data-input'));
+                    return; // Eğer input alanı bulunamazsa, işleme devam etme
+                }
+
+                // Şifreyi göster/gizle
+                if (inputField.type === 'password') {
+                    // içindeki i etiketinin class'ını değiştir
+                    icon.querySelector('i').classList.remove('fa-eye-slash'); // Göz çizgisini kaldır
+                    icon.querySelector('i').classList.add('fa-eye'); // Göz ikonunu ekle
+                    inputField.type = 'text'; // Şifreyi göster
+
+                } else {
+                    inputField.type = 'password'; // Şifreyi gizle
+                    icon.querySelector('i').classList.remove('fa-eye'); // Göz ikonunu kaldır
+                    icon.querySelector('i').classList.add('fa-eye-slash'); // Göz çizgisini ekle
+                }
+            });
+        });
+
+        document.querySelectorAll('.toggle-password').forEach(function(icon) {
+            icon.addEventListener('click', function() {
+                console.log('İkona tıklandı!'); // Tıklama mesajını görmek için
+                var inputField = document.getElementById(this.getAttribute('data-input'));
+                console.log(inputField); // Hedeflenen input alanını görmek için
+            });
+        });
+    </script>
+    <script>
+     document.getElementById('changeNameBtn').addEventListener('click', function() {
+    // Yeni isim soyisim değerini al
+    const newName = document.getElementById('new_name').value;
+
+    if (!newName) {
+        alert("Lütfen geçerli bir isim girin!");
+        return;
+    }
+
+    // AJAX isteği gönder
+    $.ajax({
+        url: '/profile/update-name', // URL
+        method: 'POST', // İstek metodu
+        contentType: 'application/json', // Gönderilen verinin tipi
+        data: JSON.stringify({
+            name: newName,
+            _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
+        }), 
+        success: function(response) {
+            if (response.success) {
+                // Başarı mesajını göster
+                $('#successMessage').text(response.message).fadeIn().delay(3000).fadeOut();
+                location.reload(); // Sayfayı yenileyerek değişikliği göster
+            } else {
+                // Hata mesajını göster
+                $('#errorMessage').text("Bir hata oluştu: " + response.message).fadeIn().delay(3000).fadeOut();
+            }
+        },
+        error: function(xhr, status, error) {
+            // AJAX hata mesajı
+            $('#errorMessage').text("Bir hata oluştu: " + error).fadeIn().delay(3000).fadeOut();
+        }
     });
+});
+    
+    </script>
 
-   
-    const activeTab = document.getElementById(`tab-${tabId}`);
-    activeTab.classList.add("fw-bold");
-}
+<script>
+     document.getElementById('changeMail').addEventListener('click', function() {
+    // Yeni isim soyisim değerini al
+    const newEmail = document.getElementById('new_email').value;
+
+    if (!newEmail) {
+        alert("Lütfen geçerli bir isim girin!");
+        return;
+    }
+
+    // AJAX isteği gönder
+    $.ajax({
+        url: '/profile/update-email', // URL
+        method: 'POST', // İstek metodu
+        contentType: 'application/json', // Gönderilen verinin tipi
+        data: JSON.stringify({
+            email: newEmail,
+            _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
+        }), 
+        success: function(response) {
+            if (response.success) {
+                // Başarı mesajını göster
+                $('#successMessage').text(response.message).fadeIn().delay(3000).fadeOut();
+                location.reload(); // Sayfayı yenileyerek değişikliği göster
+            } else {
+                // Hata mesajını göster
+                $('#errorMessage').text("Bir hata oluştu: " + response.message).fadeIn().delay(3000).fadeOut();
+            }
+        },
+        error: function(xhr, status, error) {
+            // AJAX hata mesajı
+            $('#errorMessage').text("Bir hata oluştu: " + error).fadeIn().delay(3000).fadeOut();
+        }
+    });
+});
+    
+    </script>
+
+<script>
+    $(document).ready(function () {
+        $('.btn.bildir-btn').click(function () {
+            const csrfToken = "{{ csrf_token() }}"; // Blade içinde CSRF token'ı alıyoruz
+
+            $.ajax({
+                url: '/logout-all', // Çıkış endpoint'i
+                type: 'POST',
+                contentType: 'application/json', // JSON formatı
+                dataType: 'json', // Sunucudan JSON formatında yanıt bekliyoruz
+                data: JSON.stringify({
+                    _token: csrfToken // CSRF token'ı JSON verisinin içinde gönderiyoruz
+                }),
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message); // Başarı mesajını göster
+                        window.location.href = '/login'; // Login sayfasına yönlendir
+                    }
+                },
+                error: function (xhr) {
+                    console.error('Hata:', xhr.responseJSON.message); // Hata mesajını konsola yazdır
+                    alert('Çıkış işlemi sırasında bir hata oluştu.');
+                }
+            });
+        });
+    });
+</script>
 
 
-                </script>
-                <script>
-                    document.querySelectorAll('.toggle-password').forEach(function (icon) {
-                        icon.addEventListener('click', function () {
-                            // 'data-input' özniteliğinden input id'sini al
-                            var inputField = document.getElementById(this.getAttribute('data-input'));
 
-                            if (!inputField) {
-                                console.error('Input alanı bulunamadı: ' + this.getAttribute('data-input'));
-                                return;  // Eğer input alanı bulunamazsa, işleme devam etme
-                            }
-
-                            // Şifreyi göster/gizle
-                            if (inputField.type === 'password') {
-                                // içindeki i etiketinin class'ını değiştir
-                                icon.querySelector('i').classList.remove('fa-eye-slash');  // Göz çizgisini kaldır
-                                icon.querySelector('i').classList.add('fa-eye');  // Göz ikonunu ekle
-                                inputField.type = 'text';  // Şifreyi göster
-
-                            } else {
-                                inputField.type = 'password';  // Şifreyi gizle
-                                icon.querySelector('i').classList.remove('fa-eye');  // Göz ikonunu kaldır
-                                icon.querySelector('i').classList.add('fa-eye-slash');  // Göz çizgisini ekle
-                            }
-                        });
-                    });
-
-                    document.querySelectorAll('.toggle-password').forEach(function (icon) {
-                        icon.addEventListener('click', function () {
-                            console.log('İkona tıklandı!');  // Tıklama mesajını görmek için
-                            var inputField = document.getElementById(this.getAttribute('data-input'));
-                            console.log(inputField);  // Hedeflenen input alanını görmek için
-                        });
-                    });
-                </script>
 </body>
 
 </html>

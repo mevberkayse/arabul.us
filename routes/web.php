@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show')->whereNumber('id');
     Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
     Route::any('/delete-picture', [ProfileController::class, 'deletePicture'])->name('profile.delete-picture');
-    Route::post('/profile/update-username', [ProfileController::class, 'updateUsername'])->name('profile.update.username');
+    Route::post('/profile/update-name', [ProfileController::class, 'updateName'])->name('profile.update-name');
     Route::post('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.update.email');
     Route::post('/logout-all', [ProfileController::class, 'logoutFromAllDevices'])->middleware('auth');
 

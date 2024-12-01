@@ -142,35 +142,97 @@ class ProfileController extends Controller
         return view('auth.favorites', ['listings' => $f, 'user' => $user]);
 
     }
-    public function updateUsername(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255',
+    public function updateName(Request $request)
+{
+    $user = $request->user();
+
+    // İsim validasyonu
+    $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
+
+    try {
+        // Yeni ismi kullanıcıya ata
+        $user->name = $request->input('name');
+        $user->save(); // Veritabanına kaydet
+
+        // Başarı durumu döndür
+        return response()->json([
+            'success' => true,
+            'message' => 'İsim başarıyla güncellendi',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
-        }
-
-        DB::table('users')
-            ->where('id', Auth::id())
-            ->update(['name' => $request->username]);
-
-        return response()->json(['message' => 'Username updated successfully!'], 200);
+    } catch (\Exception $e) {
+        // Hata durumunda hata mesajı döndür
+        return response()->json([
+            'success' => false,
+            'message' => 'Bir hata oluştu: ' . $e->getMessage(),
+        ], 500);  // 500 sunucu hatası
     }
+}
 public function logoutFromAllDevices()
-    {
-        // Giriş yapan kullanıcının oturumunu alın
-        $user = Auth::user();
+{
+    
+        $user = Auth::user(); // Oturum açmış kullanıcıyı al
+    
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kullanıcı bulunamadı.',
+            ], 404); // Kullanıcı bulunamazsa hata döndür
+        }
+    
+        try {
+            // Tüm oturumları silmek için kullanıcının oturum anahtarlarını al
+            DB::table('sessions')
+                ->where('user_id', $user->id)
+                ->delete();
+    
+            // Aktif oturumdan çıkış yap
+            Auth::logout();
+    
+            // Başarı mesajı döndür
+            return response()->json([
+                'success' => true,
+                'message' => 'Tüm cihazlardan başarıyla çıkış yaptınız.',
+            ], 200);
+    
+        } catch (\Exception $e) {
+            // Hata durumunda mesaj döndür
+            return response()->json([
+                'success' => false,
+                'message' => 'Bir hata oluştu: ' . $e->getMessage(),
+            ], 500);
+        }
+}
 
-        // Kullanıcıya ait oturumları sil (session tablosunu kullanarak)
-        Session::where('user_id', $user->id)->delete();
+    
+    public function updateEmail(Request $request)
+{
+    $user = $request->user();
 
-        // Mevcut oturumu da kapat
-        Auth::logout();
+    // İsim validasyonu
+    $request->validate([
+        'email' => 'required|string|max:255',
+    ]);
 
-        // Yanıt döndür
-        return response()->json(['message' => 'Tüm cihazlardan çıkış yapıldı.'], 200);
+    try {
+        // Yeni ismi kullanıcıya ata
+        $user->email = $request->input('email');
+        $user->save(); // Veritabanına kaydet
+
+        // Başarı durumu döndür
+        return response()->json([
+            'success' => true,
+            'message' => 'İsim başarıyla güncellendi',
+        ]);
+
+    } catch (\Exception $e) {
+        // Hata durumunda hata mesajı döndür
+        return response()->json([
+            'success' => false,
+            'message' => 'Bir hata oluştu: ' . $e->getMessage(),
+        ], 500);  // 500 sunucu hatası
     }
-
+}
 }
