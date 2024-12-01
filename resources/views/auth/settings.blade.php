@@ -362,9 +362,9 @@
                         <button class="btn btn-outline-custom ms-auto">Değiştir</button>
                     </div>
                     <hr class="my-3 line">
-                    <h5 class="mb-2 mt-4" style="font-size:18px;">Kullanıcı Adı</h5>
+                    <h5 class="mb-2 mt-4" style="font-size:18px;">İsim Soyisim</h5>
                     <div class="d-flex align-items-center mb-4 mt-3">
-                        <input type="text" class="form-control me-3" placeholder="Kullanıcı Adı">
+                        <input type="text" class="form-control me-3" placeholder="İsim Soyisim">
                         <button class="btn btn-outline-custom">Değiştir</button>
                     </div>
                     <hr class="my-3 line">
