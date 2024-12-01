@@ -110,37 +110,64 @@ border-color: #1a1b41 !important;
   outline: none;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5) !important; /* Hafif mavi bir gölge */
 }
+
+.chat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Butonun yerini sağa kaydırma */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 10px; /* Buton ile input arasına biraz boşluk */
+}
+/* Butonun yuvarlak hale gelmesi */
+.btn-custom {
+  border-radius: 50%; /* Yuvarlak buton */
+  padding: 10px; /* Butonun içeriğini büyütmek için */
+}
+
+.btn-custom i {
+  color: white; 
+}
+.btn-custom:hover i {
+  color: #1a1b41  !important; /* İkonun rengi beyaz */
+  background-color:transparent;
+}
 </style>
 <body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
-    <div class="container border mt-4" style="border-radius:10px;">
+    <div class="container border mt-4" style="border-radius:10px; border: 1px solid #1a1b41 !important; box-shadow: 0 0 5px rgba(52, 152, 219, 0.5) !important; ">
   <div class="row">
     <!-- Gelen Kutusu -->
-    <div class="col-6 border-end">
-      <h5 class="p-3 mt-2 fw-bold text-center">GELEN KUTUSU</h5>
-      <hr class="mt-1">
+    <div class="col-6 border-end" >
+      <h5 class="mt-3 fw-bold text-center">GELEN KUTUSU</h5>
+      <hr>
       <!-- Sohbet Kutuları -->
-      <div class="chat-box d-flex align-items-center p-2 border-bottom">
-        <img src="/assets/images/9187604.png" alt="Profil Foto" class="rounded-circle me-1 " width="40" height="40" />
+      <div class="chat-box d-flex align-items-center p-1 border-bottom">
+        <img src="/assets/images/9187604.png" alt="Profil Foto" class="rounded-circle me-1" width="40" height="40"/>
         <div>
     <strong class="ms-2">Ahmet Yılmaz</strong><br />
     <span class=" ms-2 text-muted">Son mesaj: Merhaba, ürün hala satılık mı?</span>
   </div>
         <i class="fa-solid fa-xmark ms-auto text-danger chat-delete"></i>
       </div>
-      <div class="chat-box d-flex align-items-center p-2 border-bottom">
+      <div class="chat-box d-flex align-items-center p-1 border-bottom">
         <img src="/assets/images/9187604.png" alt="Profil Foto" class="rounded-circle me-2" width="40" height="40" />
         <div>
-        <span class="fw-bold">Mehmet Can</span>
-        <span class="text-muted">Son mesaj: Merhaba, ürün hala satılık mı?</span>
+        <strong class="ms-2">Mehmet Can</strong>
+        <span class=" ms-2 text-muted">Son mesaj: Merhaba, ürün hala satılık mı?</span>
         </div>
         <i class="fa-solid fa-xmark ms-auto text-danger chat-delete"></i>
       </div>
-      <div class="chat-box d-flex align-items-center p-2">
+      <div class="chat-box d-flex align-items-center p-1">
         <img src="/assets/images/9187604.png" alt="Profil Foto" class="rounded-circle me-2" width="40" height="40" />
         <div>
-        <span class="fw-bold">Ayşe Kaya</span>
-        <span class="text-muted">Son mesaj: Merhaba, ürün hala satılık mı?</span>
+        <strong class="ms-2">Ayşe Kaya</strong>
+        <span class="  ms-2 text-muted">Son mesaj: Merhaba, ürün hala satılık mı?</span>
         </div>
         <i class="fa-solid fa-xmark ms-auto text-danger chat-delete"></i>
       </div>
@@ -149,15 +176,18 @@ border-color: #1a1b41 !important;
     <!-- Sohbet -->
     <div class="col-6">
       <!-- Sohbet Başlık -->
-      <div class="chat-header p-3 border-bottom">
-        <div class="d-flex align-items-center">
-          <img src="/assets/images/9187604.png" alt="Profil Foto" class="rounded-circle me-2" width="40" height="40" />
-          <div>
-            <strong>Ahmet Yılmaz</strong><br />
-            <small>Ürün: iPhone 14</small> <!--satılan ürün id-->
-          </div>
-        </div>
-      </div>
+      <div class="chat-header p-3 border-bottom d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center">
+    <img src="/assets/images/9187604.png" alt="Profil Foto" class="rounded-circle me-2" width="40" height="40" />
+    <div>
+      <strong>Ahmet Yılmaz</strong><br />
+      <small>Satılan Ürün: iPhone 14</small> <!-- satılan ürün id -->
+    </div>
+  </div>
+  <div>
+    <strong class="mt-2">10,000 TL</strong> <!-- Fiyat bilgisi -->
+  </div>
+</div>
       <!-- Sohbet Kutusu -->
       <div class="chat-body p-3">
       <div class="message-box sender">
@@ -169,11 +199,15 @@ border-color: #1a1b41 !important;
       </div>
       <!-- Mesaj Alanı -->
       <div class="chat-footer p-3 border-top">
-        <div class="input-group">
-          <input type="text" class="form-control custom-input" placeholder="Mesajınızı yazın..." />
-          <button class="btn btn-custom">Gönder</button>
-        </div>
-      </div>
+  <div class="input-group">
+    <input type="text" class="form-control custom-input" placeholder="Mesajınızı yazın..." />
+  </div>
+  <div class="button-container">
+    <button class="btn btn-custom">
+      <i class="fa-regular fa-paper-plane" ></i>
+    </button>
+  </div>
+</div>
     </div>
   </div>
 </div>
