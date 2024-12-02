@@ -281,6 +281,10 @@
     .custom-list li{
         margin-bottom: 15px;
     }
+    .content-section p {
+    margin-top: 1.5rem; /* 3 satır boşluk (1rem ≈ 16px) */
+    padding-left: 1.5rem; /* Cevabın sorudan daha içerde başlaması için */
+}
 </style>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
@@ -295,21 +299,23 @@
             </div>
         </div>
 
-        <div class="row mt-4" id="yasal">
+        <div class="row mt-4" >
             <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
             <div class="col-3" style="margin-right:100px;">
             <ul class="list-unstyled custom-list">
-                    <li><a href="#" class="text-dark text-decoration-none">Yasal ve Gizlilik Bilgileri</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Hesap</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Nasıl Kullanırım</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Güvenlik ve Emniyet</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Mesajlaşma</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Satış</a></li>
+                    <li><a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none"  onclick="openTab(1);" data-opener="1">Yasal ve Gizlilik Bilgileri</a></li>
+                    <li><a href="#" id="tab-2" class="text-dark text-decoration-none"  onclick="openTab(2);" data-opener="2">Hesap</a></li>
+                    <li><a href="#" id="tab-3" class="text-dark text-decoration-none"  onclick="openTab(3);" data-opener="3">Nasıl Kullanırım</a></li>
+                    <li><a href="#" id="tab-4" class="text-dark text-decoration-none"  onclick="openTab(4);" data-opener="4">Güvenlik ve Emniyet</a></li>
+                    <li><a href="#" id="tab-5" class="text-dark text-decoration-none"  onclick="openTab(5);" data-opener="5">Mesajlaşma</a></li>
+                    <li><a href="#" id="tab-6" class="text-dark text-decoration-none"  onclick="openTab(6);" data-opener="6">Satış</a></li>
                 </ul>
             </div>
 
             <!-- 6'lık sütun: Yasal ve gizlilik metinleri -->
-            <div class="col-6 ">
+              <!-- Sağ taraftaki 6 kolonluk içerik -->
+            <div class="col-6">
+            <div id="content-1" class="content-section">
             <ul class="list-unstyled custom-list">
                     <li><a href="#" class="text-dark text-decoration-none">Bireysel Üyelik Sözleşmesi Aydınlatma Metni</a></li>
                     <li><a href="#" class="text-dark text-decoration-none">Aydınlatma Metni</a></li>
@@ -318,40 +324,35 @@
                     <li><a href="#" class="text-dark text-decoration-none">Site Kullanım Koşulları</a></li>
                 </ul>
             </div>
-        </div> <hr class="my-3 line">
-        <div class="row mt-4" id="hesap">
-            <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
-            <div class="col-3" style="margin-right:100px;">
-            </div>
-
-            <!-- 6'lık sütun: Yasal ve gizlilik metinleri -->
-            <div class="col-6 ">
-            <h5>Profil Hakkında</h5>
-            <ul class="list-unstyled custom-list">
-                <li><a href="#" class="text-dark text-decoration-none">Tüm cihazlardan nasıl çıkış yapılır?</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Kullanıcı profilimi nasıl düzenleyebilirim?</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Bulunduğum konumu nasıl değiştirebilirim?</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Profilimi nasıl paylaşabilirim?</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Hesabımı nasıl silebilirim?</a></li>
-                    
-                <li><a href="#" class="text-dark text-decoration-none">Kaydolamıyorum</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Giriş yapamıyorum</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Doğrulama kodu aracılığıyla nasıl kaydolabilirim/giriş yapabilirim?</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Neden hesabım engellendi?</a></li>
-                <li><a href="#" class="text-dark text-decoration-none">Nasıl çıkış yaparım?</a></li>
+            <div id="content-2" class="content-section none">
+    <h5>Profil Hakkında</h5>
+    <ul class="list-unstyled custom-list">
+        <li>
+            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-1')">Tüm cihazlardan nasıl çıkış yapılır?</a>
+            <p id="answer-1" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+        </li>
+        <li>
+            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-2')">Kullanıcı profilimi nasıl düzenleyebilirim?</a>
+            <p id="answer-2" class="d-none">Profilinizi düzenlemek için Profilim bölümüne giderek bilgilerinizi güncelleyebilirsiniz.</p>
+        </li>
+        <li>
+            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-3')">Bulunduğum konumu nasıl değiştirebilirim?</a>
+            <p id="answer-3" class="d-none">Konumunuzu değiştirmek için Profilim > Konum Ayarları sekmesine gidin.</p>
+        </li>
+        <li>
+            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-4')">Profilimi nasıl paylaşabilirim?</a>
+            <p id="answer-4" class="d-none">Profil paylaşım linkinizi Profilim > Paylaş seçeneğinden alabilirsiniz.</p>
+        </li>
+        <li>
+            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-5')">Hesabımı nasıl silebilirim?</a>
+            <p id="answer-5" class="d-none">Hesabınızı silmek için Ayarlar > Hesap Silme seçeneğini kullanabilirsiniz.</p>
+        </li>
     </ul>
-                </div>
-        
-        </div>
-         <hr class="my-3 line">
-        <div class="row mt-4" id="nasil">
-            <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
-            <div class="col-3" style="margin-right:100px;">
-            </div>
+</div>
 
-            <!-- 6'lık sütun: Yasal ve gizlilik metinleri -->
-            <div class="col-6 ">
-            <ul class="list-unstyled custom-list">
+
+                <div  id="content-3" class="content-section d-none">
+                <ul class="list-unstyled custom-list">
                 <h5>Nasıl Kullanırım</h5>
                 <ul class="list-unstyled custom-list">
                         <li><a href="#" class="text-dark text-decoration-none">Başka birinin profiline nasıl bakabilirim?</a></li>
@@ -362,15 +363,9 @@
                 </ul>
                 </div>
         
-        </div>
-        <hr class="my-3 line">
-        <div class="row mt-4" id="güvenlik">
-            <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
-            <div class="col-3" style="margin-right:100px;">
-            </div>
 
             <!-- 6'lık sütun: Yasal ve gizlilik metinleri -->
-            <div class="col-6 ">
+            <div id="content-4" class="content-section d-none">
             <ul class="list-unstyled custom-list">
                 <h5>Güvenlik ve emniyet</h5>
                 <ul class="list-unstyled custom-list ">
@@ -386,16 +381,10 @@
     <li><a href="#" class="text-dark text-decoration-none">Bir kullanıcının kanunları çiğnediğini düşünüyorsam ne yapmalıyım?</a></li>
 </ul>
                 </div>
-        
-        </div>
-        <hr class="my-3 line">
-        <div class="row mt-4" id="mesaj">
-            <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
-            <div class="col-3" style="margin-right:100px;">
-            </div>
+
 
             <!-- 6'lık sütun: Yasal ve gizlilik metinleri -->
-            <div class="col-6 ">
+            <div id="content-5" class="content-section d-none">
             <ul class="list-unstyled custom-list">
                 <h5>Mesajlaşma</h5>
                 <ul class="list-unstyled custom-list">
@@ -411,16 +400,8 @@
 </ul>
 
                 </div>
-        
-        </div>
-        <hr class="my-3 line">
-        <div class="row mt-4" id="satis">
-            <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
-            <div class="col-3" style="margin-right:100px;">
-            </div>
-
             <!-- 6'lık sütun: Yasal ve gizlilik metinleri -->
-            <div class="col-6 ">
+            <div id="content-6" class="content-section d-none">
             <ul class="list-unstyled custom-list">
                 <h5>Satış</h5>
                 <ul class="list-unstyled custom-list">
@@ -442,11 +423,60 @@
         
         </div>
     </div>
+    </div>
     <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
                     <div class="container">
                         <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
                     </div>
+        
                 </footer>
+
+        
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            openTab(1);
+
+            // Başlangıçta "Gizlilik" sekmesini koyu yap
+            const defaultTab = document.getElementById("tab-1");
+            defaultTab.classList.add("fw-bold");
+        });
+
+        function openTab(tabId) {
+            const allContents = document.querySelectorAll(".content-section");
+            allContents.forEach(content => content.classList.add("d-none"));
+
+            document.getElementById(`content-${tabId}`).classList.remove("d-none");
+
+
+            const allTabs = document.querySelectorAll('ul.list-unstyled a');
+            allTabs.forEach(tab => {
+                tab.classList.remove("fw-bold");
+            });
+
+
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            activeTab.classList.add("fw-bold");
+        }
+    </script>
+    <script>
+        function toggleAnswer(link, answerId) {
+    const answerElement = document.getElementById(answerId);
+
+    // Eğer cevap zaten görünüyorsa gizle
+    if (!answerElement.classList.contains("d-none")) {
+        answerElement.classList.add("d-none");
+    } else {
+        // Diğer tüm cevapları gizle
+        const allAnswers = document.querySelectorAll('.content-section p');
+        allAnswers.forEach(answer => answer.classList.add("d-none"));
+
+        // Tıklanan cevabı göster
+        answerElement.classList.remove("d-none");
+    }
+}
+
+    </script>
 </body>
 
 </html>
