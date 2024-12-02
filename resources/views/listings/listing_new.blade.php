@@ -83,7 +83,7 @@
                             <i class="fa-solid fa-user"></i> <!-- Profil simgesi -->
                         </div>
                         <h5 class="mb-0 me-auto">{{$listing->user->name}}</h5>
-                        <button class="btn btn-outline-custom ">Sohbet</button>
+                        <button class="btn btn-outline-custom" @if($listing->user->id !== auth()->id()) onclick="createConvo();" @else disabled @endif>Sohbet</button>
                         <!-- Sohbet butonu satıcı adı hizasında -->
                     </div>
 
@@ -240,6 +240,28 @@
                             delay: 2000
                         })
                     }
+                }
+            })
+        }
+
+        let createConvo = () => {
+            $.ajax({
+                url: '/api/conversations/create',
+                method: 'POST',
+                data: {
+                    recipient_id: '{{$listing->user->id}}',
+                    listing_id: '{{$listing->id}}',
+                    _token: '{{csrf_token()}}'
+                },
+                success: response => {
+
+                        window.location.href = '/chat';
+                },
+                error: response => {
+                    PNotify.error({
+                        text: 'Sohbet oluşturulurken bir hata oluştu.',
+                        delay: 2000
+                    })
                 }
             })
         }

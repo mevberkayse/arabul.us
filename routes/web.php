@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\ConversationController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -42,6 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout-all', [ProfileController::class, 'logoutFromAllDevices'])->middleware('auth');
 
     Route::get('/favorilerim', [ProfileController::class, 'favorites'])->name('profile.favorites');
+
+    Route::get('/api/conversations/{conversationId}/messages', [ConversationController::class, 'getMessages']);
+    Route::get('/api/conversations/{conversationId}/listing', [ConversationController::class, 'getListing']);
+    Route::post('/api/conversations/{conversationId}/create-message', [ConversationController::class, 'saveMessage']);
+    Route::delete('/api/conversations/{conversationId}/delete', [ConversationController::class, 'deleteConversation']);
+
+    Route::post('/api/conversations/create', [ConversationController::class, 'createConversation']);
 });
 Route::get('/clear-session', function () {
     session()->forget('create_listing_images');
