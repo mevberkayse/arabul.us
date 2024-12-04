@@ -329,9 +329,9 @@
                         style="margin-top:17px;left:-120px">
                         @if(auth()->check())
                         <li><a class="dropdown-item" href="{{route('profile.edit')}}">Hesabım</a></li>
-                        <li><a class="dropdown-item" href="/settings">Ayarlar</a></li>
+                        <li><a class="dropdown-item" href="/chat">Sohbetlerim</a></li>
                         <li><a class="dropdown-item" href="/favorilerim">Favori İlanlarım</a></li>
-
+                        <li><a class="dropdown-item" href="/settings">Ayarlar</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

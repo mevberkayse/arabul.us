@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator; 
+use App\Models\Conversation;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 
 
@@ -79,7 +80,15 @@ class ProfileController extends Controller
 
     public function chat(Request $request)
     {
-        return view('chat');
+        $userConversations = Conversation::where('user_one_id', $request->user()->id)
+            ->orWhere('user_two_id', $request->user()->id)
+            ->get();
+        
+        $lastConvo = Conversation::where('user_one_id', $request->user()->id)
+            ->orWhere('user_two_id', $request->user()->id)
+            ->orderBy('updated_at', 'desc')
+            ->first();
+        return view('chat', ['chats' => $userConversations, 'lastConvo' => $lastConvo]);
     }
 
     public function editprofile(Request $request)
@@ -172,31 +181,31 @@ class ProfileController extends Controller
 }
 public function logoutFromAllDevices()
 {
-    
+
         $user = Auth::user(); // Oturum açmış kullanıcıyı al
-    
+
         if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'Kullanıcı bulunamadı.',
             ], 404); // Kullanıcı bulunamazsa hata döndür
         }
-    
+
         try {
             // Tüm oturumları silmek için kullanıcının oturum anahtarlarını al
             DB::table('sessions')
                 ->where('user_id', $user->id)
                 ->delete();
-    
+
             // Aktif oturumdan çıkış yap
             Auth::logout();
-    
+
             // Başarı mesajı döndür
             return response()->json([
                 'success' => true,
                 'message' => 'Tüm cihazlardan başarıyla çıkış yaptınız.',
             ], 200);
-    
+
         } catch (\Exception $e) {
             // Hata durumunda mesaj döndür
             return response()->json([
@@ -206,7 +215,7 @@ public function logoutFromAllDevices()
         }
 }
 
-    
+
     public function updateEmail(Request $request)
 {
     $user = $request->user();
