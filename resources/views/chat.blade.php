@@ -245,7 +245,7 @@
     @if($lastConvo !== null)
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const socket = io('http://localhost:3000', { transports: ['websocket'], upgrade: false });
+            const socket = io('http://arabul.us:2087', { transports: ['websocket'], upgrade: false });
 
             let currentConversationId = "{{$lastConvo->id}}"; // Initial conversation ID
             const userId = {{ auth() -> user() -> id
