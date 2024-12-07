@@ -83,12 +83,21 @@ class ProfileController extends Controller
         $userConversations = Conversation::where('user_one_id', $request->user()->id)
             ->orWhere('user_two_id', $request->user()->id)
             ->get();
-        
+
         $lastConvo = Conversation::where('user_one_id', $request->user()->id)
             ->orWhere('user_two_id', $request->user()->id)
             ->orderBy('updated_at', 'desc')
             ->first();
-        return view('chat', ['chats' => $userConversations, 'lastConvo' => $lastConvo]);
+
+        $openChat = $request->get('chat_id');
+        if ($openChat) {
+            $openChatInfo = Conversation::find($openChat);
+        } else {
+            $openChatInfo = null;
+        }
+
+
+        return view('chat', ['chats' => $userConversations, 'lastConvo' => $lastConvo, 'openChat' => $openChatInfo]);
     }
 
     public function editprofile(Request $request)

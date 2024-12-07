@@ -242,6 +242,9 @@
             <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
         </div>
     </footer>
+
+
+
     @if($lastConvo !== null)
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -396,6 +399,10 @@
     </script>
 
     @endif
+    @if($openChat !== null)
+    <script>
+        document.querySelector(`.chat-box[data-conversation-id="{{$openChat->id}}"]`).click();
+    </script>
 </body>
 
 </html>

@@ -114,28 +114,28 @@
         <div class="row justify-content-center ml-5">
             <h4>İlginizi Çekebilecek Ürünler</h4>
             <!-- Ürün Kartı 1 -->
-            @foreach($listings as $listing)
+            @foreach($listings as $related)
             <div class="col">
                 <div class="card" style="width: 18rem; text-decoration: none;">
-                    <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                    <a href="{{route('listings.show', [$related->id, '-', $related->slug])}}"
                         style="text-decoration: none;">
-                        <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4" style="height: 300px">
+                        <img src="{{$related->getThumbnail()}}" class="card-img-top  p-3 pt-4" style="height: 300px">
                     </a>
-                    @if(Auth::check() && $listing->user->id !== Auth::id())
-                    <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
+                    @if(Auth::check() && $related->user->id !== Auth::id())
+                    <div class="heart-icon" onclick="addToFavorite('{{$related->id}}');">
                         <i
-                            class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
+                            class="@if(Auth::user()->isFavorited($related->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
                     </div>
                     @endif
 
                     <div class="card-body">
-                        <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                        <a href="{{route('listings.show', [$related->id, '-', $related->slug])}}"
                             style="text-decoration: none; color:inherit">
-                            <h5 class="item-price large-price">{{$listing->price}} ₺</h5>
-                            <p class="item-text mt-2">{{$listing->title}}</p>
+                            <h5 class="item-price large-price">{{$related->price}} ₺</h5>
+                            <p class="item-text mt-2">{{$related->title}}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <p class="location">{{$listing->location}}</p>
-                                <p class="time">{{$listing->created_at->diffForHumans()}}</p>
+                                <p class="location">{{$related->location}}</p>
+                                <p class="time">{{$related->created_at->diffForHumans()}}</p>
                             </div>
                         </a>
                     </div>
@@ -254,8 +254,15 @@
                     _token: '{{csrf_token()}}'
                 },
                 success: response => {
+                        if(response.status == 'ok') {
+                            window.location.href = '/chat?chat_id=' + response.id;
+                        } else {
+                            PNotify.error({
+                                text: response.msg,
+                                delay: 2000
+                            })
+                        }
 
-                        window.location.href = '/chat';
                 },
                 error: response => {
                     PNotify.error({
