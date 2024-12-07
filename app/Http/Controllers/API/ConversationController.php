@@ -74,6 +74,24 @@ class ConversationController extends Controller
             'recipient_id' => 'required|exists:users,id',
         ]);
 
+        // Check if conversation already exists between these two users and listing
+        $existingConversation = Conversation::where('user_one_id', $request->user()->id)
+            ->where('user_two_id', $request->input('recipient_id'))
+            ->where('listing_id', $request->input('listing_id'))
+            ->first();
+
+        if ($existingConversation) {
+            return response()->json([
+                'status' => 'ok',
+                'conversation' => [
+                    'id' => $existingConversation->id,
+                    'user_one_id' => $existingConversation->user_one_id,
+                    'user_two_id' => $existingConversation->user_two_id,
+                ]
+            ]);
+        }
+
+
         $conversation = Conversation::create([
             'user_one_id' => $request->user()->id,
             'user_two_id' => $request->input('recipient_id'),
@@ -81,6 +99,7 @@ class ConversationController extends Controller
         ]);
 
         return response()->json([
+            'status' => 'ok',
             'conversation' => [
                 'id' => $conversation->id,
                 'user_one_id' => $conversation->user_one_id,
