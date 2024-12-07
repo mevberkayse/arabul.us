@@ -249,7 +249,7 @@
                 url: '/api/conversations/create',
                 method: 'POST',
                 data: {
-                    recipient_id: '{{$listing->user->id}}',
+                    recipient_id: '{{$listing->user_id}}',
                     listing_id: '{{$listing->id}}',
                     _token: '{{csrf_token()}}'
                 },
