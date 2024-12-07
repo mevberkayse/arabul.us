@@ -64,9 +64,9 @@
 
 <body>
     <div class="header d-flex align-items-center p-3">
-        <button class="back-button btn p-0 me-3">
+        <a href="{{route('listings.create', ['step' => 1])}}" class="back-button btn p-0 me-3">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </button>
+        </a>
 
         <!--<img src="logo.png" alt="Logo" class="logo"-->
         <h2>Logo</h2>
