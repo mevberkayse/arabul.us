@@ -15,13 +15,13 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
 <style>
-    
+
 </style>
 <body class="ilansayfasi3">
     <div class="header d-flex align-items-center p-3">
-        <button class="back-button btn p-0 me-3">
+        <a href="{{route('listings.create', ['step' => 2])}}" class="back-button btn p-0 me-3">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </button>
+        </a>
 
         <!--<img src="logo.png" alt="Logo" class="logo"-->
         <h2>Logo</h2>
@@ -69,18 +69,7 @@
         </div>
         <button class="btn btn-outline-custom mt-3 w-25" id="next_step">Devam Et</button>
     </div>
-    <script>
-        let chooseOption = (option, writeTo, id, subsubid) => {
-            $(writeTo).val(option).attr('data-id', subsubid);
-            $(`#subcategory-${id}`).modal('hide');
 
-            // clear other inputs
-            $('input[name="subcategory-input"]').not(writeTo).val('').attr('data-id', '');
-            // clear radio inputs too
-            $('input[type="radio"]').prop('checked', false);
-
-        }
-    </script>
     @foreach($subCategories as $subCategory)
     @if($subCategory->hasSubCategories())
 
@@ -122,7 +111,28 @@
     });
 </script>
 @endif
+<script>
 
+    // if user clicks on a radio input, clear all other input values with name subcategory-input
+    $('input[type="radio"]').click(function () {
+        $('input[name="subcategory-input"]').val('').attr('data-id', '');
+    })
+
+    let chooseOption = (option, writeTo, id, subsubid) => {
+
+        $(writeTo).val(option).attr('data-id', subsubid);
+        $(`#subcategory-${id}`).modal('hide');
+
+        // clear other inputs
+        $('input[name="subcategory-input"]').not(writeTo).val('').attr('data-id', '');
+        // clear radio inputs too
+        $('input[type="radio"]').prop('checked', false);
+
+
+
+
+    }
+</script>
 <script>
     $(() => {
         $('#next_step').click(() => {

@@ -18,9 +18,9 @@
 <body>
     <!-- Geri Tuşu ve Logo -->
     <div class="header d-flex align-items-center w-100 mb-4">
-        <button class="back-button btn p-0 me-3">
+        <a href="{{route('listings.create', ['step' => 3])}}" class="back-button btn p-0 me-3">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </button>
+        </a>
         <h2>Logo</h2>
     </div>
     <div class="steps d-flex justify-content-center mb-4">

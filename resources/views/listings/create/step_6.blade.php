@@ -15,59 +15,59 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
 <style>
-    
-.product-details-container .table {
-    background-color: white !important;
-  border: none; 
-}
+    .product-details-container .table {
+        background-color: white !important;
+        border: none;
+    }
 
 
-.product-details-container .table th {
-    background-color: white !important;
-  color: inherit;
-}
+    .product-details-container .table th {
+        background-color: white !important;
+        color: inherit;
+    }
 
-/* Tablo hücrelerinin stilleri */
-.product-details-container .table td {
-  background-color: transparent; 
-  border: none;
-  color: #333; 
-}
-.product-details-container .table tr:nth-child(odd) {
-  background-color: white !important;
-}
+    /* Tablo hücrelerinin stilleri */
+    .product-details-container .table td {
+        background-color: transparent;
+        border: none;
+        color: #333;
+    }
 
-.product-details-container .table tr:nth-child(even) {
-  background-color: white !important;
-}
+    .product-details-container .table tr:nth-child(odd) {
+        background-color: white !important;
+    }
 
-.product-details-container .table td:first-child {
-  color: #777; 
-}
+    .product-details-container .table tr:nth-child(even) {
+        background-color: white !important;
+    }
 
-.product-details-container .table td:last-child {
-  color: #000; 
-}
+    .product-details-container .table td:first-child {
+        color: #777;
+    }
 
-.product-details-container .table {
-  border-spacing: 0 10px;
-}
+    .product-details-container .table td:last-child {
+        color: #000;
+    }
+
+    .product-details-container .table {
+        border-spacing: 0 10px;
+    }
 
 
-.product-details-container .table td,
-.product-details-container .table th {
-  padding: 10px; 
-  background-color: white !important;
- 
-}
+    .product-details-container .table td,
+    .product-details-container .table th {
+        padding: 10px;
+        background-color: white !important;
 
+    }
 </style>
+
 <body>
     <!-- Geri Tuşu ve Logo -->
     <div class="header d-flex align-items-center w-100 mb-4">
-        <button class="back-button btn p-0 me-3">
+        <a href="{{route('listings.create', ['step' => 5])}}" class="back-button btn p-0 me-3">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </button>
+        </a>
         <h2>Logo</h2>
     </div>
     <div class="steps d-flex justify-content-center mb-4">
@@ -90,9 +90,9 @@
                         class="product-image">
                     <!-- Kalp İkonu -->
 
-                    <!-- Sol ve Sağ İkonlar -->
-                    <i class="fa-solid fa-arrow-left icon-left"></i>
-                    <i class="fa-solid fa-arrow-right icon-right"></i>
+                    @if(count(session()->get('create_listing_images')) > 1)
+                    <i class="fa-solid fa-arrow-left icon-left" onclick="previousImage()"></i>
+                    <i class="fa-solid fa-arrow-right icon-right" onclick="nextImage()"></i>
 
                     <!-- Küçük Ürün Fotoğrafları -->
                     <div class="thumbnail-container">
@@ -105,6 +105,7 @@
                         <img src="{{$image}}" alt="Küçük Fotoğraf 1" class="thumbnail">
                         @endforeach
                     </div>
+                    @endif
                 </div>
 
                 <!-- Ürün Detayları Kutusu -->
@@ -189,9 +190,8 @@
     @endif
     <script>
         $(document).ready(() => {
-            let lat = {{ session() -> get('lat')
-        }};
-        let lng = {{ session() -> get('lng') }};
+            let lat = {{ session()->get('lat') }};
+        let lng = {{ session()->get('lng') }};
         const map2 = L.map('listing-map').setView([lat, lng], 15); // Kullanıcı konumu
 
         // OpenStreetMap Katmanı
@@ -206,6 +206,40 @@
             .openPopup();
 
         })
+
+        let currentImage = 0;
+        let totalImages = document.querySelectorAll('.thumbnail').length;
+
+        let setImage = id => {
+            let images = document.querySelectorAll('.thumbnail');
+            let productImage = document.querySelector('.product-image');
+
+            images.forEach(image => {
+                image.classList.remove('active');
+            })
+
+            images[id].classList.add('active');
+            productImage.src = images[id].src;
+            currentImage = id;
+        }
+
+        let nextImage = () => {
+            currentImage++;
+            if (currentImage >= totalImages) {
+                currentImage = 0;
+            }
+
+            setImage(currentImage);
+        }
+
+        let previousImage = () => {
+            currentImage--;
+            if (currentImage < 0) {
+                currentImage = totalImages - 1;
+            }
+
+            setImage(currentImage);
+        }
 
         $(document).ready(() => {
             $('#create').click(
