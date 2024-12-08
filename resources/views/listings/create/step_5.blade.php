@@ -15,23 +15,50 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 
 </head>
-
+<style>
+     .logo {
+            width:200px ;
+            height: 200px;
+        }
+        .header {
+            height: 80px; /* Header yüksekliğini sabitler */
+    display: flex;
+    align-items: center; /* İçeriği dikeyde ortalar */
+    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
+    padding: 0 15px; /* İsteğe bağlı padding */
+    top: 0; /* Üst kısımdan sıfır uzaklıkta */
+    left: 0;
+    right: 0;
+}
+.back-button {
+    border: 1px solid #1A1B41 !important;
+    width: 40px;
+    height: 40px;
+    display: flex; /* Flexbox ile içerikleri hizalayacağız */
+    align-items: center; /* Yatayda ortalar */
+    justify-content: center; /* Dikeyde ortalar */
+    padding: 0; /* İçeride fazladan boşluk olmaması için */
+}
+.arrow{
+    font-size: 14px;
+}
+</style>
 <body>
     <!-- Geri Tuşu ve Logo -->
-    <div class="header d-flex align-items-center w-100 mb-4">
-        <a href="{{route('listings.create', ['step' => 4])}}" class="back-button btn p-0 me-3">
+    <div class="header d-flex align-items-center p-3">
+        <a href="{{route('listings.create', ['step' => 4])}}" class="back-button btn p-2 me-2">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </a>
-        <h2>Logo</h2>
+        <img src="/assets/images/logo3.png" alt="Logo" class="logo">
     </div>
-    <div class="steps d-flex justify-content-center mb-4">
+    <div class="steps d-flex justify-content-center mb-1">
         <span class="step-circle1"></span>
         <span class="step-circle2"></span>
         <span class="step-circle3"></span>
         <span class="step-circle4"></span>
         <span class="step-circle"></span>
     </div>
-    <div class="container d-flex flex-column align-items-center mt-5" style="max-width: 600px;">
+    <div class="container d-flex flex-column align-items-center mt-1" style="max-width: 600px;">
         <div class="border p-3 my-3 w-100">
             <div class="d-flex justify-content-between align-items-center">
                 <span>Seçilen Kategori</span>

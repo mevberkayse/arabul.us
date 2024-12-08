@@ -325,11 +325,12 @@
             opacity: 1;
         }
     }
+    
 </style>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         <div class="row">
             <!-- Sol taraftaki 3 kolonluk menü -->
             <div class="col-3">
@@ -435,7 +436,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <!-- Footer -->
     <footer class="bg-light text-center text-lg-start mt-auto py-3 ">
         <div class="container">
