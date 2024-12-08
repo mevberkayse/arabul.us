@@ -60,15 +60,43 @@
         background-color: white !important;
 
     }
+    .logo {
+            width:200px ;
+            height: 200px;
+        }
+        .header {
+            height: 80px; /* Header yüksekliğini sabitler */
+    display: flex;
+    align-items: center; /* İçeriği dikeyde ortalar */
+    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
+    padding: 0 15px; /* İsteğe bağlı padding */
+    top: 0; /* Üst kısımdan sıfır uzaklıkta */
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.back-button {
+    border: 1px solid #1A1B41 !important;
+    width: 40px;
+    height: 40px;
+    display: flex; /* Flexbox ile içerikleri hizalayacağız */
+    align-items: center; /* Yatayda ortalar */
+    justify-content: center; /* Dikeyde ortalar */
+    padding: 0; /* İçeride fazladan boşluk olmaması için */
+}
+.arrow{
+    font-size: 14px;
+}
+
 </style>
 
 <body>
     <!-- Geri Tuşu ve Logo -->
-    <div class="header d-flex align-items-center w-100 mb-4">
-        <a href="{{route('listings.create', ['step' => 5])}}" class="back-button btn p-0 me-3">
+    <div class="header d-flex align-items-center p-3">
+        <a href="{{route('listings.create', ['step' => 5])}}" class="back-button btn p-2 me-2">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </a>
-        <h2>Logo</h2>
+        <img src="/assets/images/logo3.png" alt="Logo" class="logo">
     </div>
     <div class="steps d-flex justify-content-center mb-4">
         <span class="step-circle1"></span>
@@ -77,7 +105,7 @@
         <span class="step-circle4"></span>
         <span class="step-circle5"></span>
     </div>
-    <div class="container onizleme-container">
+    <div class="container  onizleme-container">
         <h1 class="mb-4 justify-content-center d-flex">İlan Önizleme</h1>
         <div class="d-flex justify-content-between">
 
@@ -109,7 +137,7 @@
                 </div>
 
                 <!-- Ürün Detayları Kutusu -->
-                <div class="product-details-container">
+                <div class="product-details-container mb-3">
                     <h5>{{session()->get('create_listing_data')['title']}}</h5>
                     <p>{{session()->get('create_listing_data')['description']}}</p>
                     <hr>

@@ -251,8 +251,26 @@
     }
 
     .dropdown-item {
-        padding: 0.2rem 1rem !important;
+        padding: 0.5rem 1rem !important;
     }
+    .dropdown-menu-1 {
+    max-height: 300px; /* Dropdown'un maksimum yüksekliğini belirler */
+    max-width: 300px;; /* Dropdown'un maksimum yüksekliğini belirler */
+    padding: 0; /* Gereksiz boşlukları kaldırır */
+    transform: translateX(-30%);
+}
+.dropdown-menu-2 {
+    max-height: 200px; /* Dropdown'un maksimum yüksekliğini belirler */
+    max-width: 300px;; /* Dropdown'un maksimum yüksekliğini belirler */
+    padding: 0; /* Gereksiz boşlukları kaldırır */
+    transform: translateX(20%);
+}
+.dropdown-menu-3 {
+    max-height: 250px; /* Dropdown'un maksimum yüksekliğini belirler */
+    max-width: 300px;; /* Dropdown'un maksimum yüksekliğini belirler */
+    padding: 0; /* Gereksiz boşlukları kaldırır */
+    transform: translateX(20%);
+}
 </style>
 <nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
@@ -352,14 +370,14 @@
     <div class="container-fluid h-100 w-100 p-0 m-0">
         <div class="row g-0 justify-content-end align-items-stretch w-100 text-center h-100 p-0">
             <div class="col-4 category-bg-1 d-flex justify-content-center align-items-center ">
-                <div class="dropdown text-center">
+                <div class="dropdown text-center position-relative">
                     <i class="fa-solid fa-mobile-screen-button" style="color:White;"></i>
                     <a href="#" class="d-block text-white text-decoration-none" style="color:White;"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Telefon & Aksesuar
                     </a>
                     <ul
-                        class="dropdown-menu dropdown-menu-1 dropdown-menu-xxl-end dropdown-menu-start text-small shadow">
+                        class="dropdown-menu dropdown-menu-1 text-small shadow">
                         @foreach($firstCategorySubCategories as $subCategory)
                         <li><a class="dropdown-item"
                                 href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>

@@ -46,20 +46,39 @@
             --bs-btn-disabled-bg: #0d6efd;
             --bs-btn-disabled-border-color: #1A1B41;
         }
+        .logo {
+            width:200px ;
+            height: 200px;
+        }
+        .header {
+    height: 80px; /* Header yüksekliğini sabitler */
+    display: flex;
+    align-items: center; /* İçeriği dikeyde ortalar */
+    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
+    padding: 0 15px; /* İsteğe bağlı padding */
+}
+.back-button {
+    border: 1px solid #1A1B41 !important;
+    width: 40px;
+    height: 40px;
+    display: flex; /* Flexbox ile içerikleri hizalayacağız */
+    align-items: center; /* Yatayda ortalar */
+    justify-content: center; /* Dikeyde ortalar */
+    padding: 0; /* İçeride fazladan boşluk olmaması için */
+}
     </style>
 </head>
 
 <body>
     <div class="header d-flex align-items-center p-3">
-        <a href="/" class="back-button btn p-0 me-3">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <a href="/" class="back-button border btn p-2 me-2">
+            <i class="fa fa-arrow-left" aria-hidden="true" ></i>
         </a>
-
         <!--<img src="logo.png" alt="Logo" class="logo"-->
-        <h2>Logo</h2>
+        <img src="/assets/images/logo3.png" alt="Logo" class="logo">
     </div>
 
-    <div class="container d-flex flex-column align-items-center mt-5">
+    <div class="container d-flex flex-column align-items-center mt-4">
         <!-- Adım Daireleri -->
         <div class="steps mb-3">
             <span class="step-circle"></span>
@@ -173,7 +192,7 @@
         </div>
 
         <!-- Devam Et Butonu -->
-        <button class="btn btn-outline-custom mt-3 w-25" id="next_step">Devam Et</button>
+        <button class="btn btn-outline-custom mt-3 mb-4 w-25" id="next_step">Devam Et</button>
     </div>
     </div>
 

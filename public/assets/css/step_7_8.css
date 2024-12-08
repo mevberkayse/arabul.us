@@ -23,7 +23,7 @@ body {
   display: flex;
   gap: 12px;
   position: relative; /* Konumlandırma için gerekli */
-  top: 80px; /* Steplerin logo yüksekliğinin biraz altına inmesini sağlar */
+  top: 20px; /* Steplerin logo yüksekliğinin biraz altına inmesini sağlar */
 }
 
 .step-circle1,
@@ -51,22 +51,8 @@ body {
 .back-button {
   background: transparent;
   border: none;
-  font-size: 2rem; /* Font boyutunu büyütme */
+  font-size: 1.5rem; /* Font boyutunu büyütme */
   color: #333;
-}
-
-/* Logo Boyutunu Büyütme */
-.logo {
-  height: 60px; /* Logo boyutunu büyütme */
-}
-
-/* Header Düzenini Büyütme */
-.header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
 }
 
 .circle {

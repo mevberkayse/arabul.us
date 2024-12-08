@@ -59,17 +59,37 @@
         .category.selected .circle {
             border-color: #37BC61;
         }
+        .logo {
+            width:200px ;
+            height: 200px;
+        }
+        .header {
+    height: 80px; /* Header yüksekliğini sabitler */
+    display: flex;
+    align-items: center; /* İçeriği dikeyde ortalar */
+    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
+    padding: 0 15px; /* İsteğe bağlı padding */
+}
+.back-button {
+    border: 1px solid #1A1B41 !important;
+    width: 40px;
+    height: 40px;
+    display: flex; /* Flexbox ile içerikleri hizalayacağız */
+    align-items: center; /* Yatayda ortalar */
+    justify-content: center; /* Dikeyde ortalar */
+    padding: 0; /* İçeride fazladan boşluk olmaması için */
+}
     </style>
 </head>
 
 <body>
     <div class="header d-flex align-items-center p-3">
-        <a href="{{route('listings.create', ['step' => 1])}}" class="back-button btn p-0 me-3">
+        <a href="{{route('listings.create', ['step' => 1])}}" class="back-button  border btn p-2 me-2">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </a>
 
         <!--<img src="logo.png" alt="Logo" class="logo"-->
-        <h2>Logo</h2>
+        <img src="/assets/images/logo3.png" alt="Logo" class="logo">
     </div>
 
     <div class="container d-flex flex-column align-items-center mt-5">
