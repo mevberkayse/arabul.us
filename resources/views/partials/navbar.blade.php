@@ -641,6 +641,36 @@
             alert('Konum alınamadı. Lütfen tarayıcınızın konum izni verdiğinden emin olun.');
         });
     }
+    document.addEventListener('DOMContentLoaded', function () {
+    // Dropdown menüsüne tıklama olayını dinliyoruz
+    var dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(function (dropdown) {
+        dropdown.addEventListener('click', function (event) {
+            // Eğer tıklanan dropdown zaten açık değilse, önce tüm açık dropdown'ları kapatıyoruz
+            var allDropdownMenus = document.querySelectorAll('.dropdown-menu.show');
+            allDropdownMenus.forEach(function (menu) {
+                menu.classList.remove('show');
+            });
+
+            // Eğer tıklanan dropdown daha önce açılmamışsa, onu açıyoruz
+            var menu = dropdown.querySelector('.dropdown-menu');
+            if (!menu.classList.contains('show')) {
+                menu.classList.add('show');
+            }
+            // Diğer menülerin kapanmasını sağlamak için olayın yayılmasını durduruyoruz
+            event.stopPropagation();
+        });
+    });
+
+    // Sayfada başka bir yere tıklandığında tüm dropdown'ları kapatmak için
+    document.addEventListener('click', function () {
+        var allDropdownMenus = document.querySelectorAll('.dropdown-menu.show');
+        allDropdownMenus.forEach(function (menu) {
+            menu.classList.remove('show');
+        });
+    });
+});
 </script>
 
 </script>
