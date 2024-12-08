@@ -141,9 +141,9 @@ h4.text-center.mb-2 {
             <h4 class="text-center mb-2">Favori İlanlarım</h4>
 
                 <!-- Ürün Kartları -->
-                <div class="row gap-3 mt-2">
+                <div class="row gap-3 mt-2 justify-content-center">
                     @foreach($listings as $listing)
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="card" style="width: 100%; text-decoration: none;">
                                 <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                                     style="text-decoration: none;">
