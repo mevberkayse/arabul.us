@@ -350,6 +350,7 @@
                         <li><a class="dropdown-item" href="/chat">Sohbetlerim</a></li>
                         <li><a class="dropdown-item" href="/favorilerim">Favori İlanlarım</a></li>
                         <li><a class="dropdown-item" href="/settings">Ayarlar</a></li>
+                        <li><a class="dropdown-item" href="/yardim">Yardım</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

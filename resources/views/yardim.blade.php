@@ -209,8 +209,6 @@
     }
 
     ul.list-unstyled li:first-child a {
-        font-weight: bold;
-        /* Yazıyı koyu yapmak için */
         color: #000;
         /* Rengi siyah yapmak için */
     }
@@ -303,7 +301,7 @@
             <!-- 3'lü sütun: Yasal ve gizlilik bilgileri -->
             <div class="col-3" style="margin-right:100px;">
             <ul class="list-unstyled custom-list">
-                    <li><a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none"  onclick="openTab(1);" data-opener="1">Yasal ve Gizlilik Bilgileri</a></li>
+                    <li><a href="#" id="tab-1" class="text-dark text-decoration-none"  onclick="openTab(1);" data-opener="1">Yasal ve Gizlilik Bilgileri</a></li>
                     <li><a href="#" id="tab-2" class="text-dark text-decoration-none"  onclick="openTab(2);" data-opener="2">Hesap</a></li>
                     <li><a href="#" id="tab-3" class="text-dark text-decoration-none"  onclick="openTab(3);" data-opener="3">Nasıl Kullanırım</a></li>
                     <li><a href="#" id="tab-4" class="text-dark text-decoration-none"  onclick="openTab(4);" data-opener="4">Güvenlik ve Emniyet</a></li>
@@ -328,23 +326,23 @@
     <h5>Profil Hakkında</h5>
     <ul class="list-unstyled custom-list">
         <li>
-            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-1')">Tüm cihazlardan nasıl çıkış yapılır?</a>
+            <a href="#" class="text-dark text-decoration-none"  id="question-1" onclick="toggleAnswer(this, 'answer-1')">Tüm cihazlardan nasıl çıkış yapılır?</a>
             <p id="answer-1" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
         </li>
         <li>
-            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-2')">Kullanıcı profilimi nasıl düzenleyebilirim?</a>
+            <a href="#" class="text-dark text-decoration-none"  id="question-2" onclick="toggleAnswer(this, 'answer-2')">Kullanıcı profilimi nasıl düzenleyebilirim?</a>
             <p id="answer-2" class="d-none">Profilinizi düzenlemek için Profilim bölümüne giderek bilgilerinizi güncelleyebilirsiniz.</p>
         </li>
         <li>
-            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-3')">Bulunduğum konumu nasıl değiştirebilirim?</a>
+            <a href="#" class="text-dark text-decoration-none"  id="question-3" onclick="toggleAnswer(this, 'answer-3')">Bulunduğum konumu nasıl değiştirebilirim?</a>
             <p id="answer-3" class="d-none">Konumunuzu değiştirmek için Profilim > Konum Ayarları sekmesine gidin.</p>
         </li>
         <li>
-            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-4')">Profilimi nasıl paylaşabilirim?</a>
+            <a href="#" class="text-dark text-decoration-none"  id="question-4" onclick="toggleAnswer(this, 'answer-4')">Profilimi nasıl paylaşabilirim?</a>
             <p id="answer-4" class="d-none">Profil paylaşım linkinizi Profilim > Paylaş seçeneğinden alabilirsiniz.</p>
         </li>
         <li>
-            <a href="#" class="text-dark text-decoration-none" onclick="toggleAnswer(this, 'answer-5')">Hesabımı nasıl silebilirim?</a>
+            <a href="#" class="text-dark text-decoration-none" id="question-5" onclick="toggleAnswer(this, 'answer-5')">Hesabımı nasıl silebilirim?</a>
             <p id="answer-5" class="d-none">Hesabınızı silmek için Ayarlar > Hesap Silme seçeneğini kullanabilirsiniz.</p>
         </li>
     </ul>
@@ -355,11 +353,26 @@
                 <ul class="list-unstyled custom-list">
                 <h5>Nasıl Kullanırım</h5>
                 <ul class="list-unstyled custom-list">
-                        <li><a href="#" class="text-dark text-decoration-none">Başka birinin profiline nasıl bakabilirim?</a></li>
-                        <li><a href="#" class="text-dark text-decoration-none">Uygulama dilini nasıl değiştirebilirim?</a></li>
-                        <li><a href="#" class="text-dark text-decoration-none">Bildirim ayarlarımı nasıl yönetebilirim?</a></li>
-                        <li><a href="#" class="text-dark text-decoration-none">Program hataları ve teknik destek</a></li>
-                        <li><a href="#" class="text-dark text-decoration-none">Bir hatayı nasıl bildirebilirim?</a></li>
+                        <li>
+                            <a href="#" class="text-dark text-decoration-none"  id="question-6" onclick="toggleAnswer(this, 'answer-6')">Başka birinin profiline nasıl bakabilirim?</a>
+                            <p id="answer-6" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark text-decoration-none"  id="question-7" onclick="toggleAnswer(this, 'answer-7')">Uygulama dilini nasıl değiştirebilirim?</a>
+                            <p id="answer-7" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark text-decoration-none"  id="question-8"onclick="toggleAnswer(this, 'answer-8')">Bildirim ayarlarımı nasıl yönetebilirim?</a>
+                            <p id="answer-8" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark text-decoration-none"  id="question-9"onclick="toggleAnswer(this, 'answer-9')">Program hataları ve teknik destek</a>
+                            <p id="answer-9" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark text-decoration-none" id="question-10" onclick="toggleAnswer(this, 'answer-10')">Bir hatayı nasıl bildirebilirim?</a>
+                            <p id="answer-10" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+                    </li>
                 </ul>
                 </div>
         
@@ -372,13 +385,17 @@
     <li><a href="#" class="text-dark text-decoration-none">Topluluk kuralları</a></li>
     <li><a href="#" class="text-dark text-decoration-none">Güvenlik önerilerimiz</a></li>
     <li><a href="#" class="text-dark text-decoration-none">Reklam Politikası</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Ürünleri kargolamak mümkün mü?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Alıcıyla satıcı arasındaki ödeme</a></li>
+    <li><a href="#" class="text-dark text-decoration-none" id="question-11" onclick="toggleAnswer(this, 'answer-11')">Ürünleri kargolamak mümkün mü?</a>
+    <p id="answer-11" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p></li>
     <li><a href="#" class="text-dark text-decoration-none">Gizlilik</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Adresimi gösterecek misiniz?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Bir ilanı nasıl şikayet edebilirim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Bir kullanıcıyı nasıl şikayet edebilirim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Bir kullanıcının kanunları çiğnediğini düşünüyorsam ne yapmalıyım?</a></li>
+    <li><a href="#" class="text-dark text-decoration-none"  id="question-12" onclick="toggleAnswer(this, 'answer-12')">Adresimi gösterecek misiniz?</a>
+    <p id="answer-12" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p></li>
+</li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-13" onclick="toggleAnswer(this, 'answer-13')">Bir kullanıcıyı nasıl şikayet edebilirim?</a>
+    <p id="answer-13" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p></li>
+    <li><a href="#" class="text-dark text-decoration-none" id="question-14" onclick="toggleAnswer(this, 'answer-14')" >Bir kullanıcının kanunları çiğnediğini düşünüyorsam ne yapmalıyım?</a>
+    <p id="answer-14" class="d-none">Tüm cihazlardan çıkış yapmak için Ayarlar > Tüm hesaplardan çıkış yap seçeneğini kullanabilirsiniz.</p>
+</li>
 </ul>
                 </div>
 
@@ -388,15 +405,13 @@
             <ul class="list-unstyled custom-list">
                 <h5>Mesajlaşma</h5>
                 <ul class="list-unstyled custom-list">
-    <li><a href="#" class="text-dark text-decoration-none">Diğer alıcı/satıcılar ile nasıl mesajlaşabilirim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Mesajlar nasıl silinir?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Sohbet bölümü aracılığıyla fotoğraf ve ek dosya gönderebilir miyim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Mesaj gönderemiyorum</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Bir kullanıcı mesajlarıma yanıt vermiyorsa ne yapmalıyım?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Mesajlaştığım bir kullanıcının hesabı silinmiş. Bu ne anlama geliyor?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Yeni mesajlar için bildirimleri nasıl etkinleştiririm?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Tüm bildirimleri okundu olarak nasıl işaretlerim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Bir satıcı veya alıcı ile buluşmak için yeri nasıl ayarlarım?</a></li>
+    <li><a href="#" class="text-dark text-decoration-none" id="question-15" onclick="toggleAnswer(this, 'answer-15')">Diğer alıcı/satıcılar ile nasıl mesajlaşabilirim?</a>
+    <p id="answer-15" class="d-none">Satıcı profilinde Sohbet butonuna tıklayarak satıcı ve alıcı arasında sohbet sağlanır.</p></li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-16" onclick="toggleAnswer(this, 'answer-16')">Mesajlar nasıl silinir?</a>
+    <p id="answer-16" class="d-none">Sohbet kutusunda kullanıcı sohbet kutusunun en sağında bulunan çarpıya tıklarsanız mesaj silinir ama geri getiremezsiniz.</p>
+</li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-17" onclick="toggleAnswer(this, 'answer-17')">Sohbet bölümü aracılığıyla fotoğraf ve ek dosya gönderebilir miyim?</a>
+    <p id="answer-17" class="d-none">Hayır,sohbet kutumuz sadece metinlere izin veriyor.</p></li>
 </ul>
 
                 </div>
@@ -405,17 +420,16 @@
             <ul class="list-unstyled custom-list">
                 <h5>Satış</h5>
                 <ul class="list-unstyled custom-list">
-    <li><a href="#" class="text-dark text-decoration-none">Nasıl ilan yayınlayabilirim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Ne alıp satabilirim? Neler yasaklıdır?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Yayınladığım veya favorilerime eklediğim ilanların hepsini nerede görebilirim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Yayınladığım ilanları nasıl bulurum?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">İlanım neden hala yayınlanmadı?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Yayınladığım ilan neden yayından kaldırıldı?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Bir ilanı nasıl düzenlerim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">İlanımın konumunu nasıl değiştirebilirim?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">İlanım kaç kere görüntülendi?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">İlanların süresi neden dolar?</a></li>
-    <li><a href="#" class="text-dark text-decoration-none">Nasıl ürün satın alırım?</a></li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-18" onclick="toggleAnswer(this, 'answer-18')">Nasıl ilan yayınlayabilirim?</a>
+    <p id="answer-18" class="d-none">Anasayfadaki artı butonuna tıklayarak ilan sayfasına gidebilirsiniz.</p></li></li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-19" onclick="toggleAnswer(this, 'answer-19')">Yayınladığım veya favorilerime eklediğim ilanların hepsini nerede görebilirim?</a>
+    <p id="answer-19" class="d-none">Profiliniz üzerinden hesabıma giderek yayınladığınız ürünleri,favorilerimden favorilerinizi görebilirsiniz</p></li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-21" onclick="toggleAnswer(this, 'answer-21')">İlanım neden hala yayınlanmadı?</a>
+    <p id="answer-21" class="d-none">Muhtemelen ekibimiz tarafından inceleme altına alınmıştır.Daha fazla bilgi için lütfen bizimle iletişime geçiniz</p></li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-22" onclick="toggleAnswer(this, 'answer-22')">Yayınladığım ilan neden yayından kaldırıldı?</a>
+    <p id="answer-22" class="d-none">İlanınız hakkında şikayet olabilir.Bilgi için bizimle iletişime geçiniz.</p></li>
+    <li><a href="#" class="text-dark text-decoration-none"id="question-23" onclick="toggleAnswer(this, 'answer-23')">Nasıl ürün satın alırım?</a>
+    <p id="answer-23" class="d-none">Satıcı ile konuşarak fiyat belirleyip kargolama veya elden teslim tercih edebilirsiniz.</p></li>
 
 </ul>
 
@@ -431,50 +445,52 @@
         
                 </footer>
 
-        
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
+                <script>
+   document.addEventListener("DOMContentLoaded", () => {
+    // Sayfa yüklendiğinde varsayılan olarak tab-1'i aktif yap
+    openTab(1);
+});
 
-            openTab(1);
+function openTab(tabId) {
+    // 1. Tüm içerik bölümlerini gizle
+    const allContents = document.querySelectorAll(".content-section");
+    allContents.forEach(content => content.classList.add("d-none"));
 
-            // Başlangıçta "Gizlilik" sekmesini koyu yap
-            const defaultTab = document.getElementById("tab-1");
-            defaultTab.classList.add("fw-bold");
-        });
+    // 2. Aktif içerik bölümünü göster
+    document.getElementById(`content-${tabId}`).classList.remove("d-none");
 
-        function openTab(tabId) {
-            const allContents = document.querySelectorAll(".content-section");
-            allContents.forEach(content => content.classList.add("d-none"));
+    // 3. Tüm sekmelerin bold sınıfını kaldır
+    const allTabs = document.querySelectorAll('ul.list-unstyled a');
+    allTabs.forEach(tab => {
+        tab.classList.remove("fw-bold");
+    });
 
-            document.getElementById(`content-${tabId}`).classList.remove("d-none");
-
-
-            const allTabs = document.querySelectorAll('ul.list-unstyled a');
-            allTabs.forEach(tab => {
-                tab.classList.remove("fw-bold");
-            });
-
-
-            const activeTab = document.getElementById(`tab-${tabId}`);
-            activeTab.classList.add("fw-bold");
-        }
-    </script>
-    <script>
-        function toggleAnswer(link, answerId) {
-    const answerElement = document.getElementById(answerId);
-
-    // Eğer cevap zaten görünüyorsa gizle
-    if (!answerElement.classList.contains("d-none")) {
-        answerElement.classList.add("d-none");
-    } else {
-        // Diğer tüm cevapları gizle
-        const allAnswers = document.querySelectorAll('.content-section p');
-        allAnswers.forEach(answer => answer.classList.add("d-none"));
-
-        // Tıklanan cevabı göster
-        answerElement.classList.remove("d-none");
-    }
+    // 4. Aktif sekmeye bold sınıfını ekle
+    const activeTab = document.getElementById(`tab-${tabId}`);
+    activeTab.classList.add("fw-bold");
 }
+
+function toggleAnswer(element, answerId) {
+    // Sorunun içeriğini al
+    const answerElement = document.getElementById(answerId);
+    
+    // Tüm cevapları gizle
+    const allAnswers = document.querySelectorAll('.custom-list p');
+    allAnswers.forEach(answer => answer.classList.add('d-none'));
+
+    // Tıklanan cevabı göster
+    answerElement.classList.toggle('d-none');
+
+    // Tüm bağlantılardan koyu yazıyı kaldır
+    const allLinks = document.querySelectorAll('.custom-list a');
+    allLinks.forEach(link => {
+        link.classList.remove('fw-bold');
+    });
+
+    // Tıklanan soruya koyu yazıyı ekle
+    element.classList.add('fw-bold');
+}
+
 
     </script>
 </body>
