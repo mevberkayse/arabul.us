@@ -128,14 +128,15 @@
                     </div>
                     @endif
 
-                    <div class="card-body">
+                    <div class="card-body" style=" height:200px;">
                         <a href="{{route('listings.show', [$related->id, '-', $related->slug])}}"
                             style="text-decoration: none; color:inherit">
-                            <h5 class="item-price large-price">{{$related->price}} ₺</h5>
+                            <h5 class="item-price large-price mt-3">{{$related->price}} ₺</h5>
                             <p class="item-text mt-2">{{$related->title}}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="location">{{$related->location}}</p>
-                                <p class="time">{{$related->created_at->diffForHumans()}}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-5">
+                                <p class="location  me-5" style="word-wrap: break-word; font-size: 14px;">
+                                    {{$related->location}}</p>
+                                <p class="time" style="font-size: 14px;">{{$related->created_at->diffForHumans()}}</p>
                             </div>
                         </a>
                     </div>

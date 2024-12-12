@@ -183,19 +183,7 @@
                     </div>
                 @endif
             </div>
-            <!-- Toast -->
-            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11; top: 25%;">
-                <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert"
-                    aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">
-                            Profil URL'si başarıyla kopyalandı!
-                        </div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                            aria-label="Kapat"></button>
-                    </div>
-                </div>
-            </div>
+
 
 
             <!-- Şikayet Et Butonu -->
@@ -302,14 +290,14 @@
                                     </div>
                                 @endif
 
-                                <div class="card-body">
+                                <div class="card-body" style=" height:200px;">
                                     <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                                         style="text-decoration: none; color:inherit">
-                                        <h5 class="item-price large-price">{{$listing->price}} ₺</h5>
+                                        <h5 class="item-price large-price mt-3">{{$listing->price}} ₺</h5>
                                         <p class="item-text mt-2">{{$listing->title}}</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="location">{{$listing->location}}</p>
-                                            <p class="time">{{$listing->created_at->diffForHumans()}}</p>
+                                        <div class="d-flex justify-content-between align-items-center  mt-5">
+                                            <p class="location  me-5" style="word-wrap: break-word; font-size: 14px;">{{$listing->location}}</p>
+                                            <p class="time" style="font-size: 14px;">{{$listing->created_at->diffForHumans()}}</p>
                                         </div>
                                     </a>
                                 </div>
@@ -375,9 +363,9 @@
         // URL'yi kopyala
         navigator.clipboard.writeText(profileUrl)
             .then(() => {
-                const toastElement = document.getElementById('copyToast');
-                const toast = new bootstrap.Toast(toastElement);
-                toast.show();
+                PNotify.success({
+                    text: 'Profil URL\'si başarıyla kopyalandı!'
+                });
             })
             .catch(err => {
                 console.error('URL kopyalanırken hata oluştu:', err);
