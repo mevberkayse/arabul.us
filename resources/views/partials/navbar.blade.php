@@ -327,6 +327,9 @@
                                     role="button">
                                     Mevcut Konum Kullan
                                 </a>
+                                <a class="dropdown-item text-primary transparent-button" href="#" data-bs-toggle="modal" data-bs-target="#map2Modal">
+                                Haritada Ara
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -366,6 +369,22 @@
         </div>
     </div>
 </nav>
+<div class="modal fade" id="map2Modal" tabindex="-1" aria-labelledby="map2ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="map2ModalLabel">Haritada Ara</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @include('map')<!--direkt çektik-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Kategoriler için düzenleme -->
 <nav class="navbar mt-0 pt-0 category-navbar">
     <div class="container-fluid h-100 w-100 p-0 m-0">
@@ -475,6 +494,7 @@
 <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 
 <script>
+    
     let requestLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             $.ajax({
