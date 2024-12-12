@@ -4,9 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Haritada Ara</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    .infowindow-content {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #fff;
+}
 
+.infowindow-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.infowindow-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s ease; /* Hover geçişi için */
+}
+
+.infowindow-title:hover {
+    text-decoration: underline;
+    color: #820933; /* Hover rengi beyaz */
+}
+
+.infowindow-price {
+    font-size: 14px;
+    color: #820933;
+    font-weight: bold;
+}
+</style>
 <body>
     <div id="map" style="width: 500px; height: 500px;"></div>
 
@@ -68,7 +111,12 @@
                             data.listings.forEach(listing => {
 
                                 var infowindow = new google.maps.InfoWindow({
-                                    content: `<a href='${listing.url}' target='_blank'><div>${listing.title}</div> <div>${listing.price} ₺</div>`
+                                    content: `
+        <div class="infowindow-content">
+            <img src='https://via.placeholder.com/200x150' alt='Ürün Resmi' class='infowindow-image'/>
+            <a href='${listing.url}' target='_blank' class='infowindow-title'>${listing.title}</a>
+            <div class='infowindow-price'>${listing.price} ₺</div>
+        </div>`
                                 });
                                 var marker = new google.maps.Marker({
                                     position: new google.maps.LatLng(listing.lat, listing.lng),
