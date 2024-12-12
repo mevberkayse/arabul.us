@@ -30,6 +30,9 @@ Route::get('/settings', [ProfileController::class, 'settings']);
 Route::get('/yardim', [ProfileController::class, 'yardim']);
 Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
 
+Route::get('/map', function(){
+    return view('map');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -78,6 +81,8 @@ Route::prefix('api')->group(function () {
     Route::get('/search', [APIIndexController::class, 'search']);
 
     Route::post('/search/filter', [APIIndexController::class, 'searchFilter']);
+
+    Route::post('/listings-by-bounds', [APIIndexController::class, 'getListingsByBounds']);
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');

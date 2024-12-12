@@ -25,7 +25,7 @@ class ListingController extends Controller
 
             return redirect()->route('listings.show', ['id' => $id, 'slug' => $listing->slug]);
         }
-        $listings = Listing::all()->take(4);
+        $listings = Listing::all()->take(3);
         return view('listings.listing_new', ['listing' => $listing, 'listings' => $listings]);
     }
 
