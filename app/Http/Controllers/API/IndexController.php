@@ -299,4 +299,30 @@ class IndexController extends Controller
 
         return response()->json(['items' => $arr]);
     }
+
+    public function getListingsByBounds(Request $request) {
+        $bounds = $request->input('bounds');
+        // $bounds is a json object with keys: 'east', 'north', 'south', 'west'
+        $listings = Listing::whereBetween('lat', [$bounds['south'], $bounds['north']])->whereBetween('long', [$bounds['west'], $bounds['east']])->get();
+        $arr = [];
+
+        foreach ($listings as $item) {
+            $a = [
+                'url' => route('listings.show', ['id' => $item->id, 'dash' => '-', 'slug' => $item->slug]),
+                'title' => $item->title,
+                'thumbnail' => $item->getThumbnail(),
+                'price' => $item->price,
+                'location' => $item->getBasicAddress(),
+                'time' => $item->created_at->diffForHumans(),
+                'id' => $item->id,
+                'lat' => $item->lat,
+                'lng' => $item->long,
+            ];
+
+            array_push($arr, $a);
+        }
+
+        return response()->json(['listings' => $arr]);
+
+    }
 }
