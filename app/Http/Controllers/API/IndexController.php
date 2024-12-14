@@ -300,7 +300,8 @@ class IndexController extends Controller
         return response()->json(['items' => $arr]);
     }
 
-    public function getListingsByBounds(Request $request) {
+    public function getListingsByBounds(Request $request)
+    {
         $bounds = $request->input('bounds');
         // $bounds is a json object with keys: 'east', 'north', 'south', 'west'
         $listings = Listing::whereBetween('lat', [$bounds['south'], $bounds['north']])->whereBetween('long', [$bounds['west'], $bounds['east']])->get();
@@ -323,6 +324,27 @@ class IndexController extends Controller
         }
 
         return response()->json(['listings' => $arr]);
+    }
 
+    public function follow(Request $request, int $userId)
+    {
+        $user = Auth::user();
+        $followedUser = User::findOrFail($userId);
+
+        if ($user->isFollowing($followedUser)) {
+            $user->unfollow($followedUser);
+            return response()->json([
+                'success' => true,
+                'action' => 'unfollow',
+                'followersCount' => $followedUser->followers->count()
+            ]);
+        } else {
+            $user->follow($followedUser);
+            return response()->json([
+                'success' => true,
+                'action' => 'follow',
+                'followersCount' => $followedUser->followers->count()
+            ]);
+        }
     }
 }

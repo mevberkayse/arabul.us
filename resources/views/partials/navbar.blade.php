@@ -253,24 +253,65 @@
     .dropdown-item {
         padding: 0.5rem 1rem !important;
     }
+
     .dropdown-menu-1 {
-    max-height: 300px; /* Dropdown'un maksimum yüksekliğini belirler */
-    max-width: 300px;; /* Dropdown'un maksimum yüksekliğini belirler */
-    padding: 0; /* Gereksiz boşlukları kaldırır */
-    transform: translateX(-30%);
-}
-.dropdown-menu-2 {
-    max-height: 200px; /* Dropdown'un maksimum yüksekliğini belirler */
-    max-width: 300px;; /* Dropdown'un maksimum yüksekliğini belirler */
-    padding: 0; /* Gereksiz boşlukları kaldırır */
-    transform: translateX(20%);
-}
-.dropdown-menu-3 {
-    max-height: 250px; /* Dropdown'un maksimum yüksekliğini belirler */
-    max-width: 300px;; /* Dropdown'un maksimum yüksekliğini belirler */
-    padding: 0; /* Gereksiz boşlukları kaldırır */
-    transform: translateX(20%);
-}
+        max-height: 300px;
+        /* Dropdown'un maksimum yüksekliğini belirler */
+        max-width: 300px;
+        ;
+        /* Dropdown'un maksimum yüksekliğini belirler */
+        padding: 0;
+        /* Gereksiz boşlukları kaldırır */
+        transform: translateX(-30%);
+    }
+
+    .dropdown-menu-2 {
+        max-height: 200px;
+        /* Dropdown'un maksimum yüksekliğini belirler */
+        max-width: 300px;
+        ;
+        /* Dropdown'un maksimum yüksekliğini belirler */
+        padding: 0;
+        /* Gereksiz boşlukları kaldırır */
+        transform: translateX(20%);
+    }
+
+    .dropdown-menu-3 {
+        max-height: 250px;
+        /* Dropdown'un maksimum yüksekliğini belirler */
+        max-width: 300px;
+        ;
+        /* Dropdown'un maksimum yüksekliğini belirler */
+        padding: 0;
+        /* Gereksiz boşlukları kaldırır */
+        transform: translateX(20%);
+    }
+
+    .transparent-button {
+        background-color: transparent;
+        /* Arka planı transparan yap */
+        border: 2px solid #007bff;
+        /* Mavi border */
+        color: #007bff;
+        /* Metin rengi mavi */
+        padding: 0.5rem 1rem;
+        /* Butonun iç boşlukları */
+        border-radius: 0.25rem;
+        /* Kenarları yuvarlaştır */
+    }
+
+    .transparent-button:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        /* Hover durumunda hafif bir arka plan rengi */
+        transition: none;
+        transform: none;
+    }
+
+    #searchMap {
+        position: absolute !important;
+        height: 100% !important;
+        width: 97% !important;
+    }
 </style>
 <nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
@@ -284,7 +325,7 @@
             </a>
             <div class="form-container">
                 <form class="d-flex vw-25" role="search" method="get" action="/search">
-                    <input id="search-input" class="form-control me-4 w-100 searchw" type="search" placeholder="Search"
+                    <input id="search-input" autocomplete="off" class="form-control me-4 w-100 searchw" type="search" placeholder="Search"
                         aria-label="Search" style="border: 1px solid #1A1B41;" name="query">
                     <button class="btn btn-outline-custom" type="submit">Search</button>
                 </form>
@@ -316,7 +357,8 @@
                 <!-- konum -->
                 <div class="border rounded p-2 d-flex align-items-center">
                     <i class="fa-solid fa-map-marker-alt"></i>
-                    <span class="ms-2" id="addressText">@if(session()->has('address')){{session()->get('address')}} @else Türkiye
+                    <span class="ms-2" id="addressText">@if(session()->has('address')){{session()->get('address')}}
+                        @else Türkiye
                         @endif</span>
                     <div class="dropdown ms-2">
                         <i class="fa-solid fa-chevron-down dropdown-toggle" id="locationDropdown"
@@ -327,8 +369,9 @@
                                     role="button">
                                     Mevcut Konum Kullan
                                 </a>
-                                <a class="dropdown-item text-primary transparent-button" href="#" data-bs-toggle="modal" data-bs-target="#map2Modal">
-                                Haritada Ara
+                                <a class="dropdown-item text-primary transparent-button" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#map2Modal">
+                                    Haritada Ara
                                 </a>
                             </li>
                         </ul>
@@ -370,14 +413,14 @@
     </div>
 </nav>
 <div class="modal fade" id="map2Modal" tabindex="-1" aria-labelledby="map2ModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="map2ModalLabel">Haritada Ara</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                @include('map')<!--direkt çektik-->
+            <div class="modal-body" id="mapModalSearch" style="height: 75vh;">
+                <div id="searchMap" style="width: 90%; height: 100%;"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
@@ -396,8 +439,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Telefon & Aksesuar
                     </a>
-                    <ul
-                        class="dropdown-menu dropdown-menu-1 text-small shadow">
+                    <ul class="dropdown-menu dropdown-menu-1 text-small shadow">
                         @foreach($firstCategorySubCategories as $subCategory)
                         <li><a class="dropdown-item"
                                 href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
@@ -462,15 +504,15 @@
                     <!-- E-posta veya Telefon -->
                     <div class="mb-3">
                         <i class="fa-regular fa-envelope-open"></i>
-                        <label for="emailOrPhone" class="form-label ms-2">E-posta veya Telefon</label>
+                        <label for="emailOrPhone" class="form-label ms-2">E-posta Adresiniz</label>
                         <input type="text" class="form-control" id="emailOrPhone"
-                            placeholder="E-posta veya telefon girin">
+                            placeholder="E-posta veya telefon girin" name="email">
                     </div>
                     <!-- Şifre -->
                     <div class="mb-4"> <!-- Alt alan için daha fazla boşluk -->
                         <i class="fa-regular fa-eye"></i>
                         <label for="password" class="form-label ms-2">Şifre</label>
-                        <input type="password" class="form-control" id="password" placeholder="Şifre girin">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Şifre girin">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                     </div>
                     <div class="text-center mb-3">
@@ -494,7 +536,7 @@
 <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 
 <script>
-    
+
     let requestLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             $.ajax({
@@ -529,38 +571,163 @@
 <!-- Leaflet.js JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+<script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+<script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}"></script>
+<script type="text/javascript" src="/assets/js/jquery.googlemap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+    .infowindow-content {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .infowindow-image {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .infowindow-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: black;
+        text-decoration: none;
+        display: inline-block;
+        transition: color 0.2s ease;
+        /* Hover geçişi için */
+    }
+
+    .infowindow-title:hover {
+        text-decoration: underline;
+        color: #820933;
+        /* Hover rengi beyaz */
+    }
+
+    .infowindow-price {
+        font-size: 14px;
+        color: #820933;
+        font-weight: bold;
+    }
+</style>
+
 <script>
+    var gMap;
+    let markersArray = [];
+    function clearOverlays() {
+        for (var i = 0; i < markersArray.length; i++) {
+            markersArray[i].setMap(null);
+        }
+        markersArray.length = 0;
+    }
 
     $(document).ready(function () {
-        const $searchInput = $("#search-input");
-        const $resultsContainer = $("#search-results");
 
-        // Debounce function to limit AJAX calls
-        let debounceTimer;
-        const debounce = (callback, delay) => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(callback, delay);
-        };
 
-        // Function to handle AJAX search
-        $searchInput.on("input", function () {
-            const query = $(this).val().trim();
+        // when map2Modal is shown
+        $('#map2Modal').on('shown.bs.modal', function () {
+            navigator.geolocation.getCurrentPosition(pos => {
+                let lat = pos.coords.latitude;
+                let lng = pos.coords.longitude;
+                // add a blue dot marker to the map for current location
+                var latlng = new google.maps.LatLng(lat, lng);
+                var myOptions = {
+                    zoom: 12,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                gMap = new google.maps.Map(document.getElementById("searchMap"), myOptions);
+                let currentLocationMarker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    title: "Şu anki konumunuz",
+                    map: gMap,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                });
 
-            // If input is empty, hide the results container
-            if (query === "") {
-                $resultsContainer.hide();
-                return;
-            }
 
-            debounce(() => {
-                $.ajax({
-                    url: `/api/search?query=${encodeURIComponent(query)}`,
-                    method: "GET",
-                    success: function (data) {
-                        if (data && data.items && data.items.length > 0) {
-                            // Populate the results container
-                            const resultsHtml = data.items.map(listing =>
-                                `<div class="search-result-item p-2">
+                google.maps.event.addListener(gMap, 'bounds_changed', _.throttle(function () {
+                    let json = gMap.getBounds().toJSON();
+                    $.ajax({
+                        'url': '/api/listings-by-bounds',
+                        'method': 'POST',
+                        'data': {
+                            'bounds': json,
+                            '_token': '{{csrf_token()}}'
+                        },
+                        success: function (data) {
+                            // clear all markers first
+                            clearOverlays();
+                            console.log(data);
+                            // add markers to the map
+                            data.listings.forEach(listing => {
+
+                                var infowindow = new google.maps.InfoWindow({
+                                    content: `
+        <div class="infowindow-content">
+            <img src='${listing.thumbnail}' alt='Ürün Resmi' class='infowindow-image' height="100px" width="200px"/>
+            <a href='${listing.url}' target='_blank' class='infowindow-title'>${listing.title}</a>
+            <div class='infowindow-price'>${listing.price} ₺</div>
+        </div>`
+                                });
+                                var marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(listing.lat, listing.lng),
+                                    title: "Title for marker",
+                                    map: gMap
+                                });
+                                markersArray.push(marker);
+                                marker.addListener('click', function () {
+                                    infowindow.open(gMap, marker);
+                                });
+
+                            });
+                        }
+
+                    })
+                }, 1500));
+            })
+        });
+    });
+
+
+    const $searchInput = $("#search-input");
+    const $resultsContainer = $("#search-results");
+
+    // Debounce function to limit AJAX calls
+    let debounceTimer;
+    const debounce = (callback, delay) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(callback, delay);
+    };
+
+    // Function to handle AJAX search
+    $searchInput.on("input", function () {
+        const query = $(this).val().trim();
+
+        // If input is empty, hide the results container
+        if (query === "") {
+            $resultsContainer.hide();
+            return;
+        }
+
+        debounce(() => {
+            $.ajax({
+                url: `/api/search?query=${encodeURIComponent(query)}`,
+                method: "GET",
+                success: function (data) {
+                    if (data && data.items && data.items.length > 0) {
+                        // Populate the results container
+                        const resultsHtml = data.items.map(listing =>
+                            `<div class="search-result-item p-2">
                                     <div class="col-3">
     <div class="card d-flex flex-row align-items-center p-2" style="width: 100%; height: auto; text-decoration: none; border: 1px solid #ddd;">
         <!-- Thumbnail Section -->
@@ -585,32 +752,31 @@
 
                                 </div>`).join("");
 
-                            $resultsContainer.html(resultsHtml).show();
-                        } else {
-                            // No results found
-                            $resultsContainer.html('<div class="p-2 text-muted">No results found</div>').show();
-                        }
-                    },
-                    error: function () {
-                        $resultsContainer.html('<div class="p-2 text-danger">Error fetching results</div>').show();
+                        $resultsContainer.html(resultsHtml).show();
+                    } else {
+                        // No results found
+                        $resultsContainer.html('<div class="p-2 text-muted">No results found</div>').show();
                     }
-                });
-            }, 300); // Debounce delay: 300ms
-        });
+                },
+                error: function () {
+                    $resultsContainer.html('<div class="p-2 text-danger">Error fetching results</div>').show();
+                }
+            });
+        }, 300); // Debounce delay: 300ms
+    });
 
-        // Close results when clicking outside
-        $(document).on("click", function (e) {
-            if (!$(e.target).closest("#search-input, #search-results").length) {
-                $resultsContainer.hide();
-            }
-        });
+    // Close results when clicking outside
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest("#search-input, #search-results").length) {
+            $resultsContainer.hide();
+        }
+    });
 
-        // Optional: Add a hover effect to results
-        $resultsContainer.on("mouseenter", ".search-result-item", function () {
-            $(this).css("background-color", "#f0f0f0");
-        }).on("mouseleave", ".search-result-item", function () {
-            $(this).css("background-color", "");
-        });
+    // Optional: Add a hover effect to results
+    $resultsContainer.on("mouseenter", ".search-result-item", function () {
+        $(this).css("background-color", "#f0f0f0");
+    }).on("mouseleave", ".search-result-item", function () {
+        $(this).css("background-color", "");
     });
     function showMap() {
         // Kullanıcının konumunu al
@@ -653,7 +819,7 @@
                 },
                 success: (data) => {
                     if (data.message == 'success') {
-//                        location.reload();
+                        //                        location.reload();
                         $('#addressText').text(data.address);
                     }
                 }
@@ -663,35 +829,35 @@
         });
     }
     document.addEventListener('DOMContentLoaded', function () {
-    // Dropdown menüsüne tıklama olayını dinliyoruz
-    var dropdowns = document.querySelectorAll('.dropdown');
+        // Dropdown menüsüne tıklama olayını dinliyoruz
+        var dropdowns = document.querySelectorAll('.dropdown');
 
-    dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener('click', function (event) {
-            // Eğer tıklanan dropdown zaten açık değilse, önce tüm açık dropdown'ları kapatıyoruz
+        dropdowns.forEach(function (dropdown) {
+            dropdown.addEventListener('click', function (event) {
+                // Eğer tıklanan dropdown zaten açık değilse, önce tüm açık dropdown'ları kapatıyoruz
+                var allDropdownMenus = document.querySelectorAll('.dropdown-menu.show');
+                allDropdownMenus.forEach(function (menu) {
+                    menu.classList.remove('show');
+                });
+
+                // Eğer tıklanan dropdown daha önce açılmamışsa, onu açıyoruz
+                var menu = dropdown.querySelector('.dropdown-menu');
+                if (!menu.classList.contains('show')) {
+                    menu.classList.add('show');
+                }
+                // Diğer menülerin kapanmasını sağlamak için olayın yayılmasını durduruyoruz
+                event.stopPropagation();
+            });
+        });
+
+        // Sayfada başka bir yere tıklandığında tüm dropdown'ları kapatmak için
+        document.addEventListener('click', function () {
             var allDropdownMenus = document.querySelectorAll('.dropdown-menu.show');
             allDropdownMenus.forEach(function (menu) {
                 menu.classList.remove('show');
             });
-
-            // Eğer tıklanan dropdown daha önce açılmamışsa, onu açıyoruz
-            var menu = dropdown.querySelector('.dropdown-menu');
-            if (!menu.classList.contains('show')) {
-                menu.classList.add('show');
-            }
-            // Diğer menülerin kapanmasını sağlamak için olayın yayılmasını durduruyoruz
-            event.stopPropagation();
         });
     });
-
-    // Sayfada başka bir yere tıklandığında tüm dropdown'ları kapatmak için
-    document.addEventListener('click', function () {
-        var allDropdownMenus = document.querySelectorAll('.dropdown-menu.show');
-        allDropdownMenus.forEach(function (menu) {
-            menu.classList.remove('show');
-        });
-    });
-});
 </script>
 
 </script>

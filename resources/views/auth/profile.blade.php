@@ -131,13 +131,13 @@
                     <div class="d-flex align-items-center mb-3">
                         <div class="me-5">
                             @if ($user->profile_picture)
-                                <img src="{{ asset(($user->profile_picture ?? 'default.png')) }}" alt="Profil Fotoğrafı"
-                                    width="100" height="100" class="rounded-circle" style="object-fit: cover;">
+                            <img src="{{ asset(($user->profile_picture ?? 'default.png')) }}" alt="Profil Fotoğrafı"
+                                width="100" height="100" class="rounded-circle" style="object-fit: cover;">
                             @else
-                                <div class="rounded-circle"
-                                    style="width: 100px; height: 100px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #ccc;">
-                                    <i class="fas fa-user"></i>
-                                </div>
+                            <div class="rounded-circle"
+                                style="width: 100px; height: 100px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #ccc;">
+                                <i class="fas fa-user"></i>
+                            </div>
                             @endif
                         </div>
                         <div>
@@ -147,10 +147,10 @@
 
                     <!-- Başarı Mesajı -->
                     @if (session('success'))
-                        <div id="success-message" class="alert alert-success"
-                            style="position: fixed; top: 20px; right: 20px; z-index: 1050; width: 300px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-                            {{ session('success') }}
-                        </div>
+                    <div id="success-message" class="alert alert-success"
+                        style="position: fixed; top: 20px; right: 20px; z-index: 1050; width: 300px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        {{ session('success') }}
+                    </div>
                     @endif
 
                     <div class="d-flex mt-5">
@@ -163,10 +163,11 @@
 
                     <!-- Takipçi ve Takip Edilen -->
                     <div class="d-flex  mt-3">
-                        <p><i class="fa-solid fa-people-group" style="color:a1a1a1; "></i> <strong>0</strong> takipçi
+                        <p><i class="fa-solid fa-people-group" style="color:a1a1a1; "></i>
+                            <strong>{{$user->followers->count()}}</strong> takipçi
                         </p>
                         <div class="mx-2" style="border-left: 1px solid #ddd; height: 20px;"></div>
-                        <p><strong>0</strong> takip edilen</p>
+                        <p><strong>{{$user->followings->count()}}</strong> takip edilen</p>
                     </div>
                 </div>
                 <!-- "Profili Paylaş" Butonu Konteyner Dışında -->
@@ -176,11 +177,19 @@
 
                 <!-- Takip Et Butonu -->
                 @if($user->id !== Auth::id())
-                    <div class="text-center mt-2">
-                        <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}">
-                            <i class="fa-solid fa-user-plus"></i>
-                        </button>
-                    </div>
+                <div class="text-center mt-2">
+                    <!-- if Auth::user()->isFollowing($user->id) == true , make the button red, otherwise, keep it as below -->
+                    @if(Auth::user()->isFollowing($user))
+                    <button class="btn btn-danger" id="follow-button" data-user-id="{{ $user->id }}">
+                        <i class="fa-solid fa-xmark"></i> Takipten Çık
+                    </button>
+                    @else
+
+                    <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                    @endif
+                </div>
                 @endif
             </div>
 
@@ -188,11 +197,11 @@
 
             <!-- Şikayet Et Butonu -->
             @if($user->id !== Auth::id())
-                <div class="text-center mt-4">
-                    <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
-                        <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
-                    </button>
-                </div>
+            <div class="text-center mt-4">
+                <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+                    <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
+                </button>
+            </div>
             @endif
 
             <!-- Şikayet Modal -->
@@ -276,33 +285,35 @@
                 <!-- Ürün Kartları -->
                 <div class="row justify-content-center gap-0">
                     @foreach($listings as $listing)
-                        <div class="col">
-                            <div class="card" style="width: 18rem; text-decoration: none;">
-                                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
-                                    style="text-decoration: none;">
-                                    <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
-                                        style="height: 300px">
-                                </a>
-                                @if(Auth::check() && $listing->user->id !== Auth::id())
-                                    <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
-                                        <i
-                                            class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
-                                    </div>
-                                @endif
+                    <div class="col">
+                        <div class="card" style="width: 18rem; text-decoration: none;">
+                            <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                                style="text-decoration: none;">
+                                <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
+                                    style="height: 300px">
+                            </a>
+                            @if(Auth::check() && $listing->user->id !== Auth::id())
+                            <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
+                                <i
+                                    class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
+                            </div>
+                            @endif
 
-                                <div class="card-body" style=" height:200px;">
-                                    <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
-                                        style="text-decoration: none; color:inherit">
-                                        <h5 class="item-price large-price mt-3">{{$listing->price}} ₺</h5>
-                                        <p class="item-text mt-2">{{$listing->title}}</p>
-                                        <div class="d-flex justify-content-between align-items-center  mt-5">
-                                            <p class="location  me-5" style="word-wrap: break-word; font-size: 14px;">{{$listing->location}}</p>
-                                            <p class="time" style="font-size: 14px;">{{$listing->created_at->diffForHumans()}}</p>
-                                        </div>
-                                    </a>
-                                </div>
+                            <div class="card-body" style=" height:200px;">
+                                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                                    style="text-decoration: none; color:inherit">
+                                    <h5 class="item-price large-price mt-3">{{$listing->price}} ₺</h5>
+                                    <p class="item-text mt-2">{{$listing->title}}</p>
+                                    <div class="d-flex justify-content-between align-items-center  mt-5">
+                                        <p class="location  me-5" style="word-wrap: break-word; font-size: 14px;">
+                                            {{$listing->location}}</p>
+                                        <p class="time" style="font-size: 14px;">
+                                            {{$listing->created_at->diffForHumans()}}</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -380,7 +391,7 @@
         const userId = button.getAttribute('data-user-id');
 
         // Takip isteğini gönder
-        fetch(`/follow/${userId}`, {
+        fetch(`/api/follow/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -391,14 +402,20 @@
             .then(data => {
                 if (data.success) {
                     // Takipçi sayısını güncelle
+
                     const followersElement = document.querySelector('.fa-people-group').nextElementSibling;
                     followersElement.textContent = `Takipçi: ${data.followersCount}`;
-
+                    if (data.action == "follow") {
+                        button.innerHTML = '<i class="fa-solid fa-xmark"></i> Takipten Çık';
+                        button.classList.remove('btn-outline-custom');
+                        button.classList.add('btn-danger');
+                    } else {
+                        button.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
+                        button.classList.remove('btn-danger');
+                        button.classList.add('btn-outline-custom');
+                    }
                     // Butonu "Takip Ediliyor" olarak değiştir
-                    button.innerHTML = '<i class="fa-solid fa-check"></i> Takip Ediliyor';
-                    button.classList.remove('btn-outline-custom');
-                    button.classList.add('btn-success');
-                    button.disabled = true;
+
                 } else {
                     alert(data.message || 'Bir hata oluştu.');
                 }

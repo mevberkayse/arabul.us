@@ -11,54 +11,54 @@
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
     .infowindow-content {
-    width: 200px;
-    height: 200px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    background-color: #fff;
-}
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: #fff;
+    }
 
-.infowindow-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
+    .infowindow-image {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
 
-.infowindow-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: black;
-    text-decoration: none;
-    display: inline-block;
-    transition: color 0.2s ease; /* Hover geçişi için */
-}
+    .infowindow-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: black;
+        text-decoration: none;
+        display: inline-block;
+        transition: color 0.2s ease;
+        /* Hover geçişi için */
+    }
 
-.infowindow-title:hover {
-    text-decoration: underline;
-    color: #820933; /* Hover rengi beyaz */
-}
+    .infowindow-title:hover {
+        text-decoration: underline;
+        color: #820933;
+        /* Hover rengi beyaz */
+    }
 
-.infowindow-price {
-    font-size: 14px;
-    color: #820933;
-    font-weight: bold;
-}
+    .infowindow-price {
+        font-size: 14px;
+        color: #820933;
+        font-weight: bold;
+    }
 </style>
+
 <body>
-    <div id="map" style="width: 500px; height: 500px;"></div>
+    <div id="searchMap" style="width: 100%; height: 100%;"></div>
 
     <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
 
-    <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}"></script>
-    <script type="text/javascript" src="/assets/js/jquery.googlemap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 
     <script>
         // get user location
@@ -85,7 +85,7 @@
                     center: latlng,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-                gMap = new google.maps.Map(document.getElementById("map"), myOptions);
+                gMap = new google.maps.Map(document.getElementById("searchMap"), myOptions);
                 let currentLocationMarker = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
                     title: "Şu anki konumunuz",
@@ -134,52 +134,6 @@
                     })
                 }, 1500));
             })
-            //  event is triggered when the map is moved or zoomed. this makes a heavy request to the server, so we need to throttle it
-            //  we can use lodash throttle function to throttle the request
-            //  https://lodash.com/docs/4.17.15#throttle
-            // do it with lodash, so we don't have to write the throttle function ourselves
-            //  https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js is included
-
-            //  google.maps.event.addListener(gMap, 'bounds_changed', _.throttle(function () {
-            //      let json = gMap.getBounds().toJSON();
-            //      $.ajax({
-            //          'url': '/api/listings-by-bounds',
-            //          'method': 'POST',
-            //          'data': {
-            //              'bounds': json,
-            //              '_token
-            //          },
-            //          success: function (data) {
-            //              // clear all markers first
-            //              clearOverlays();
-            //              console.log(data);
-            //              // add markers to the map
-            //              data.listings.forEach(listing => {
-
-            //                  var infowindow = new google.maps.InfoWindow({
-            //                      content: "<div>" + listing.title + "</div> <div>" + listing.price + "</div>"
-            //                  });
-            //                  var marker = new google.maps.Marker({
-            //                      position: new google.maps.LatLng(listing.lat, listing.lng),
-            //                      title: "Title for marker",
-            //                      map: gMap
-            //                  });
-            //                  markersArray.push(marker);
-            //                  marker.addListener('click', function () {
-            //                      infowindow.open(gMap, marker);
-
-            //                  });
-
-            //              });
-            //          }
-
-            //      })
-            //  }, 1000));
-
-
-
-
-
         });
     </script>
 
