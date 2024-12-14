@@ -83,6 +83,8 @@ Route::prefix('api')->group(function () {
     Route::post('/search/filter', [APIIndexController::class, 'searchFilter']);
 
     Route::post('/listings-by-bounds', [APIIndexController::class, 'getListingsByBounds']);
+
+    Route::post('/follow/{id}', [APIIndexController::class, 'follow'])->whereNumber('id');
 });
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');
