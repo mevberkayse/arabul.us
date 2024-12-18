@@ -15,34 +15,45 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
 <style>
-.logo {
-            width:200px ;
-            height: 200px;
-        }
-        .header {
-    height: 80px; /* Header yüksekliğini sabitler */
-    display: flex;
-    align-items: center; /* İçeriği dikeyde ortalar */
-    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
-    padding: 0 15px; /* İsteğe bağlı padding */
-}
-.back-button {
-    border: 1px solid #1A1B41 !important;
-    width: 40px;
-    height: 40px;
-    display: flex; /* Flexbox ile içerikleri hizalayacağız */
-    align-items: center; /* Yatayda ortalar */
-    justify-content: center; /* Dikeyde ortalar */
-    padding: 0; /* İçeride fazladan boşluk olmaması için */
-}
+    .logo {
+        width: 200px;
+        height: 200px;
+    }
+
+    .header {
+        height: 80px;
+        /* Header yüksekliğini sabitler */
+        display: flex;
+        align-items: center;
+        /* İçeriği dikeyde ortalar */
+        justify-content: flex-start;
+        /* İçeriği yatayda sola hizalar */
+        padding: 0 15px;
+        /* İsteğe bağlı padding */
+    }
+
+    .back-button {
+        border: 1px solid #1A1B41 !important;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        /* Flexbox ile içerikleri hizalayacağız */
+        align-items: center;
+        /* Yatayda ortalar */
+        justify-content: center;
+        /* Dikeyde ortalar */
+        padding: 0;
+        /* İçeride fazladan boşluk olmaması için */
+    }
 </style>
+
 <body class="ilansayfasi3">
     <div class="header d-flex align-items-center p-3">
         <a href="{{route('listings.create', ['step' => 2])}}" class="back-button btn p-2 me-2">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </a>
- <!--<img src="logo.png" alt="Logo" class="logo"-->
- <img src="/assets/images/logo3.png" alt="Logo" class="logo">
+        <!--<img src="logo.png" alt="Logo" class="logo"-->
+        <img src="/assets/images/logo3.png" alt="Logo" class="logo">
     </div>
     <div class="container d-flex flex-column align-items-center mt-5">
         <!-- Adım Daireleri -->
@@ -102,7 +113,7 @@
                 <div class="modal-body">
                     <ul class="list-group" id="renkList">
                         @foreach($subCategory->getSubCategories() as $subSubCat)
-                        <li class="list-group-item"
+                        <li class="list-group-item" data-id="{{$subSubCat->id}}"
                             onclick="chooseOption('{{$subSubCat->name}}', '#subcategory-{{$subCategory->id}}-input', '{{$subCategory->id}}', '{{$subSubCat->id}}')">
                             {{$subSubCat->name}}</li>
                         @endForeach
@@ -129,6 +140,21 @@
     });
 </script>
 @endif
+@if(session('create_listing_subcategory') || session('create_listing_subsubcategory'))
+<script>
+    $(document).ready(() => {
+        let subcategory = '{{session("create_listing_subcategory")}}';
+        let subsubcategory = '{{session("create_listing_subsubcategory")}}';
+        if (subcategory) {
+            $(`input[type="radio"][id="${subcategory}"]`).prop('checked', true);
+        }
+        if (subsubcategory) {
+            $('li[data-id=' + subsubcategory + ']').click();
+        }
+    });
+</script>
+@endif
+
 <script>
 
     // if user clicks on a radio input, clear all other input values with name subcategory-input

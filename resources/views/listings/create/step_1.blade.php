@@ -46,33 +46,44 @@
             --bs-btn-disabled-bg: #0d6efd;
             --bs-btn-disabled-border-color: #1A1B41;
         }
+
         .logo {
-            width:200px ;
+            width: 200px;
             height: 200px;
         }
+
         .header {
-    height: 80px; /* Header yüksekliğini sabitler */
-    display: flex;
-    align-items: center; /* İçeriği dikeyde ortalar */
-    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
-    padding: 0 15px; /* İsteğe bağlı padding */
-}
-.back-button {
-    border: 1px solid #1A1B41 !important;
-    width: 40px;
-    height: 40px;
-    display: flex; /* Flexbox ile içerikleri hizalayacağız */
-    align-items: center; /* Yatayda ortalar */
-    justify-content: center; /* Dikeyde ortalar */
-    padding: 0; /* İçeride fazladan boşluk olmaması için */
-}
+            height: 80px;
+            /* Header yüksekliğini sabitler */
+            display: flex;
+            align-items: center;
+            /* İçeriği dikeyde ortalar */
+            justify-content: flex-start;
+            /* İçeriği yatayda sola hizalar */
+            padding: 0 15px;
+            /* İsteğe bağlı padding */
+        }
+
+        .back-button {
+            border: 1px solid #1A1B41 !important;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            /* Flexbox ile içerikleri hizalayacağız */
+            align-items: center;
+            /* Yatayda ortalar */
+            justify-content: center;
+            /* Dikeyde ortalar */
+            padding: 0;
+            /* İçeride fazladan boşluk olmaması için */
+        }
     </style>
 </head>
 
 <body>
     <div class="header d-flex align-items-center p-3">
         <a href="/" class="back-button border btn p-2 me-2">
-            <i class="fa fa-arrow-left" aria-hidden="true" ></i>
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </a>
         <!--<img src="logo.png" alt="Logo" class="logo"-->
         <img src="/assets/images/logo3.png" alt="Logo" class="logo">
@@ -109,7 +120,29 @@
             </div>
             <small class="text-muted d-block mb-3">En az 1 en fazla 12 fotoğraf yükleyiniz.</small>
 
-            <!-- Küçük Fotoğraf Kutucukları -->
+            @php
+            // if session has images, show them, show 12 slots and fill in the images, if there is not enough images, show empty slots. else, show empty slots
+            @endphp
+            @if(session('create_listing_images'))
+            @foreach(session('create_listing_images') as $image)
+            <div class="row">
+                <!-- Fotoğraf Slotları -->
+                <div class="col-3 mb-2" id="slot-1">
+                    <div class="photo-slot border rounded text-center">
+                        <img src="{{asset($image)}}" alt="image" width="100%" height="80px">
+                    </div>
+                </div>
+                @endforeach
+                @for($i = 0; $i < 12 - count(session('create_listing_images')); $i++)
+                    <div class="col-3 mb-2" id="slot-{{count(session('create_listing_images')) + $i + 1}}">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular
+                            fa-image"></i>
+                        </div>
+                    </div>
+                    @endfor
+                </div>
+            @else
             <div class="row">
                 <!-- Fotoğraf Slotları -->
                 <div class="col-3 mb-2" id="slot-1">
@@ -135,60 +168,90 @@
                         <i class="fa-regular fa-image"></i>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-5">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
+                <div class="row">
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-1">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
                     </div>
-                </div>
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-6">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-2">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
                     </div>
-                </div>
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-7">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-3">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
                     </div>
-                </div>
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-8">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-9">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
-                    </div>
-                </div>
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-10">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-4">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
                     </div>
 
                 </div>
-                <!-- Fotoğraf Slotları -->
-                <div class="col-3 mb-2" id="slot-11">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
+                <div class="row">
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-5">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
                     </div>
-
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-6">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+                    </div>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-7">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+                    </div>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-8">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-3 mb-2" id="slot-12">
-                    <div class="photo-slot border rounded text-center">
-                        <i class="fa-regular fa-image"></i>
+                <div class="row">
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-9">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+                    </div>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-10">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+
+                    </div>
+                    <!-- Fotoğraf Slotları -->
+                    <div class="col-3 mb-2" id="slot-11">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
+
+                    </div>
+                    <div class="col-3 mb-2" id="slot-12">
+                        <div class="photo-slot border rounded text-center">
+                            <i class="fa-regular fa-image"></i>
+                        </div>
                     </div>
                 </div>
             </div>
+            @endif
+            <!-- Küçük Fotoğraf Kutucukları -->
+
         </div>
 
         <!-- Devam Et Butonu -->
@@ -200,6 +263,7 @@
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
     <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+    <script>window.files = new FormData();</script>
     @if($errors->any())
     <script>
         $(document).ready(() => {
@@ -210,11 +274,24 @@
         });
     </script>
     @endif
+
+    @if(session('create_listing_images'))
+    <script>
+        $(document).ready(() => {
+            let images = @json(session('create_listing_images'));
+            images.forEach((image, index) => {
+                $(`#slot-${index + 1}`).html(`<img src="${image}" alt="image" width="100%" height="80px">`);
+                window.files.append(`images[${index}]`, image);
+            })
+
+        })
+    </script>
+    @endif
     <script>
 
         $(document).ready(() => {
             let slot = 1;
-            window.files = new FormData();
+
 
             let readUrl = input => {
                 if (input.files && input.files[0]) {

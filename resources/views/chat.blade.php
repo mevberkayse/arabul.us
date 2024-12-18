@@ -170,7 +170,7 @@ footer ul li{
 
 footer {
     background-color:#820933; /* Koyu kırmızı */
-    
+
 }
 /* Buton Normal Durumu */
 .btn-hesap {
@@ -230,7 +230,7 @@ footer {
                             class="rounded-circle me-2" width="40" height="40" />
                         <div>
                             <strong>{{$lastConvo->recipient()->name}}</strong><br />
-                            <small id="listingTitle">Satılan Ürün: {{$lastConvo->listing->title}}</small>
+                            <small id="listingTitle">Satılan Ürün: <a class="listingTitle" style="text-decoration: none; color:black;" href='{{route('listings.show',[$lastConvo->listing->id, '-', $lastConvo->slug])}}'>{{$lastConvo->listing->title}}</a></small>
                         </div>
                     </div>
                     <div>
@@ -264,49 +264,7 @@ footer {
     </div>
 
     <!-- Footer -->
-    <footer class="text-light text-center text-lg-start py-5 mt-5">
-    <div class="container">
-        <!-- Kategoriler ve Arabul Başlığı -->
-        <div class="row">
-            <!-- Kategoriler -->
-            <div class="col-md-6 text-center">
-                <h5 class=" mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">Kategoriler</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Telefon & Aksesuar</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Bilgisayar & Tablet</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Çevre Birimleri</a></li>
-                </ul>
-            </div>
-
-            <!-- Arabul Başlığı -->
-            <div class="col-md-6 text-center">
-                <h5 class="mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">arabul.us</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Kullanıcı Sözleşmesi</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Gizlilik Politikası</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Çerez Politikası</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Sosyal Medya Linkleri -->
-<div class="mt-4 d-flex justify-content-center gap-3">
-    <!-- LinkedIn Butonu -->
-    <a href="https://linkedin.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
-        style="width: 50px; height: 50px;">
-        <i class="fa-brands fa-linkedin" style="font-size: 1.5rem;"></i>
-    </a>
-    <!-- GitHub Butonu -->
-    <a href="https://github.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
-        style="width: 50px; height: 50px;">
-        <i class="fa-brands fa-github" style="font-size: 1.5rem;"></i>
-    </a>
-</div>
-        <!-- Alt Bilgi -->
-        <p class="text-muted mt-4 mb-0 fw-bold" style="font-size:15px;">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
-    </div>
-</footer>
-
+    @include('partials.footer')
 
 
     @if($lastConvo !== null)
@@ -467,6 +425,7 @@ footer {
     <script>
         document.querySelector(`.chat-box[data-conversation-id="{{$openChat->id}}"]`).click();
     </script>
+    @endif
 </body>
 
 </html>
