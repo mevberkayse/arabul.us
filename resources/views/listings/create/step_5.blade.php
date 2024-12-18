@@ -336,9 +336,11 @@
                 _token: "{{csrf_token()}}",
                 parameters: window.parameters,
             }
+            @if(session()->has('listing_id'))
             if(window.isEditing){
                 data.listing_id = {{session()->get('listing_id')}};
             }
+            @endif
 
             if (run) {
                 $.ajax({
