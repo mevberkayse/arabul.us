@@ -7,6 +7,7 @@
     <title>AraBulus</title>
     <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/listing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
 
@@ -14,7 +15,49 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 </head>
+<style>
+    .duzenle-btn button {
+    width: 100%; /* Buton genişliğini container'a eşitle */
+    box-sizing: border-box; /* Padding ve border'ı dahil et */
+}
+.satildi-btn {
+        color: white;
+        background-color: #820933;
+        border-color: #820933;
+    }
 
+    .satildi-btn:hover {
+        color: #820933;
+        background-color: white;
+        border-color: #820933;
+    }
+    footer ul li a:hover {
+    color: #ffc107; /* Hover rengi */
+    text-decoration: underline;
+}
+footer ul li{
+    margin-top: 5px;
+}
+
+footer {
+    background-color:#820933; /* Koyu kırmızı */
+    
+}
+/* Buton Normal Durumu */
+.btn-hesap {
+    border: 1px solid white;
+    color: white;
+    transition: all 0.3s ease; /* Hover geçiş animasyonu */
+}
+
+/* Hover Durumu */
+.btn-hesap:hover {
+    background-color: transparent; /* Hover'da arka plan rengi */
+    color: #1a1b41; /* Metin rengi */
+    border-color: #1a1b41; /* Hover'da mavi ton border */
+    transform: translateY(-5px); /* Butonu yukarı hareket ettir */
+}
+</style>
 <body>
     @include('partials.navbar')
     <div class="container my-4">
@@ -104,6 +147,16 @@
                     <div id="listing-map" style="height: 200px; width: 100%;"></div>
 
                 </div>
+                <div class="duzenle-btn mt-3 w-100">
+                    <button class="btn btn-outline-custom">
+                        İlanı Düzenle
+                    </button>
+                </div>
+                <div class="duzenle-btn mt-3 w-100">
+                    <button class="btn satildi-btn" data-bs-toggle="modal" data-bs-target="#satildiModal">
+                        Ürünüm Satıldı
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -146,12 +199,66 @@
             <!-- Ürün Kartı 4 -->
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-auto py-3 fixed-buttom">
-        <div class="container">
-            <p class="text-muted mb-0">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+    <div class="modal fade" id="satildiModal" tabindex="-1" aria-labelledby="satildiModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-header flex-column border-0">
+                    <h5 class="modal-title w-100" id="satildiModalLabel">Ürünü Satıştan Kaldır</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3 mt-2">Ürününüzün satıldığını onaylıyor musunuz?</p>
+                    <button type="button" class="btn satildi-btn me-3">Ürünüm Satıldı</button>
+                    <button type="button" class="btn btn-outline-custom"
+                        data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+  <!-- Footer -->
+<footer class="text-light text-center text-lg-start py-5 mt-5">
+    <div class="container">
+        <!-- Kategoriler ve Arabul Başlığı -->
+        <div class="row">
+            <!-- Kategoriler -->
+            <div class="col-md-6 text-center">
+                <h5 class=" mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">Kategoriler</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Telefon & Aksesuar</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Bilgisayar & Tablet</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Çevre Birimleri</a></li>
+                </ul>
+            </div>
+
+            <!-- Arabul Başlığı -->
+            <div class="col-md-6 text-center">
+                <h5 class="mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">arabul.us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Kullanıcı Sözleşmesi</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Gizlilik Politikası</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Çerez Politikası</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sosyal Medya Linkleri -->
+<div class="mt-4 d-flex justify-content-center gap-3">
+    <!-- LinkedIn Butonu -->
+    <a href="https://linkedin.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
+        style="width: 50px; height: 50px;">
+        <i class="fa-brands fa-linkedin" style="font-size: 1.5rem;"></i>
+    </a>
+    <!-- GitHub Butonu -->
+    <a href="https://github.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
+        style="width: 50px; height: 50px;">
+        <i class="fa-brands fa-github" style="font-size: 1.5rem;"></i>
+    </a>
+</div>
+        <!-- Alt Bilgi -->
+        <p class="text-muted mt-4 mb-0 fw-bold" style="font-size:15px;">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+    </div>
+</footer>
+
 
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>

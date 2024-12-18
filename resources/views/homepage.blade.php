@@ -22,7 +22,34 @@
 
 
 </head>
+<style>
+        footer ul li a:hover {
+    color: #ffc107; /* Hover rengi */
+    text-decoration: underline;
+}
+footer ul li{
+    margin-top: 5px;
+}
 
+footer {
+    background-color:#820933; /* Koyu kırmızı */
+    
+}
+/* Buton Normal Durumu */
+.btn-hesap {
+    border: 1px solid white;
+    color: white;
+    transition: all 0.3s ease; /* Hover geçiş animasyonu */
+}
+
+/* Hover Durumu */
+.btn-hesap:hover {
+    background-color: transparent; /* Hover'da arka plan rengi */
+    color: #1a1b41; /* Metin rengi */
+    border-color: #1a1b41; /* Hover'da mavi ton border */
+    transform: translateY(-5px); /* Butonu yukarı hareket ettir */
+}
+</style>
 <body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
 
@@ -69,12 +96,49 @@
     </div>
 
 
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-auto py-3">
-        <div class="container">
-            <p class="text-muted mb-0">&copy; 2024 arabul.us tüm hakları saklıdır.</p>
+     <!-- Footer -->
+<footer class="text-light text-center text-lg-start py-5 mt-5">
+    <div class="container">
+        <!-- Kategoriler ve Arabul Başlığı -->
+        <div class="row">
+            <!-- Kategoriler -->
+            <div class="col-md-6 text-center">
+                <h5 class=" mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">Kategoriler</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Telefon & Aksesuar</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Bilgisayar & Tablet</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Çevre Birimleri</a></li>
+                </ul>
+            </div>
+
+            <!-- Arabul Başlığı -->
+            <div class="col-md-6 text-center">
+                <h5 class="mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">arabul.us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Kullanıcı Sözleşmesi</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Gizlilik Politikası</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Çerez Politikası</a></li>
+                </ul>
+            </div>
         </div>
-    </footer>
+
+        <!-- Sosyal Medya Linkleri -->
+<div class="mt-4 d-flex justify-content-center gap-3">
+    <!-- LinkedIn Butonu -->
+    <a href="https://linkedin.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
+        style="width: 50px; height: 50px;">
+        <i class="fa-brands fa-linkedin" style="font-size: 1.5rem;"></i>
+    </a>
+    <!-- GitHub Butonu -->
+    <a href="https://github.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
+        style="width: 50px; height: 50px;">
+        <i class="fa-brands fa-github" style="font-size: 1.5rem;"></i>
+    </a>
+</div>
+        <!-- Alt Bilgi -->
+        <p class="text-muted mt-4 mb-0 fw-bold" style="font-size:15px;">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
+    </div>
+</footer>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
