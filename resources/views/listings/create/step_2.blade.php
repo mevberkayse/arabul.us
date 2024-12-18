@@ -59,26 +59,37 @@
         .category.selected .circle {
             border-color: #37BC61;
         }
+
         .logo {
-            width:200px ;
+            width: 200px;
             height: 200px;
         }
+
         .header {
-    height: 80px; /* Header yüksekliğini sabitler */
-    display: flex;
-    align-items: center; /* İçeriği dikeyde ortalar */
-    justify-content: flex-start; /* İçeriği yatayda sola hizalar */
-    padding: 0 15px; /* İsteğe bağlı padding */
-}
-.back-button {
-    border: 1px solid #1A1B41 !important;
-    width: 40px;
-    height: 40px;
-    display: flex; /* Flexbox ile içerikleri hizalayacağız */
-    align-items: center; /* Yatayda ortalar */
-    justify-content: center; /* Dikeyde ortalar */
-    padding: 0; /* İçeride fazladan boşluk olmaması için */
-}
+            height: 80px;
+            /* Header yüksekliğini sabitler */
+            display: flex;
+            align-items: center;
+            /* İçeriği dikeyde ortalar */
+            justify-content: flex-start;
+            /* İçeriği yatayda sola hizalar */
+            padding: 0 15px;
+            /* İsteğe bağlı padding */
+        }
+
+        .back-button {
+            border: 1px solid #1A1B41 !important;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            /* Flexbox ile içerikleri hizalayacağız */
+            align-items: center;
+            /* Yatayda ortalar */
+            justify-content: center;
+            /* Dikeyde ortalar */
+            padding: 0;
+            /* İçeride fazladan boşluk olmaması için */
+        }
     </style>
 </head>
 
@@ -135,9 +146,13 @@
 <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
 <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+<script>
+    let selectedCategory = 0;
+</script>
 @if($errors->any())
 <script>
     $(document).ready(() => {
+
         PNotify.error({
             text: '{{$errors->first()}}',
             delay: 2000
@@ -145,9 +160,17 @@
     });
 </script>
 @endif
+@if(session('create_listing_category'))
 <script>
     $(document).ready(() => {
-        let selectedCategory = 0;
+        $(`#cat-{{session('create_listing_category')}}`).click();
+        highlightCategory(`cat-{{session('create_listing_category')}}`);
+        selectedCategory = {{session('create_listing_category')}};
+    });
+</script>
+@endif
+<script>
+    $(document).ready(() => {
         $('.category').click((e) => {
             selectedCategory = $(e.currentTarget).attr('id').split('-')[1];
             $('.category').removeClass('selected');

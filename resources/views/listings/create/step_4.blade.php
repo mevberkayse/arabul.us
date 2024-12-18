@@ -98,7 +98,7 @@
         <div class="mb-3 w-100">
             <label for="aciklama" class="form-label">Açıklama</label>
             <textarea id="aciklama" class="form-control" rows="5"
-                placeholder="Açıklama giriniz">@if(session()->has('create_listing_data')) {{session()->get('create_listing_data')['description']}} @endif</textarea>
+                placeholder="Açıklama giriniz">@if(session()->has('create_listing_data')){{session()->get('create_listing_data')['description']}}@endif</textarea>
             <div class="d-flex justify-content-between">
                 <small class="text-danger">Zorunlu alan</small>
                 <small>0/1000</small>
@@ -119,12 +119,6 @@
                 <input type="text" id="ad" class="form-control" placeholder="Ad" value="{{auth()->user()->name}}"
                     disabled readonly>
             </div>
-        </div>
-        <div class="mb-3 w-100">
-            <label for="telefon" class="form-label">Telefon Numarası</label>
-            <input type="text" id="telefon" class="form-control" placeholder="Bir telefon numarası giriniz"
-                @if(session()->has('create_listing_data')) value="{{session()->get('create_listing_data')['phone']}}"
-            @endif>
         </div>
 
     </div>
@@ -153,11 +147,7 @@
 
 
     <script>
-        $(() => {
-            $('#telefon').mask('(000) 000-0000', {
-                placeholder: "(5__) ___-____"
-            });
-        })
+
         window.userlocation = "{{session()->get('address')}}";
         let getLocation = () => {
             if (navigator.geolocation) {
@@ -193,7 +183,6 @@
                     title: $('#ilan-basligi').val(),
                     price: $('#fiyat').val(),
                     description: $('#aciklama').val(),
-                    phone: $('#telefon').val(),
                     location: window.userlocation
 
                 },

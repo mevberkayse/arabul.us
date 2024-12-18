@@ -95,10 +95,9 @@ class CreateListingController extends Controller
             'price' => 'required|numeric|min:1|max:999999999',
             'description' => 'required|string|max:1000',
             'location' => 'required|string',
-            'phone' => 'required|string',
         ]);
 
-        $data = $request->only(['title', 'price', 'description', 'location', 'phone']);
+        $data = $request->only(['title', 'price', 'description', 'location']);
         $request->session()->put('create_listing_data', $data);
 
         return response()->json(['success' => 'Data saved successfully'], 200);
@@ -121,6 +120,35 @@ class CreateListingController extends Controller
         $subsubcategory = $request->session()->get('create_listing_subsubcategory');
         $data = $request->session()->get('create_listing_data');
         $parameters = $request->session()->get('create_listing_parameters');
+        $listing_id = $request->session()->get('listing_id');
+        // if listing_id is set, update listing instead of creating new one
+        if ($listing_id) {
+            $listing = Listing::findOrFail($listing_id);
+            $listing->category_id = $subsubcategory;
+            $listing->title = $data['title'];
+            $listing->price = $data['price'];
+            $listing->descriptions = $data['description'];
+            $listing->location = $data['location'];
+            $listing->slug = Str::slug($data['title']);
+            $listing->is_active = 1;
+            $listing->status = 0;
+            $listing->lat = $request->session()->get('lat');
+            $listing->long = $request->session()->get('lng');
+            $listing->parameters = "";
+            $listing->save();
+            $images = $this->saveImages($images, $listing->id);
+            $params = [
+                'images' => $images,
+                ...$parameters
+            ];
+            debugbar()->info($params);
+            $listing->parameters = $params;
+            $listing->save();
+            return response()->json([
+                'success' => 'Listing updated successfully',
+                'link' => route('listings.show', ['id' => $listing->id, 'dash' => '-', 'slug' => $listing->slug])
+            ], 200);
+        }
 
 
         $listing = new Listing();
@@ -186,16 +214,28 @@ class CreateListingController extends Controller
     }
     private function base64_to_jpeg($base64_string, $output_file)
     {
+        // first of all, check if base64 string is well formatted. if so, then no need to proceed with image creation, just save the base64 string as it is to the file
+        // if base64 string is not formatted, then proceed with image creation
+
+        if(!preg_match('/^data:image\/(\w+);base64,/', $base64_string)) {
+            // save the base64 string as it is to the file
+            file_put_contents($output_file, $base64_string);
+            return $output_file;
+        }
+
         // open the output file for writing
         $ifp = fopen($output_file, 'wb');
 
         // split the string on commas
         // $data[ 0 ] == "data:image/png;base64"
         // $data[ 1 ] == <actual base64 string>
+        // base64 string could be well formatted already. If not, add some validation
         $data = explode(',', $base64_string);
 
-        // we could add validation here with ensuring count( $data ) > 1
-        fwrite($ifp, base64_decode($data[1]));
+        // if base64 string is well formatted, then $data[0] is the actual image data
+        if(count($data) < 2 ) {
+            fwrite($ifp, base64_decode($data[0]));
+        } else fwrite($ifp, base64_decode($data[1]));
 
         // clean up the file resource
         fclose($ifp);

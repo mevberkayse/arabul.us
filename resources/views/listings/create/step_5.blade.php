@@ -279,6 +279,22 @@
     </script>
     @endif
 
+    @if(session()->has('create_listing_parameters'))
+
+    <script>
+        $(document).ready(() => {
+            let parameters = @json(session()->get('create_listing_parameters'));
+            parameters.forEach(parameter => {
+                document.getElementById('param_' + parameter.parameter_id + '-sec').value = parameter.parameter_value;
+            });
+
+            // set a global variable to when next step button is clicked
+            window.isEditing = true;
+        });
+
+    </script>
+    @endif
+
     <script>
 
         let chooseOption = (parameterName, value) => {
@@ -293,6 +309,9 @@
             // get all inputs that id starts with param_
             let inputs = document.querySelectorAll('input[id^="param_"]');
             let run = false;
+
+            // if isEditing is true, then we are editing the listing. therefore, we need to send the listing id
+
 
             for (let i = 0; i < inputs.length; i++) {
 
@@ -313,15 +332,20 @@
                 });
                 run = true;
             }
+            let data = {
+                _token: "{{csrf_token()}}",
+                parameters: window.parameters,
+            }
+            if(window.isEditing){
+                data.listing_id = {{session()->get('listing_id')}};
+            }
+
             if (run) {
                 $.ajax({
                     url: '/api/create-listing/step-5',
 
                     method: 'POST',
-                    data: {
-                        _token: "{{csrf_token()}}",
-                        parameters: window.parameters
-                    },
+                    data: data,
                     success: (data) => {
                         window.location.href = '/ilan-yukle/6';
                         console.log(data);

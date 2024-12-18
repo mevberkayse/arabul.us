@@ -335,7 +335,7 @@ footer ul li{
 
 footer {
     background-color:#820933; /* Koyu kırmızı */
-    
+
 }
 /* Buton Normal Durumu */
 .btn-hesap {
@@ -455,7 +455,7 @@ footer {
                             <!-- Yeni E-mail -->
                             <input type="email" class="form-control me-3" id="new_email" placeholder="Yeni E-mail">
                             <button class="btn btn-outline-custom" id="changeMail">Değiştir</button>
-    
+
                     </div>
                 </div>
             </div>
@@ -463,48 +463,7 @@ footer {
     </div>
 </div>
        <!-- Footer -->
-<footer class="text-light text-center text-lg-start py-5 mt-5">
-    <div class="container">
-        <!-- Kategoriler ve Arabul Başlığı -->
-        <div class="row">
-            <!-- Kategoriler -->
-            <div class="col-md-6 text-center">
-                <h5 class=" mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">Kategoriler</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Telefon & Aksesuar</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Bilgisayar & Tablet</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Çevre Birimleri</a></li>
-                </ul>
-            </div>
-
-            <!-- Arabul Başlığı -->
-            <div class="col-md-6 text-center">
-                <h5 class="mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">arabul.us</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Kullanıcı Sözleşmesi</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Gizlilik Politikası</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Çerez Politikası</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Sosyal Medya Linkleri -->
-<div class="mt-4 d-flex justify-content-center gap-3">
-    <!-- LinkedIn Butonu -->
-    <a href="https://linkedin.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
-        style="width: 50px; height: 50px;">
-        <i class="fa-brands fa-linkedin" style="font-size: 1.5rem;"></i>
-    </a>
-    <!-- GitHub Butonu -->
-    <a href="https://github.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
-        style="width: 50px; height: 50px;">
-        <i class="fa-brands fa-github" style="font-size: 1.5rem;"></i>
-    </a>
-</div>
-        <!-- Alt Bilgi -->
-        <p class="text-muted mt-4 mb-0 fw-bold" style="font-size:15px;">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
-    </div>
-</footer>
+        @include('partials.footer')
 
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel"
         aria-hidden="true">
@@ -625,7 +584,7 @@ footer {
         data: JSON.stringify({
             name: newName,
             _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
-        }), 
+        }),
         success: function(response) {
             if (response.success) {
                 // Başarı mesajını göster
@@ -642,7 +601,7 @@ footer {
         }
     });
 });
-    
+
     </script>
 
 <script>
@@ -663,7 +622,7 @@ footer {
         data: JSON.stringify({
             email: newEmail,
             _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
-        }), 
+        }),
         success: function(response) {
             if (response.success) {
                 // Başarı mesajını göster
@@ -680,7 +639,7 @@ footer {
         }
     });
 });
-    
+
     </script>
 
 <script>

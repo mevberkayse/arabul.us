@@ -41,7 +41,7 @@ footer ul li{
 
 footer {
     background-color:#820933; /* Koyu kırmızı */
-    
+
 }
 /* Buton Normal Durumu */
 .btn-hesap {
@@ -147,8 +147,9 @@ footer {
                     <div id="listing-map" style="height: 200px; width: 100%;"></div>
 
                 </div>
+                @if(Auth::check() && $listing->user->id === Auth::id())
                 <div class="duzenle-btn mt-3 w-100">
-                    <button class="btn btn-outline-custom">
+                    <button class="btn btn-outline-custom" onclick="startEditing();">
                         İlanı Düzenle
                     </button>
                 </div>
@@ -157,6 +158,8 @@ footer {
                         Ürünüm Satıldı
                     </button>
                 </div>
+                @endif
+
             </div>
 
         </div>
@@ -208,7 +211,7 @@ footer {
                 </div>
                 <div class="modal-body">
                     <p class="mb-3 mt-2">Ürününüzün satıldığını onaylıyor musunuz?</p>
-                    <button type="button" class="btn satildi-btn me-3">Ürünüm Satıldı</button>
+                    <button type="button" class="btn satildi-btn me-3" onclick="markAsSold();">Ürünüm Satıldı</button>
                     <button type="button" class="btn btn-outline-custom"
                         data-bs-dismiss="modal">Vazgeç</button>
                 </div>
@@ -216,49 +219,7 @@ footer {
         </div>
     </div>
   <!-- Footer -->
-<footer class="text-light text-center text-lg-start py-5 mt-5">
-    <div class="container">
-        <!-- Kategoriler ve Arabul Başlığı -->
-        <div class="row">
-            <!-- Kategoriler -->
-            <div class="col-md-6 text-center">
-                <h5 class=" mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">Kategoriler</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Telefon & Aksesuar</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Bilgisayar & Tablet</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Çevre Birimleri</a></li>
-                </ul>
-            </div>
-
-            <!-- Arabul Başlığı -->
-            <div class="col-md-6 text-center">
-                <h5 class="mb-4 px-3 py-2" style="display: inline-block; border:1px solid white; border-radius:10px;">arabul.us</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Kullanıcı Sözleşmesi</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Gizlilik Politikası</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">Çerez Politikası</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Sosyal Medya Linkleri -->
-<div class="mt-4 d-flex justify-content-center gap-3">
-    <!-- LinkedIn Butonu -->
-    <a href="https://linkedin.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
-        style="width: 50px; height: 50px;">
-        <i class="fa-brands fa-linkedin" style="font-size: 1.5rem;"></i>
-    </a>
-    <!-- GitHub Butonu -->
-    <a href="https://github.com" target="_blank" class="btn-hesap rounded-circle p-3 d-flex align-items-center justify-content-center"
-        style="width: 50px; height: 50px;">
-        <i class="fa-brands fa-github" style="font-size: 1.5rem;"></i>
-    </a>
-</div>
-        <!-- Alt Bilgi -->
-        <p class="text-muted mt-4 mb-0 fw-bold" style="font-size:15px;">&copy; 2024 Şirket Adı. Tüm hakları saklıdır.</p>
-    </div>
-</footer>
-
+@include('partials.footer')
 
     <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
@@ -268,6 +229,63 @@ footer {
 
 <!-- Leaflet.js JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+@if(Auth::check() && $listing->user->id === Auth::id())
+<script>
+    let markAsSold = () => {
+        // close the modal
+
+        $.ajax({
+            url: '/api/listings/mark-as-sold',
+            method: 'POST',
+            data: {
+                listing_id: '{{$listing->id}}',
+                _token: '{{csrf_token()}}'
+            },
+            success: response => {
+                if (response.success) {
+                    $('#satildiModal').modal('hide');
+                    PNotify.success({
+                        text: response.msg,
+                        delay: 2000
+                    })
+
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000)
+                } else {
+                    PNotify.error({
+                        text: response.msg,
+                        delay: 2000
+                    })
+                }
+            }
+        })
+    }
+
+    let startEditing = () => {
+        // we need to redirect to the edit page after an ajax request
+        $.ajax({
+            url: '/api/listing/edit',
+            method: 'POST',
+            data: {
+                listing_id: '{{$listing->id}}',
+                _token: '{{csrf_token()}}'
+            },
+            success: response => {
+                if (response.success) {
+                    window.location.href = response.link
+                } else {
+                    PNotify.error({
+                        text: response.msg,
+                        delay: 2000
+                    })
+                }
+            }
+        })
+    }
+</script>
+@endif
 
     <script>
         $(document).ready(() => {
@@ -363,7 +381,7 @@ footer {
                 },
                 success: response => {
                         if(response.status == 'ok') {
-                            window.location.href = '/chat?chat_id=' + response.id;
+                            window.location.href = '/chat?chat_id=' + response.conversation.id;
                         } else {
                             PNotify.error({
                                 text: response.msg,

@@ -9,7 +9,7 @@ use App\Models\Listing;
 use App\Models\Report;
 use App\Models\User;
 use App\Models\Category;
-
+use App\Models\Conversation;
 use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
@@ -346,5 +346,71 @@ class IndexController extends Controller
                 'followersCount' => $followedUser->followers->count()
             ]);
         }
+    }
+
+    public function markAsSold(Request $request)
+    {
+        $listingId = $request->input('listing_id');
+        $listing = Listing::findOrFail($listingId);
+
+        if ($listing->user_id != Auth::id()) {
+            return response()->json(['success' => false, 'msg' => 'Bu işlemi yapmaya yetkiniz yok.']);
+        }
+
+        // clear al conversations related to this listing
+        Conversation::where('listing_id', $listingId)->delete();
+
+        $listing->delete();
+
+        return response()->json(['success' => true, 'msg' => 'İlan başarıyla satıldı olarak işaretlendi.']);
+    }
+
+    public function editListing(Request $request)
+    {
+        $listing = Listing::findOrFail($request->input('listing_id'));
+
+        // check if the user is the owner of the listing
+        if ($listing->user_id != Auth::id()) {
+            return response()->json(['success' => false, 'msg' => 'Bu işlemi yapmaya yetkiniz yok.']);
+        }
+        // put the listing in the session as we did in CreateListingController
+        $request->session()->put('create_listing_images', $listing->getImagesArray());
+        // if $listing->category_id's parent also has a parent, create_listing_category should be the parent's parent and create_listing_subcategory should be the parent and create_listing_subsubcategory should be $category, otherwise, create_listing_category should be the parent and create_listing_subcategory and create_listing_subsubcategory should be $listing->category_id.
+        $category = Category::findOrFail($listing->category_id);
+        $parent = Category::findOrFail($category->parent_id);
+        $parentParent = Category::findOrFail($parent->parent_id);
+        if ($parentParent->parent_id) {
+            $request->session()->put('create_listing_category', $parentParent->id);
+            $request->session()->put('create_listing_subcategory', $parent->id);
+            $request->session()->put('create_listing_subsubcategory', $category->id);
+        } else {
+            $request->session()->put('create_listing_category', $parent->id);
+            $request->session()->put('create_listing_subcategory', $category->id);
+            $request->session()->put('create_listing_subsubcategory', $category->id);
+        }
+        $data = [
+            'title' => $listing->title,
+            'price' => $listing->price,
+            'description' => $listing->descriptions,
+            'location' => $listing->location,
+            'phone' => $listing->phone,
+        ];
+        $request->session()->put('create_listing_data', $data);
+        // parameters are stored as json in the database, in the following format:
+        /*
+            {"images":["\/listings\/6\/image_0.png","\/listings\/6\/image_1.png","\/listings\/6\/image_2.png"],"0":{"parameter_id":"1","parameter_name":"Marka","parameter_value":"Apple"},"1":{"parameter_id":"2","parameter_name":"RAM","parameter_value":"256 MB"},"2":{"parameter_id":"3","parameter_name":"Depolama","parameter_value":"128 GB"},"3":{"parameter_id":"4","parameter_name":"Kamera \u00c7\u00f6z\u00fcn\u00fcrl\u00fc\u011f\u00fc","parameter_value":"5 MP"},"4":{"parameter_id":"5","parameter_name":"Batarya Kapasitesi","parameter_value":"3001-3500 mAh"},"5":{"parameter_id":"6","parameter_name":"Renk","parameter_value":"Lacivert"},"6":{"parameter_id":"89","parameter_name":"Pazarl\u0131k","parameter_value":"Yok"},"7":{"parameter_id":"90","parameter_name":"Takas","parameter_value":"Var"},"8":{"parameter_id":"91","parameter_name":"Durum","parameter_value":"Az Kullan\u0131m"}}
+
+            */
+        // we need to convert this to an array and store it in the session and remove the 'images' key
+        $parameters = $listing->parameters;
+        unset($parameters['images']);
+        $request->session()->put('create_listing_parameters', $parameters);
+        // put listing id
+        $request->session()->put('listing_id', $listing->id);
+
+        // redirect to the create listing page
+        return response()->json(['success' => true, 'msg' => 'İlan düzenleme sayfasına yönlendiriliyorsunuz.', 'link' => route('listings.create', ['step' => 1])]);
+
+
     }
 }

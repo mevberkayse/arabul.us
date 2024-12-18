@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/api/conversations/{conversationId}/delete', [ConversationController::class, 'deleteConversation']);
 
     Route::post('/api/conversations/create', [ConversationController::class, 'createConversation']);
+
+    Route::post('/api/listings/mark-as-sold', [APIIndexController::class, 'markAsSold']);
+
+    Route::post('/api/listing/edit', [APIIndexController::class, 'editListing']);
 });
 Route::get('/clear-session', function () {
     session()->forget('create_listing_images');

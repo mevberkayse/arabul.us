@@ -112,29 +112,26 @@
             <!-- Ürün Detayları Kısmı -->
             <div class="col-lg-7 me-3">
 
-                <!-- Ürün Fotoğrafı ve Thumbnail Kutusu -->
                 <div class="product-image-container">
-                    <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı"
-                        class="product-image">
-                    <!-- Kalp İkonu -->
+                    <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı" class="product-image">
 
+                    <!-- Sol ve Sağ İkonlar -->
                     @if(count(session()->get('create_listing_images')) > 1)
                     <i class="fa-solid fa-arrow-left icon-left" onclick="previousImage()"></i>
                     <i class="fa-solid fa-arrow-right icon-right" onclick="nextImage()"></i>
 
+
                     <!-- Küçük Ürün Fotoğrafları -->
                     <div class="thumbnail-container">
-                        @php
-                        $images = session()->get('create_listing_images');
-                        // İlk fotoğrafı çıkar
-                        array_shift($images);
-                        @endphp
-                        @foreach($images as $image)
-                        <img src="{{$image}}" alt="Küçük Fotoğraf 1" class="thumbnail">
+                        @foreach(session()->get('create_listing_images') as $key => $image)
+                        <img src="{{$image}}" alt="Küçük Fotoğraf 1" class="thumbnail" data-id="{{$key}}"
+                            onclick="setImage({{$key}})">
                         @endforeach
                     </div>
                     @endif
+
                 </div>
+
 
                 <!-- Ürün Detayları Kutusu -->
                 <div class="product-details-container mb-3">
