@@ -93,17 +93,7 @@
 <body>
     <!-- Geri Tuşu ve Logo -->
     <div class="header d-flex align-items-center p-3">
-        <a href="{{route('listings.create', ['step' => 5])}}" class="back-button btn p-2 me-2">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </a>
         <img src="/assets/images/logo3.png" alt="Logo" class="logo">
-    </div>
-    <div class="steps d-flex justify-content-center mb-4">
-        <span class="step-circle1"></span>
-        <span class="step-circle2"></span>
-        <span class="step-circle3"></span>
-        <span class="step-circle4"></span>
-        <span class="step-circle5"></span>
     </div>
     <div class="container  onizleme-container">
         <h1 class="mb-4 justify-content-center d-flex">İlan Önizleme</h1>
@@ -113,17 +103,17 @@
             <div class="col-lg-7 me-3">
 
                 <div class="product-image-container">
-                    <img src="{{session()->get('create_listing_images')[0]}}" alt="Ürün Fotoğrafı" class="product-image">
+                    <img src="{{$listing->getThumbnail()}}" alt="Ürün Fotoğrafı" class="product-image">
 
                     <!-- Sol ve Sağ İkonlar -->
-                    @if(count(session()->get('create_listing_images')) > 1)
+                    @if(count($listing->getImagesArray()) > 1)
                     <i class="fa-solid fa-arrow-left icon-left" onclick="previousImage()"></i>
                     <i class="fa-solid fa-arrow-right icon-right" onclick="nextImage()"></i>
 
 
                     <!-- Küçük Ürün Fotoğrafları -->
                     <div class="thumbnail-container">
-                        @foreach(session()->get('create_listing_images') as $key => $image)
+                        @foreach($listing->getImagesArray() as $key => $image)
                         <img src="{{$image}}" alt="Küçük Fotoğraf 1" class="thumbnail" data-id="{{$key}}"
                             onclick="setImage({{$key}})">
                         @endforeach
@@ -135,13 +125,13 @@
 
                 <!-- Ürün Detayları Kutusu -->
                 <div class="product-details-container mb-3">
-                    <h5>{{session()->get('create_listing_data')['title']}}</h5>
-                    <p>{{session()->get('create_listing_data')['description']}}</p>
+                    <h5>{{$listing->title}}</h5>
+                    <p>{{$listing->description}}</p>
                     <hr>
                     <h5>Özellikler</h5>
                     <table class="table table-striped">
                         <tbody>
-                            @foreach(session()->get('create_listing_parameters') as $parameter)
+                            @foreach($listing->getParameters()  as $parameter)
                             <tr>
                                 <td>{{$parameter['parameter_name']}}</td>
                                 <td>{{$parameter['parameter_value']}}</td>
@@ -162,7 +152,7 @@
                         <div class="profile-icon me-3">
                             <i class="fa-solid fa-user"></i> <!-- Profil simgesi -->
                         </div>
-                        <h5 class="mb-0 me-auto">{{auth()->user()->name}}</h5>
+                        <h5 class="mb-0 me-auto">{{$listing->user->name}}</h5>
                         <button class="btn btn-outline-custom disabled">Sohbet</button>
                         <!-- Sohbet butonu satıcı adı hizasında -->
                     </div>
@@ -176,20 +166,16 @@
 
                 <!-- Fiyat Bilgisi Kısmı -->
                 <div class="price-info mt-3">
-                    <h5>{{session()->get('create_listing_data')['price']}} TL</h5>
+                    <h5>{{$listing->price}} TL</h5>
                     @php
-                    $parameters = session()->get('create_listing_parameters');
+                    $parameters = $listing->getParameters();
                     @endphp
 
                 </div>
                 <div class="location-info mt-3">
                     <h5>Konum</h5>
-                    <p>{{session()->get('create_listing_data')['location']}}</p>
+                    <p>{{$listing->location}}</p>
                     <div id="listing-map" style="height: 200px; width: 100%;"></div>
-                </div>
-                <div class="yayin-info mt-3">
-                    <button class="btn  w-100 btn-custom ilan-btn" id="create">İlanı Yayınla</button>
-                    <!-- Profil butonu satıcı adının altında -->
                 </div>
             </div>
         </div>
@@ -215,8 +201,8 @@
     @endif
     <script>
         $(document).ready(() => {
-            let lat = {{ session()->get('lat') }};
-        let lng = {{ session()->get('lng') }};
+            let lat = {{ $listing->lat }};
+        let lng = {{ $listing->long }};
         const map2 = L.map('listing-map').setView([lat, lng], 15); // Kullanıcı konumu
 
         // OpenStreetMap Katmanı
@@ -277,10 +263,7 @@
                         }
                     }).done((response) => {
                         console.log(response.data);
-                        PNotify.success({
-                            text: 'İlanınız incelenmek üzere gönderildi. İnceleme sonucunda yayına alınacaktır.',
-                            delay: 10000
-                        });
+                        window.location.href = response.link;
                     });
                 }
             );

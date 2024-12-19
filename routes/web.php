@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\API\CreateListingController as APICreateListingController;
 use App\Http\Controllers\API\IndexController as APIIndexController;
 use App\Http\Controllers\CreateListingController;
@@ -93,5 +94,32 @@ Route::prefix('api')->group(function () {
 Route::get('/login/{provider}/redirect', [SocialLoginController::class, 'redirectToProvider'])->whereIn('provider', ['google', 'facebook'])->name('google.redirect');
 Route::get('/login/{provider}/callback', [SocialLoginController::class, 'handleCallback'])->whereIn('provider', ['google', 'facebook'])->name('google.callback');
 
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'show'])->name('admin.dashboard');
+
+    Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'loginPost'])->name('admin.login.post');
+
+    Route::get('/logout', function () {
+        session()->forget('admin_login');
+        session()->forget('admin_id');
+
+        return redirect()->route('admin.login');
+    })->name('admin.logout');
+
+    Route::get('/ilanlar', [AdminController::class, 'listings'])->name('admin.listings');
+    Route::get('/sikayetler', [AdminController::class, 'reports'])->name('admin.reports');
+
+    Route::get('/ilan-preview/{id}', [AdminController::class, 'listingPreview'])->name('admin.listing.preview');
+
+    Route::get('/ilanlar/{id}/{action}', [AdminController::class, 'listingAction'])->name('admin.listing.action')->whereIn('action', ['approve', 'deny']);
+
+    Route::get('/sikayet-preview/{id}', [AdminController::class, 'reportPreview'])->name('admin.report.preview');
+
+    Route::post('/sikayet/delete', [AdminController::class, 'reportDelete'])->name('admin.report.delete');
+
+    Route::get('/users/{id}', [AdminController::class, 'userPreview'])->name('admin.user.preview');
+    Route::get('/kullanicilar', [AdminController::class, 'users'])->name('admin.users');
+});
 
 require __DIR__ . '/auth.php';

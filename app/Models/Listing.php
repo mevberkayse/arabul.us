@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-
+use App\Scopes\GlobalListingScope;
 class Listing extends Model
 {
 
     use HasFactory;
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new GlobalListingScope);
+    }
 
     protected $casts = [
         'parameters' => 'array'
