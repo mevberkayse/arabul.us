@@ -1,0 +1,252 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 600px;
+}
+
+.steps {
+  display: flex;
+  gap: 8px;
+}
+
+.step-circle {
+  width: 12px;
+  height: 12px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.step-circle1 {
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.step-circle2 {
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.upload-box {
+  width: 100%;
+  text-align: center;
+}
+
+.main-photo-upload {
+  width: 100%;
+  height: 300px;
+  /* Boyutu büyütmek için artırıldı */
+  border: 2px dashed #ccc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  /* Elemanları dikey hizalar */
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+}
+
+.text-muted {
+  font-size: 14px;
+  /* Küçük yazı boyutu */
+}
+
+.photo-slot {
+  width: 100%;
+  height: 80px;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  /* Simge boyutu */
+  color: #ccc;
+  /* Simge rengi */
+}
+
+.custom-upload-btn {
+  background-color: #ff69b4;
+  /* İçini transparan yapar */
+  border: 2px solid #ff69b4;
+  /* Pembe border */
+
+  color: #fff;
+  /* Pembe metin rengi */
+  margin-top: 10px;
+}
+
+.custom-upload-btn:hover {
+  background-color: transparent;
+  /* Hover sırasında içini pembe yapar */
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+  /* Hover sırasında metni beyaz yapar */
+}
+
+/* Geri Tuşu */
+.back-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Logo */
+.logo {
+  height: 40px;
+  /* Logo boyutunu ayarlamak için */
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  /* Üst içerikten ayrılması için */
+}
+
+.circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #555;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.category-name {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+body .ilansayfasi3 {
+  font-size: 18px;
+}
+/* Checkbox'ı ve ikonları düzenleme */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  justify-content: space-between;
+  cursor: pointer;
+  padding-right: 35px;
+  position: relative;
+}
+
+/* Checkbox'ı gizle */
+.custom-checkbox input[type="radio"] {
+  display: none;
+}
+
+/* Seçilmeden önce yuvarlak boş bir daire */
+.custom-checkbox input[type="radio"]:not(:checked) + span::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc; /* Kenar rengi gri */
+  background-color: white;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.custom-checkbox input[type="radio"]:checked + span::before {
+  content: "\f00c"; /* FontAwesome check işareti */
+  font-family: "Font Awesome 5 Free"; /* FontAwesome fontu */
+  font-weight: 900;
+  color: #28a745; 
+  font-size: 14px;
+  width: 20px;
+  display: block;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #28a745;
+  background-color: white;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%); /* Yatayda ve dikeyde ortalamak */
+}
+
+.arrow {
+  font-size: 20px;
+}
+
+hr {
+  border-top: 2px solid #ccc;
+}
+
+.custom-checkbox-2 {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+  padding-right: 35px;
+  position: relative;
+  color: inherit;
+  /* Yazı rengini üsttekilerle aynı yapar */
+  text-decoration: none;
+  /* Altındaki çizgiyi kaldırır */
+}
+
+/* Checkbox'ı gizle */
+.custom-checkbox-2 input[type="radio"] {
+  display: none;
+}
+.btn-outline-custom {
+  --bs-btn-color: #1a1b41;
+  --bs-btn-border-color: #1a1b41;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1a1b41;
+  --bs-btn-hover-border-color: #1a1b41;
+  --bs-btn-focus-shadow-rgb: 25, 135, 84;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1a1b41;
+  --bs-btn-active-border-color: #1a1b41;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #1a1b41;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #1a1b41;
+  --bs-gradient: none;
+}
+
+.btn-custom {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #1a1b41;
+  --bs-btn-border-color: #1a1b41;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1a1b41;
+  --bs-btn-hover-border-color: #1a1b41;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1a1b41;
+  --bs-btn-active-border-color: #1a1b41;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #1a1b41;
+}

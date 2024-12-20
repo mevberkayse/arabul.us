@@ -1,0 +1,153 @@
+/* Genel Yapıyı Büyütme ve Box Shadow Eklemek */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 800px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  margin: 20px auto;
+  position: relative;
+  top: 60px;
+}
+/* Adım çemberlerini dışarı çıkarıyoruz */
+.steps {
+  display: flex;
+  gap: 12px;
+  position: relative; /* Konumlandırma için gerekli */
+  top: 20px; /* Steplerin logo yüksekliğinin biraz altına inmesini sağlar */
+}
+
+.step-circle1,
+.step-circle2,
+.step-circle3,
+.step-circle4 {
+  width: 20px; /* Çemberleri büyüttüm */
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+}
+.step-circle {
+  width: 20px; /* Çemberleri büyüttüm */
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+/* Yazı Boyutunu Büyütme */
+.text-muted {
+  font-size: 18px; /* Yazı boyutunu büyütme */
+}
+
+/* Geri Tuşu Boyutunu Büyütme */
+.back-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem; /* Font boyutunu büyütme */
+  color: #333;
+}
+
+.circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #555;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.category-name {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+  padding-right: 35px;
+  position: relative;
+}
+
+/* Checkbox'ı gizle */
+.custom-checkbox input[type="radio"] {
+  display: none;
+}
+
+/* Arrow Boyutunu Büyütme */
+.arrow {
+  font-size: 24px; /* Ok simgesi boyutunu büyütme */
+}
+
+/* HR Boyutunu Büyütme */
+hr {
+  border-top: 3px solid #ccc; /* HR çizgisinin kalınlığını arttırdım */
+}
+
+/* Modal ve Listelerin Boyutunu Düzenleme */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  max-width: 100%;
+}
+
+.list-group {
+  max-width: 100%;
+}
+.text-center {
+  margin-top: auto;
+  margin-bottom: 30px; /* Butonun altına boşluk ekledim */
+}
+
+.btn-outline-custom {
+  --bs-btn-color: #1a1b41 !;
+  --bs-btn-border-color: #1a1b41;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1a1b41;
+  --bs-btn-hover-border-color: #1a1b41;
+  --bs-btn-focus-shadow-rgb: 25, 135, 84;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1a1b41;
+  --bs-btn-active-border-color: #1a1b41;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #1a1b41;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #1a1b41;
+  --bs-gradient: none;
+}
+
+.btn-custom {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #1a1b41;
+  --bs-btn-border-color: #1a1b41;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1a1b41;
+  --bs-btn-hover-border-color: #1a1b41;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1a1b41;
+  --bs-btn-active-border-color: #1a1b41;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #1a1b41;
+}

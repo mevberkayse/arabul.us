@@ -1,47 +1,84 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <title>Modern Login Page</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="{{route('register')}}" method="post">
+                <h1>Hesap Oluştur</h1>
+                <div class="social-icons">
+                    <a href="/login/google/redirect" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                </div>
+                <span>veya kayıt için e-postanızı kullanın</span>
+                <input type="text" name="name" placeholder="İsim">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Şifre">
+                <input type="password" name="password_confirmation" placeholder="Şifre Tekrar">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <button>Oluştur</button>
+            </form>
         </div>
+        <div class="form-container sign-in">
+            <form action="{{route('login')}}" method="post">
+                <h1>Hesabına Gir</h1>
+                <div class="social-icons">
+                    <a href="/login/google/redirect" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                </div>
+                <span>veya e-mail şifreni kullan</span>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Şifre">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <a href="#">Şifreni mi unuttun?</a>
+                <button>Giriş Yap</button>
+            </form>
         </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Hoşgeldin!</h1>
+                    <p>Zaten hesabınız varsa giriş yapınız</p>
+                    <button class="hidden" id="login">Giriş Yap</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hoşgeldin!</h1>
+                    <p>Tüm site özelliklerini kullanmak için hesap oluşturunuz</p>
+                    <button class="hidden" id="register">Hesap Oluştur</button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+
+
+    <script src="/assets/js/login.js"></script>
+    @if(isset($errors))
+    <script>
+        // when document is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            @foreach($errors -> all() as $error)
+            PNotify.error({
+                text: '{{$error}}',
+                delay: 5000
+            });
+            @endforeach
+        });
+    </script>
+    @endif
+</body>
+
+</html>
