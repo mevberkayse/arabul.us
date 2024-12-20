@@ -325,8 +325,8 @@
             </a>
             <div class="form-container">
                 <form class="d-flex vw-25" role="search" method="get" action="/search">
-                    <input id="search-input" autocomplete="off" class="form-control me-4 w-100 searchw" type="search" placeholder="Search"
-                        aria-label="Search" style="border: 1px solid #1A1B41;" name="query">
+                    <input id="search-input" autocomplete="off" class="form-control me-4 w-100 searchw" type="search"
+                        placeholder="Search" aria-label="Search" style="border: 1px solid #1A1B41;" name="query">
                     <button class="btn btn-outline-custom" type="submit">Search</button>
                 </form>
 
@@ -512,7 +512,8 @@
                     <div class="mb-4"> <!-- Alt alan için daha fazla boşluk -->
                         <i class="fa-regular fa-eye"></i>
                         <label for="password" class="form-label ms-2">Şifre</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Şifre girin">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Şifre girin">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                     </div>
                     <div class="text-center mb-3">
@@ -553,7 +554,9 @@
                     }
                 }
             });
-        });
+        }, error => {
+            alert('Konum alınamadı. Lütfen tarayıcınızın konum izni verdiğinden emin olun.');
+        }, {maximumAge:60000, timeout:5000, enableHighAccuracy:true});
     }
 
 
@@ -673,11 +676,11 @@
 
                                 var infowindow = new google.maps.InfoWindow({
                                     content: `
-        <div class="infowindow-content">
-            <img src='${listing.thumbnail}' alt='Ürün Resmi' class='infowindow-image' height="100px" width="200px"/>
-            <a href='${listing.url}' target='_blank' class='infowindow-title'>${listing.title}</a>
-            <div class='infowindow-price'>${listing.price} ₺</div>
-        </div>`
+                                        <div class="infowindow-content">
+                                            <img src='${listing.thumbnail}' alt='Ürün Resmi' class='infowindow-image' height="100px" width="200px"/>
+                                            <a href='${listing.url}' target='_blank' class='infowindow-title'>${listing.title}</a>
+                                            <div class='infowindow-price'>${listing.price} ₺</div>
+                                        </div>`
                                 });
                                 var marker = new google.maps.Marker({
                                     position: new google.maps.LatLng(listing.lat, listing.lng),
@@ -694,7 +697,9 @@
 
                     })
                 }, 1500));
-            })
+            },error => {
+                alert('Konum alınamadı. Lütfen tarayıcınızın konum izni verdiğinden emin olun.');
+            }, {maximumAge:60000, timeout:5000, enableHighAccuracy:true})
         });
     });
 
@@ -826,7 +831,7 @@
             });
         }, (error) => {
             alert('Konum alınamadı. Lütfen tarayıcınızın konum izni verdiğinden emin olun.');
-        });
+        }, {maximumAge:60000, timeout:5000, enableHighAccuracy:true});
     }
     document.addEventListener('DOMContentLoaded', function () {
         // Dropdown menüsüne tıklama olayını dinliyoruz
