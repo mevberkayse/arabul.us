@@ -378,7 +378,10 @@ class IndexController extends Controller
         // if $listing->category_id's parent also has a parent, create_listing_category should be the parent's parent and create_listing_subcategory should be the parent and create_listing_subsubcategory should be $category, otherwise, create_listing_category should be the parent and create_listing_subcategory and create_listing_subsubcategory should be $listing->category_id.
         $category = Category::findOrFail($listing->category_id);
         $parent = Category::findOrFail($category->parent_id);
-        $parentParent = Category::findOrFail($parent->parent_id);
+        if($parent->id !== -1)
+            $parentParent = Category::findOrFail($parent->parent_id);
+        else $parentParent = $parent;
+
         if ($parentParent->parent_id) {
             $request->session()->put('create_listing_category', $parentParent->id);
             $request->session()->put('create_listing_subcategory', $parent->id);
