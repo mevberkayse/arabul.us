@@ -120,32 +120,42 @@
         border-color: #820933;
         width: 500px;
     }
+
     footer ul li a:hover {
-    color: #ffc107; /* Hover rengi */
-    text-decoration: underline;
-}
-footer ul li{
-    margin-top: 5px;
-}
+        color: #ffc107;
+        /* Hover rengi */
+        text-decoration: underline;
+    }
 
-footer {
-    background-color:#820933; /* Koyu kırmızı */
+    footer ul li {
+        margin-top: 5px;
+    }
 
-}
-/* Buton Normal Durumu */
-.btn-hesap {
-    border: 1px solid white;
-    color: white;
-    transition: all 0.3s ease; /* Hover geçiş animasyonu */
-}
+    footer {
+        background-color: #820933;
+        /* Koyu kırmızı */
 
-/* Hover Durumu */
-.btn-hesap:hover {
-    background-color: transparent; /* Hover'da arka plan rengi */
-    color: #1a1b41; /* Metin rengi */
-    border-color: #1a1b41; /* Hover'da mavi ton border */
-    transform: translateY(-5px); /* Butonu yukarı hareket ettir */
-}
+    }
+
+    /* Buton Normal Durumu */
+    .btn-hesap {
+        border: 1px solid white;
+        color: white;
+        transition: all 0.3s ease;
+        /* Hover geçiş animasyonu */
+    }
+
+    /* Hover Durumu */
+    .btn-hesap:hover {
+        background-color: transparent;
+        /* Hover'da arka plan rengi */
+        color: #1a1b41;
+        /* Metin rengi */
+        border-color: #1a1b41;
+        /* Hover'da mavi ton border */
+        transform: translateY(-5px);
+        /* Butonu yukarı hareket ettir */
+    }
 </style>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
@@ -189,41 +199,41 @@ footer {
 
                     <!-- Takipçi ve Takip Edilen -->
                     <div class="d-flex  mt-3">
-                        <p><i class="fa-solid fa-people-group" style="color:a1a1a1; "></i>
+                        <p><i class="fa-solid fa-people-group" style="color:#a1a1a1; "></i>
                             <strong>{{$user->followers->count()}}</strong> takipçi
                         </p>
                         <div class="mx-2" style="border-left: 1px solid #ddd; height: 20px;"></div>
                         <p><strong>{{$user->followings->count()}}</strong> takip edilen</p>
                     </div>
                 </div>
-               <!-- Profili Paylaş ve Takip Et Butonları -->
-<div class="text-center mt-3 d-flex justify-content-center align-items-center">
-    <!-- Profili Paylaş Butonu -->
-    <button class="btn btn-outline-custom me-3" id="share-button">Profili Paylaş</button>
+                <!-- Profili Paylaş ve Takip Et Butonları -->
+                <div class="text-center mt-3 d-flex justify-content-center align-items-center">
+                    <!-- Profili Paylaş Butonu -->
+                    <button class="btn btn-outline-custom me-3" id="share-button">Profili Paylaş</button>
 
-    <!-- Takip Et Butonu -->
-    @if($user->id !== Auth::id())
-        @if(Auth::user()->isFollowing($user))
-        <button class="btn btn-danger" id="follow-button" data-user-id="{{ $user->id }}">
-            <i class="fa-solid fa-xmark"></i> Takipten Çık
-        </button>
-        @else
-        <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}">
-            <i class="fa-solid fa-user-plus"></i> Takip Et
-        </button>
-        @endif
-    @endif
-</div>
+                    <!-- Takip Et Butonu -->
+                    @if(Auth::check() && $user->id !== Auth::id())
+                    @if(Auth::check() && Auth::user()->isFollowing($user))
+                    <button class="btn btn-danger" id="follow-button" data-user-id="{{ $user->id }}">
+                        <i class="fa-solid fa-xmark"></i> Takipten Çık
+                    </button>
+                    @else
+                    <button class="btn btn-outline-custom" id="follow-button" data-user-id="{{ $user->id }}">
+                        <i class="fa-solid fa-user-plus"></i> Takip Et
+                    </button>
+                    @endif
+                    @endif
+                </div>
 
-<!-- Kullanıcıyı Şikayet Et Butonu -->
-@if($user->id !== Auth::id())
-<div class="text-center mt-4">
-    <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
-        <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
-    </button>
-</div>
-@endif
-</div>
+                <!-- Kullanıcıyı Şikayet Et Butonu -->
+                @if($user->id !== Auth::id())
+                <div class="text-center mt-4">
+                    <button class="btn report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        <i class="fa-solid fa-circle-exclamation"></i> Kullanıcıyı Şikayet Et
+                    </button>
+                </div>
+                @endif
+            </div>
             <!-- Şikayet Modal -->
             <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
                 aria-hidden="true">
@@ -290,7 +300,7 @@ footer {
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn bildir-btn" id="bildir" >Bildir</button>
+                            <button type="button" class="btn bildir-btn" id="bildir">Bildir</button>
                         </div>
                     </div>
                 </div>
