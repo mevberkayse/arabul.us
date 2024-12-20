@@ -33,7 +33,7 @@ class SocialLoginController extends Controller
 
                     $finduser->save();
                 }
-                return redirect()->intended('index');
+                return redirect()->intended('/');
             } else {
                 $newUser = User::create([
                     'name' => $user->name,
@@ -45,7 +45,7 @@ class SocialLoginController extends Controller
                 ]);
 
                 Auth::login($newUser);
-                return redirect()->intended('index');
+                return redirect()->intended('/');
             }
         } catch (\Exception $e) {
             dd($e->getMessage());
