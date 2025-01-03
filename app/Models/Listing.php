@@ -17,7 +17,9 @@ class Listing extends Model
     }
 
     protected $casts = [
-        'parameters' => 'array'
+        'parameters' => 'array',
+        'lat' => 'float',
+        'long' => 'float',
     ];
 
     public function getThumbnail()

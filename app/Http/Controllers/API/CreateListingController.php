@@ -186,7 +186,7 @@ class CreateListingController extends Controller
 
         return response()->json([
             'success' => 'Listing created successfully',
-            'link' => route('listings.show', ['id' => $listing->id, 'dash' => '-', 'slug' => $listing->slug])
+            'link' => route('index')
         ], 200);
     }
     private function saveImages($images, $listing_id)

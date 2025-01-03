@@ -23,33 +23,43 @@
 
 </head>
 <style>
-        footer ul li a:hover {
-    color: #ffc107; /* Hover rengi */
-    text-decoration: underline;
-}
-footer ul li{
-    margin-top: 5px;
-}
+    footer ul li a:hover {
+        color: #ffc107;
+        /* Hover rengi */
+        text-decoration: underline;
+    }
 
-footer {
-    background-color:#820933; /* Koyu kırmızı */
+    footer ul li {
+        margin-top: 5px;
+    }
 
-}
-/* Buton Normal Durumu */
-.btn-hesap {
-    border: 1px solid white;
-    color: white;
-    transition: all 0.3s ease; /* Hover geçiş animasyonu */
-}
+    footer {
+        background-color: #820933;
+        /* Koyu kırmızı */
 
-/* Hover Durumu */
-.btn-hesap:hover {
-    background-color: transparent; /* Hover'da arka plan rengi */
-    color: #1a1b41; /* Metin rengi */
-    border-color: #1a1b41; /* Hover'da mavi ton border */
-    transform: translateY(-5px); /* Butonu yukarı hareket ettir */
-}
+    }
+
+    /* Buton Normal Durumu */
+    .btn-hesap {
+        border: 1px solid white;
+        color: white;
+        transition: all 0.3s ease;
+        /* Hover geçiş animasyonu */
+    }
+
+    /* Hover Durumu */
+    .btn-hesap:hover {
+        background-color: transparent;
+        /* Hover'da arka plan rengi */
+        color: #1a1b41;
+        /* Metin rengi */
+        border-color: #1a1b41;
+        /* Hover'da mavi ton border */
+        transform: translateY(-5px);
+        /* Butonu yukarı hareket ettir */
+    }
 </style>
+
 <body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
 
@@ -96,7 +106,7 @@ footer {
     </div>
 
 
-     <!-- Footer -->
+    <!-- Footer -->
     @include('partials.footer')
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -109,13 +119,16 @@ footer {
         $(document).ready(() => {
             // get items by location
 
-            $('#loadMore').click(e => getItems());
+            $('#loadMore').click(e => getItems(true));
 
 
-            let getItems = () => {
+            let getItems = (isMore) => {
                 $.ajax({
                     url: '/api/homepage/listings-by-location',
                     method: 'GET',
+                    data: {
+                        isMore: isMore
+                    },
                     success: (data) => {
                         if (data.message == 'trigger_location') {
                             // request location permission
@@ -131,48 +144,14 @@ footer {
                                     success: (data) => {
                                         console.log(data.output[0].formatted_address)
                                         if (data.message == 'success') {
-                                            $.ajax({
-                                                url: '/api/homepage/listings-by-location',
-                                                method: 'GET',
-                                                success: (data) => {
-                                                    $('#itemlist').empty();
-                                                    data.items.forEach(listing => {
-
-                                                        $('#itemlist').append(`
-                    <div class="col-3">
-                        <div class="card" style="width: 18rem; text-decoration: none;">
-                            <a href="${listing.url}" style="text-decoration: none;">
-                                <img src="${listing.thumbnail}" class="card-img-top  p-3 pt-4"
-                                    style="height: 300px">
-                            </a>
-                            ${listing.show_favorite_button ? `
-                            <div class="heart-icon" onclick="addToFavorite('${listing.id}');">
-                                <i class="${listing.is_favorited ? `fa-solid fa-heart text-danger` : `fa-regular fa-heart`}"></i>
-                            </div>` : ''}
-
-                            <div class="card-body">
-                                <a href="${listing.url}" style="text-decoration: none; color:inherit">
-                                    <h5 class="item-price large-price">${listing.price} ₺</h5>
-                                    <p class="item-text mt-2">${listing.title}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <p class="location">${listing.location}</p>
-                                        <p class="time">${listing.time}</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                                                    `);
-
-                                                    });
-                                                }
-                                            })
+                                            getItems(isMore);
                                         }
                                     }
                                 })
                             })
                         } else {
-                            $('#itemlist').empty();
+                            if(!isMore) $('#itemlist').empty();
+
                             data.items.forEach(listing => {
                                 $('#itemlist').append(`
                     <div class="col-3">
@@ -197,8 +176,7 @@ footer {
                                 </a>
                             </div>
                         </div>
-                    </div>
-                                                    `);
+                    </div>`);
                             });
                         }
 
@@ -206,7 +184,7 @@ footer {
 
                 })
             }
-            getItems();
+            getItems(false);
 
         });
 
