@@ -132,7 +132,7 @@ class ProfileController extends Controller
 
             return Redirect::route('profile.edit')->with('success', 'Profil resmi başarıyla güncellendi!');
         } catch (\Exception $e) {
-            Log::error('Profil resmi yüklenirken bir hata oluştu: ' . $e->getMessage());
+            Log::error($e);
         }
     }
 
