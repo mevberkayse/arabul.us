@@ -325,32 +325,42 @@
             opacity: 1;
         }
     }
+
     footer ul li a:hover {
-    color: #ffc107; /* Hover rengi */
-    text-decoration: underline;
-}
-footer ul li{
-    margin-top: 5px;
-}
+        color: #ffc107;
+        /* Hover rengi */
+        text-decoration: underline;
+    }
 
-footer {
-    background-color:#820933; /* Koyu kırmızı */
+    footer ul li {
+        margin-top: 5px;
+    }
 
-}
-/* Buton Normal Durumu */
-.btn-hesap {
-    border: 1px solid white;
-    color: white;
-    transition: all 0.3s ease; /* Hover geçiş animasyonu */
-}
+    footer {
+        background-color: #820933;
+        /* Koyu kırmızı */
 
-/* Hover Durumu */
-.btn-hesap:hover {
-    background-color: transparent; /* Hover'da arka plan rengi */
-    color: #1a1b41; /* Metin rengi */
-    border-color: #1a1b41; /* Hover'da mavi ton border */
-    transform: translateY(-5px); /* Butonu yukarı hareket ettir */
-}
+    }
+
+    /* Buton Normal Durumu */
+    .btn-hesap {
+        border: 1px solid white;
+        color: white;
+        transition: all 0.3s ease;
+        /* Hover geçiş animasyonu */
+    }
+
+    /* Hover Durumu */
+    .btn-hesap:hover {
+        background-color: transparent;
+        /* Hover'da arka plan rengi */
+        color: #1a1b41;
+        /* Metin rengi */
+        border-color: #1a1b41;
+        /* Hover'da mavi ton border */
+        transform: translateY(-5px);
+        /* Butonu yukarı hareket ettir */
+    }
 </style>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
@@ -361,19 +371,24 @@ footer {
             <div class="col-3">
                 <ul class="list-unstyled">
                     <li class="mb-3">
-                        <a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none" onclick="openTab(1);" data-opener="1">Gizlilik</a>
+                        <a href="#" id="tab-1" class=" fw-bold text-dark text-decoration-none" onclick="openTab(1);"
+                            data-opener="1">Gizlilik</a>
                     </li>
                     <li class="mb-3">
-                        <a href="#" id="tab-2" class="text-dark text-decoration-none" onclick="openTab(2);" data-opener="2">Bildirimler</a>
+                        <a href="#" id="tab-2" class="text-dark text-decoration-none" onclick="openTab(2);"
+                            data-opener="2">Bildirimler</a>
                     </li>
                     <li class="mb-3">
-                        <a href="#" id="tab-3" class="text-dark text-decoration-none" onclick="openTab(3);" data-opener="3">Profilimi Düzenle</a>
+                        <a href="#" id="tab-3" class="text-dark text-decoration-none" onclick="openTab(3);"
+                            data-opener="3">Profilimi Düzenle</a>
                     </li>
                     <li class="mb-3">
-                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a>
+                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal"
+                            data-bs-target="#logoutModal">Tüm cihazlardan çıkış yap</a>
                     </li>
                     <li class="mb-3">
-                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#deleteModal">Hesabımı sil</a>
+                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal">Hesabımı sil</a>
                     </li>
                 </ul>
             </div>
@@ -386,25 +401,31 @@ footer {
                         <h5 class="mb-4 mt-2">Şifre Değiştir</h5>
                         <hr class="my-3 line">
                         <div class="position-relative mb-3">
-                            <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin" id="current-password" name="current-password">
+                            <input type="password" class="form-control" placeholder="Mevcut şifrenizi girin"
+                                id="current-password" name="current-password">
                             <div class="toggle-password" data-input="current-password">
-                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3"
+                                    style="cursor: pointer;"></i>
                             </div>
                         </div>
                         <div class="position-relative mb-3">
-                            <input type="password" class="form-control" placeholder="Yeni şifrenizi girin" id="new-password" name="new-password">
+                            <input type="password" class="form-control" placeholder="Yeni şifrenizi girin"
+                                id="new-password" name="new-password">
                             <div class="toggle-password" data-input="new-password">
-                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3"
+                                    style="cursor: pointer;"></i>
                             </div>
                         </div>
                         <div class="position-relative mb-3">
-                            <input type="password" class="form-control" placeholder="Yeni şifreyi onaylayın" id="confirm-password" name="confirm-password">
+                            <input type="password" class="form-control" placeholder="Yeni şifreyi onaylayın"
+                                id="confirm-password" name="confirm-password">
                             <div class="toggle-password" data-input="confirm-password">
-                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor: pointer;"></i>
+                                <i class="fa-regular fa-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3"
+                                    style="cursor: pointer;"></i>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-custom w-100">Kaydet</button>
+                    <button id="changePassword" class="btn btn-custom w-100">Kaydet</button>
                 </div>
 
                 <!-- Bildirimler Bölümü -->
@@ -426,22 +447,26 @@ footer {
                         <hr class="my-3 line">
                         <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
                         <div class="d-flex align-items-center mb-4">
-                            <img src="{{Auth::user()->profile_picture}}" alt="Profil Resmi"
-                                class="rounded-circle me-3" style="width: 100px; height: 100px;">
-                            <label for="profile_picture_input" class="btn btn-outline-custom ms-auto" style="cursor: pointer;">
+                            <img src="{{Auth::user()->profile_picture}}" alt="Profil Resmi" class="rounded-circle me-3"
+                                style="width: 100px; height: 100px;">
+                            <label for="profile_picture_input" class="btn btn-outline-custom ms-auto"
+                                style="cursor: pointer;">
                                 Değiştir
                             </label>
                         </div>
-                        <form method="POST" action="{{ route('profile.update-picture') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('profile.update-picture') }}"
+                            enctype="multipart/form-data">
                             @csrf
                             <!-- Dosya seçiciyi gizle ve butona bağla -->
-                            <input type="file" id="profile_picture_input" name="profile_picture" style="display: none;" required onchange="this.form.submit()">
+                            <input type="file" id="profile_picture_input" name="profile_picture" style="display: none;"
+                                required onchange="this.form.submit()">
                         </form>
                         <hr class="my-3 line">
                         <h5 class="mb-2 mt-4" style="font-size:18px;">İsim-Soyisim</h5>
                         <div class="d-flex align-items-center mb-4 mt-3">
                             <!-- Eski İsim-Soyisim -->
-                            <input type="text" class="form-control me-3" id="current_name" value="{{ Auth::user()->name }}" disabled>
+                            <input type="text" class="form-control me-3" id="current_name"
+                                value="{{ Auth::user()->name }}" disabled>
                             <!-- Yeni İsim-Soyisim -->
                             <input type="text" class="form-control me-3" id="new_name" placeholder="Yeni İsim-Soyisim">
                             <button class="btn btn-outline-custom" id="changeNameBtn">Değiştir</button>
@@ -451,22 +476,22 @@ footer {
                         <p class="mb-2 mt-4">E-mail</p>
                         <div class="d-flex align-items-center mt-3">
                             <!-- Eski E-mail -->
-                            <input type="email" class="form-control me-3" id="current_email" value="{{ Auth::user()->email }}" disabled>
+                            <input type="email" class="form-control me-3" id="current_email"
+                                value="{{ Auth::user()->email }}" disabled>
                             <!-- Yeni E-mail -->
                             <input type="email" class="form-control me-3" id="new_email" placeholder="Yeni E-mail">
                             <button class="btn btn-outline-custom" id="changeMail">Değiştir</button>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-       <!-- Footer -->
-        @include('partials.footer')
+    <!-- Footer -->
+    @include('partials.footer')
 
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center">
                 <div class="modal-header flex-column border-0">
@@ -477,14 +502,12 @@ footer {
                         istiyor
                         musunuz?</p>
                     <button type="button" class="btn bildir-btn me-3">Çıkış Yap</button>
-                    <button type="button" class="btn btn-outline-custom"
-                        data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Vazgeç</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center">
                 <div class="modal-header flex-column border-0">
@@ -494,8 +517,7 @@ footer {
                     <p class="mb-3 mt-2">Hesabınız devre dışı bırakıldığında işlem geri alınamaz.Hesabınızı
                         silmek istediğinizden emin misiniz?</p>
                     <button type="button" class="btn bildir-btn me-3 w-25">Hesabımı Sil</button>
-                    <button type="button" class="btn btn-outline-custom"
-                        data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Vazgeç</button>
                 </div>
             </div>
         </div>
@@ -533,8 +555,8 @@ footer {
         }
     </script>
     <script>
-        document.querySelectorAll('.toggle-password').forEach(function(icon) {
-            icon.addEventListener('click', function() {
+        document.querySelectorAll('.toggle-password').forEach(function (icon) {
+            icon.addEventListener('click', function () {
                 // 'data-input' özniteliğinden input id'sini al
                 var inputField = document.getElementById(this.getAttribute('data-input'));
 
@@ -558,8 +580,8 @@ footer {
             });
         });
 
-        document.querySelectorAll('.toggle-password').forEach(function(icon) {
-            icon.addEventListener('click', function() {
+        document.querySelectorAll('.toggle-password').forEach(function (icon) {
+            icon.addEventListener('click', function () {
                 console.log('İkona tıklandı!'); // Tıklama mesajını görmek için
                 var inputField = document.getElementById(this.getAttribute('data-input'));
                 console.log(inputField); // Hedeflenen input alanını görmek için
@@ -567,108 +589,181 @@ footer {
         });
     </script>
     <script>
-     document.getElementById('changeNameBtn').addEventListener('click', function() {
-    // Yeni isim soyisim değerini al
-    const newName = document.getElementById('new_name').value;
+        document.getElementById('changePassword').addEventListener('click', function () {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
 
-    if (!newName) {
-        alert("Lütfen geçerli bir isim girin!");
-        return;
-    }
-
-    // AJAX isteği gönder
-    $.ajax({
-        url: '/profile/update-name', // URL
-        method: 'POST', // İstek metodu
-        contentType: 'application/json', // Gönderilen verinin tipi
-        data: JSON.stringify({
-            name: newName,
-            _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
-        }),
-        success: function(response) {
-            if (response.success) {
-                // Başarı mesajını göster
-                $('#successMessage').text(response.message).fadeIn().delay(3000).fadeOut();
-                location.reload(); // Sayfayı yenileyerek değişikliği göster
-            } else {
-                // Hata mesajını göster
-                $('#errorMessage').text("Bir hata oluştu: " + response.message).fadeIn().delay(3000).fadeOut();
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                PNotify.error({
+                    text: 'Lütfen tüm alanları doldurun.',
+                    delay: 2000
+                });
+                return;
             }
-        },
-        error: function(xhr, status, error) {
-            // AJAX hata mesajı
-            $('#errorMessage').text("Bir hata oluştu: " + error).fadeIn().delay(3000).fadeOut();
-        }
-    });
-});
 
-    </script>
-
-<script>
-     document.getElementById('changeMail').addEventListener('click', function() {
-    // Yeni isim soyisim değerini al
-    const newEmail = document.getElementById('new_email').value;
-
-    if (!newEmail) {
-        alert("Lütfen geçerli bir isim girin!");
-        return;
-    }
-
-    // AJAX isteği gönder
-    $.ajax({
-        url: '/profile/update-email', // URL
-        method: 'POST', // İstek metodu
-        contentType: 'application/json', // Gönderilen verinin tipi
-        data: JSON.stringify({
-            email: newEmail,
-            _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
-        }),
-        success: function(response) {
-            if (response.success) {
-                // Başarı mesajını göster
-                $('#successMessage').text(response.message).fadeIn().delay(3000).fadeOut();
-                location.reload(); // Sayfayı yenileyerek değişikliği göster
-            } else {
-                // Hata mesajını göster
-                $('#errorMessage').text("Bir hata oluştu: " + response.message).fadeIn().delay(3000).fadeOut();
+            if (newPassword !== confirmPassword) {
+                PNotify.error({
+                    text: 'Yeni şifreler eşleşmiyor.',
+                    delay: 2000
+                });
+                return;
             }
-        },
-        error: function(xhr, status, error) {
-            // AJAX hata mesajı
-            $('#errorMessage').text("Bir hata oluştu: " + error).fadeIn().delay(3000).fadeOut();
-        }
-    });
-});
-
-    </script>
-
-<script>
-    $(document).ready(function () {
-        $('.btn.bildir-btn').click(function () {
-            const csrfToken = "{{ csrf_token() }}"; // Blade içinde CSRF token'ı alıyoruz
 
             $.ajax({
-                url: '/logout-all', // Çıkış endpoint'i
-                type: 'POST',
-                contentType: 'application/json', // JSON formatı
-                dataType: 'json', // Sunucudan JSON formatında yanıt bekliyoruz
-                data: JSON.stringify({
-                    _token: csrfToken // CSRF token'ı JSON verisinin içinde gönderiyoruz
-                }),
+                url: '/change-password',
+                method: 'POST',
+                data: {
+                    current_password: currentPassword,
+                    new_password: newPassword,
+                    new_password_confirmation: confirmPassword,
+                    _token: "{{ csrf_token() }}"
+                },
                 success: function (response) {
                     if (response.success) {
-                        alert(response.message); // Başarı mesajını göster
-                        window.location.href = '/login'; // Login sayfasına yönlendir
+                        PNotify.success({
+                            text: response.message,
+                            delay: 2000
+                        });
+                    } else {
+                        PNotify.error({
+                            text: response.message,
+                            delay: 2000
+                        });
                     }
                 },
-                error: function (xhr) {
-                    console.error('Hata:', xhr.responseJSON.message); // Hata mesajını konsola yazdır
-                    alert('Çıkış işlemi sırasında bir hata oluştu.');
+                error: function (xhr, status, error) {
+                    console.error('Hata:', error);
+                    let json = JSON.parse(xhr.responseText);
+                    PNotify.error({
+                        text: json.message,
+                        delay: 2000
+                    });
                 }
             });
         });
-    });
-</script>
+        document.getElementById('changeNameBtn').addEventListener('click', function () {
+            // Yeni isim soyisim değerini al
+            const newName = document.getElementById('new_name').value;
+
+            if (!newName) {
+                alert("Lütfen geçerli bir isim girin!");
+                return;
+            }
+
+            // AJAX isteği gönder
+            $.ajax({
+                url: '/profile/update-name', // URL
+                method: 'POST', // İstek metodu
+                contentType: 'application/json', // Gönderilen verinin tipi
+                data: JSON.stringify({
+                    name: newName,
+                    _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
+                }),
+                success: function (response) {
+                    if (response.success) {
+                        // Başarı mesajını göster
+                        PNotify.success({
+                            text: response.message,
+                            delay: 2000
+                        });
+                        location.reload(); // Sayfayı yenileyerek değişikliği göster
+                    } else {
+                        // Hata mesajını göster
+                        PNotify.error({
+                            text: 'Bir hata oluştu: ' + response.message,
+                            delay: 2000
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // AJAX hata mesajı
+                    let json = JSON.parse(xhr.responseText);
+                    PNotify.error({
+                        text: json.message,
+                        delay: 2000
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        document.getElementById('changeMail').addEventListener('click', function () {
+            // Yeni isim soyisim değerini al
+            const newEmail = document.getElementById('new_email').value;
+
+            if (!newEmail) {
+                alert("Lütfen geçerli bir isim girin!");
+                return;
+            }
+
+            // AJAX isteği gönder
+            $.ajax({
+                url: '/profile/update-email', // URL
+                method: 'POST', // İstek metodu
+                contentType: 'application/json', // Gönderilen verinin tipi
+                data: JSON.stringify({
+                    email: newEmail,
+                    _token: "{{ csrf_token() }}" // CSRF token'ı data içinde gönderiyoruz
+                }),
+                success: function (response) {
+                    if (response.success) {
+                        // Başarı mesajını göster
+                        PNotify.success({
+                            text: response.message,
+                            delay: 2000
+                        });
+                        location.reload(); // Sayfayı yenileyerek değişikliği göster
+                    } else {
+                        // Hata mesajını göster
+                        PNotify.error({
+                            text: 'Bir hata oluştu: ' + response.message,
+                            delay: 2000
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // AJAX hata mesajı
+                    let json = JSON.parse(xhr.responseText);
+                    PNotify.error({
+                        text: json.message,
+                        delay: 2000
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.btn.bildir-btn').click(function () {
+                const csrfToken = "{{ csrf_token() }}"; // Blade içinde CSRF token'ı alıyoruz
+
+                $.ajax({
+                    url: '/logout-all', // Çıkış endpoint'i
+                    type: 'POST',
+                    contentType: 'application/json', // JSON formatı
+                    dataType: 'json', // Sunucudan JSON formatında yanıt bekliyoruz
+                    data: JSON.stringify({
+                        _token: csrfToken // CSRF token'ı JSON verisinin içinde gönderiyoruz
+                    }),
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message); // Başarı mesajını göster
+                            window.location.href = '/login'; // Login sayfasına yönlendir
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Hata:', xhr.responseJSON.message); // Hata mesajını konsola yazdır
+                        alert('Çıkış işlemi sırasında bir hata oluştu.');
+                    }
+                });
+            });
+        });
+    </script>
 
 
 
