@@ -426,7 +426,7 @@ footer {
                         <hr class="my-3 line">
                         <h5 class="mb-3 mt-4" style="font-size:18px;">Profil Resmi</h5>
                         <div class="d-flex align-items-center mb-4">
-                            <img src="https://via.placeholder.com/100" alt="Profil Resmi"
+                            <img src="{{Auth::user()->profile_picture}}" alt="Profil Resmi"
                                 class="rounded-circle me-3" style="width: 100px; height: 100px;">
                             <label for="profile_picture_input" class="btn btn-outline-custom ms-auto" style="cursor: pointer;">
                                 Değiştir
