@@ -278,9 +278,12 @@
                     }).done((response) => {
                         console.log(response.data);
                         PNotify.success({
-                            text: 'İlanınız incelenmek üzere gönderildi. İnceleme sonucunda yayına alınacaktır.',
+                            text: 'İlanınız incelenmek üzere gönderildi. İnceleme sonucunda yayına alınacaktır. Ana sayfaya yönlendiriliyorsunuz...',
                             delay: 10000
                         });
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 5000);
                     });
                 }
             );

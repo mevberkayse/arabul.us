@@ -50,9 +50,25 @@ class IndexController extends Controller
         $lat = round($lat, 0);
         $lng = round($lng, 0);
 
+        $isMore = $request->input('isMore') == 'true';
         // map Listing model to get items where `location` = ($lat, $lng)
-        $q = Listing::where([['lat', 'LIKE', $lat . "%"], ['long', 'LIKE', $lng . "%"]]);
-        $items = Listing::where([['lat', 'LIKE', $lat . "%"], ['long', 'LIKE', $lng . "%"]])->get();
+        $q = Listing::whereBetween('lat', [$lat - 0.5, $lat + 0.5])->whereBetween('long', [$lng - 0.5, $lng + 0.5]);
+        // treat $lat and $lng as floats
+        $items = Listing::whereBetween('lat', [$lat - 0.5, $lat + 0.5])->whereBetween('long', [$lng - 0.5, $lng + 0.5]);
+
+        if($isMore) {
+            // get the initial shown items count and skip that many items
+            $skip = $request->session()->get('shown_items');
+            $items = $items->skip($skip)->take(10)->get();
+
+        } else {
+            // get the first 10 items
+
+            $items = $items->take(10)->get();
+            // put the number of items shown in the session
+            $request->session()->put('shown_items', $items->count());
+        }
+
 
         $arr = [];
         foreach ($items as $item) {
