@@ -13,9 +13,10 @@
 
 </head>
 <style>
-     body {
+    body {
         font-family: 'Nunito', sans-serif;
     }
+
     /* Radio butonlar arasında gri çizgi */
     .form-check {
         border-bottom: 1px solid #ddd;
@@ -118,46 +119,63 @@
         border-color: #820933;
         width: 500px;
     }
+
     .container.mt-5 {
-  padding-bottom: 60px; /* Footer'ın yüksekliği kadar boşluk bırakın */
-}
-.container.mt-3 {
-  display: flex;
-  justify-content: center;  /* Yatayda ortalama */
-  flex-direction: column;
-  align-items: center;  /* Dikeyde ortalama */
-}
-h4.text-center.mb-2 {
-  text-align: center;  /* Yalnızca başlık ortalanacak */
-  white-space: nowrap;
+        padding-bottom: 60px;
+        /* Footer'ın yüksekliği kadar boşluk bırakın */
+    }
 
-}
-footer ul li a:hover {
-    color: #ffc107; /* Hover rengi */
-    text-decoration: underline;
-}
-footer ul li{
-    margin-top: 5px;
-}
+    .container.mt-3 {
+        display: flex;
+        justify-content: center;
+        /* Yatayda ortalama */
+        flex-direction: column;
+        align-items: center;
+        /* Dikeyde ortalama */
+    }
 
-footer {
-    background-color:#820933; /* Koyu kırmızı */
+    h4.text-center.mb-2 {
+        text-align: center;
+        /* Yalnızca başlık ortalanacak */
+        white-space: nowrap;
 
-}
-/* Buton Normal Durumu */
-.btn-hesap {
-    border: 1px solid white;
-    color: white;
-    transition: all 0.3s ease; /* Hover geçiş animasyonu */
-}
+    }
 
-/* Hover Durumu */
-.btn-hesap:hover {
-    background-color: transparent; /* Hover'da arka plan rengi */
-    color: #1a1b41; /* Metin rengi */
-    border-color: #1a1b41; /* Hover'da mavi ton border */
-    transform: translateY(-5px); /* Butonu yukarı hareket ettir */
-}
+    footer ul li a:hover {
+        color: #ffc107;
+        /* Hover rengi */
+        text-decoration: underline;
+    }
+
+    footer ul li {
+        margin-top: 5px;
+    }
+
+    footer {
+        background-color: #820933;
+        /* Koyu kırmızı */
+
+    }
+
+    /* Buton Normal Durumu */
+    .btn-hesap {
+        border: 1px solid white;
+        color: white;
+        transition: all 0.3s ease;
+        /* Hover geçiş animasyonu */
+    }
+
+    /* Hover Durumu */
+    .btn-hesap:hover {
+        background-color: transparent;
+        /* Hover'da arka plan rengi */
+        color: #1a1b41;
+        /* Metin rengi */
+        border-color: #1a1b41;
+        /* Hover'da mavi ton border */
+        transform: translateY(-5px);
+        /* Butonu yukarı hareket ettir */
+    }
 </style>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
@@ -166,45 +184,47 @@ footer {
         <div class="row p-3">
             <h4 class="text-center mb-2">Favori İlanlarım</h4>
 
-                <!-- Ürün Kartları -->
-                <div class="row gap-3 mt-2 justify-content-center">
-                    @foreach($listings as $listing)
-                        <div class="col-3">
-                            <div class="card" style="width: 100%; text-decoration: none;">
-                                <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
-                                    style="text-decoration: none;">
-                                    <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
-                                        style="height: 300px">
-                                </a>
-                                @if(Auth::check() && $listing->user->id !== Auth::id())
-                                    <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
-                                        <i
-                                            class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
-                                    </div>
-                                @endif
-
-                                <div class="card-body" style=" height:200px;">
-                                    <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
-                                        style="text-decoration: none; color:inherit">
-                                        <h5 class="item-price large-price mt-3">{{$listing->price}} ₺</h5>
-                                        <p class="item-text mt-2">{{$listing->title}}</p>
-                                        <div class="d-flex justify-content-between align-items-center mt-5">
-                                            <p class="location  me-5" style="word-wrap: break-word; font-size: 14px;">{{$listing->location}}</p>
-                                            <p class="time" style="font-size: 14px;">{{$listing->created_at->diffForHumans()}}</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+            <!-- Ürün Kartları -->
+            <div class="row gap-3 mt-2 justify-content-center">
+                @if(count($listings) == 0)
+                <div class="alert alert-warning" role="alert">
+                    Favori ilanınız bulunmamaktadır. İlanlardaki kalp simgesine tıklayarak ilanlarınızı favorileyebilir ve bu sayfada görebilirsiniz.
                 </div>
+                @endif
+
+                @foreach($listings as $listing)
+                <div class="col-3">
+                    <div class="card" style="width: 100%; text-decoration: none;">
+                        <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                            style="text-decoration: none;">
+                            <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
+                                style="height: 300px">
+                        </a>
+                        @if(Auth::check() && $listing->user->id !== Auth::id())
+                        <div class="heart-icon" onclick="addToFavorite('{{$listing->id}}');">
+                            <i
+                                class="@if(Auth::user()->isFavorited($listing->id)) fa-solid fa-heart text-danger @else fa-regular fa-heart @endif"></i>
+                        </div>
+                        @endif
+
+                        <div class="card-body" style=" height:200px;">
+                            <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
+                                style="text-decoration: none; color:inherit">
+                                <h5 class="item-price large-price mt-3">{{$listing->price}} ₺</h5>
+                                <p class="item-text mt-2">{{$listing->title}}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-5">
+                                    <p class="location  me-5" style="word-wrap: break-word; font-size: 14px;">
+                                        {{$listing->location}}</p>
+                                    <p class="time" style="font-size: 14px;">{{$listing->created_at->diffForHumans()}}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
-    </div>
-    <!-- Daha fazla ürün eklemek için benzer yapıları çoğaltın -->
-    </div>
-    </div>
-    </div>
     </div>
     <!-- Footer -->
     @include('partials.footer')

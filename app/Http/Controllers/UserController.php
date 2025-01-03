@@ -30,8 +30,8 @@ public function changePassword(Request $request)
 {
     // Geçerli şifre ve yeni şifreyi doğrulama
     $request->validate([
-        'current-password' => 'required',
-        'new-password' => 'required|confirmed|min:8',
+        'current_password' => 'required',
+        'new_password' => 'required|confirmed|min:8',
     ]);
 
     // Auth::user() ile oturum açmış kullanıcıyı alıyoruz
@@ -41,7 +41,10 @@ public function changePassword(Request $request)
     if (!$user) {
         return response()->json(['message' => 'Kullanıcı oturumu açmamış.'], 401);  // 401 Unauthorized
     }
-
+    // if user's google_id is not null, then user is a social login user,and they don't know the current password. So, we return an error message.
+    if ($user->google_id != null) {
+        return response()->json(['message' => 'Google ile giriş yapan kullanıcılar şifre değiştiremez.'], 401);  // 401 Unauthorized
+    }
     // Mevcut şifreyi kontrol etme
     if (!Hash::check($request->input('current-password'), $user->password)) {
         return response()->json(['message' => 'Mevcut şifre yanlış'], 422);  // 422 Unprocessable Entity
