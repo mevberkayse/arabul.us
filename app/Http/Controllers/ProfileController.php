@@ -121,8 +121,11 @@ class ProfileController extends Controller
         // Yeni resmi kaydet
         $imageName = time() . '.' . $request->profile_picture->extension();
         $destinationPath = public_path('image');
-        $request->profile_picture->move($destinationPath, $imageName);
-
+        try {
+            $request->profile_picture->move($destinationPath, $imageName);
+        } catch (\Exception $e) {
+            return Redirect::route('profile.edit')->with('error', 'Resim yüklenirken bir hata oluştu: ' . $e->getMessage());
+        }
         // Kullanıcı profilini güncelle
         $user->profile_picture = '/image/' . $imageName;
         $user->save();
