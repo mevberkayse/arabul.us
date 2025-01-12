@@ -49,6 +49,15 @@ footer {
     border-color: #1a1b41; /* Hover'da mavi ton border */
     transform: translateY(-5px); /* Butonu yukarı hareket ettir */
 }
+#itemlist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+}
+
+#itemlist .col-3 {
+    margin-bottom: 20px; /* Ürünler arasındaki dikey boşluk */
+}
 </style>
 <body class="d-flex flex-column" style="min-height: 100vh;">
     @include('partials.navbar')
@@ -59,9 +68,9 @@ footer {
                 <img src="/assets/images/banner.jpg" alt="" style="border-radius: 10px;" width="1275" height="400">
             </div>
         </div>
-        <div class="row justify-content-center gap-0" id="itemlist">
+        <div class="row " id="itemlist">
             @foreach($listings as $listing)
-            <div class="col">
+            <div class="col-3 mb-4">
                 <div class="card" style="width: 18rem; text-decoration: none;">
                     <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                         style="text-decoration: none;">
