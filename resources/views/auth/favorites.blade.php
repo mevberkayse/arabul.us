@@ -167,13 +167,13 @@ footer {
             <h4 class="text-center mb-2">Favori İlanlarım</h4>
 
                 <!-- Ürün Kartları -->
-                <div class="row gap-3 mt-2 justify-content-center">
+                <div class="row gap-3 mt-2 ">
                     @foreach($listings as $listing)
-                        <div class="col-3">
-                            <div class="card" style="width: 100%; text-decoration: none;">
+                        <div class="col-md-4 col-sm-6 col-lg-3 ">
+                            <div class="card" style="width: 18rem;; text-decoration: none;">
                                 <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                                     style="text-decoration: none;">
-                                    <img src="{{$listing->getThumbnail()}}" class="card-img-top  p-3 pt-4"
+                                    <img src="{{$listing->getThumbnail()}}" class="card-img-top p-3 pt-4"
                                         style="height: 300px">
                                 </a>
                                 @if(Auth::check() && $listing->user->id !== Auth::id())
