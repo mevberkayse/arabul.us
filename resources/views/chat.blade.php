@@ -413,6 +413,7 @@ footer {
                         _token: '{{ csrf_token() }}',
                     }),
                 });
+                window.location.reload();
             });
         });
 });

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
+use Opcodes\LogViewer\Facades\LogViewer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-
         $firstCategorySubCategories = Category::where('parent_id', 1)->get();
         $secondCategorySubCategories = Category::where('parent_id', 2)->get();
         $thirdCategorySubCategories = Category::where('parent_id', 3)->get();
@@ -31,5 +31,10 @@ class AppServiceProvider extends ServiceProvider
         view()->share('secondCategorySubCategories', $secondCategorySubCategories);
         view()->share('thirdCategorySubCategories', $thirdCategorySubCategories);
         view()->share('fourthCategorySubCategories', $fourthCategorySubCategories);
+
+        LogViewer::auth(function($request) {
+            if($request->session()->has('admin_login')) return true;
+            else return false;
+        });
     }
 }

@@ -16,6 +16,8 @@ class CreateListingController extends Controller
     {
         $user = $request->user();
 
+        if(!$user) return redirect('/');
+
 
         $request->session()->put('create_listing', []);
 
@@ -122,6 +124,9 @@ class CreateListingController extends Controller
         $parameters = $request->session()->get('create_listing_parameters');
         $listing_id = $request->session()->get('listing_id');
         // if listing_id is set, update listing instead of creating new one
+        if(!$user || !$images || !$category || !$subcategory || !$subsubcategory || !$data || !$parameters) {
+            return response()->json(['success' => 'An error occured']);
+        }
         if ($listing_id) {
             $listing = Listing::findOrFail($listing_id);
             $listing->category_id = $subsubcategory;

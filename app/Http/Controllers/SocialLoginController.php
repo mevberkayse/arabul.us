@@ -48,7 +48,7 @@ class SocialLoginController extends Controller
                 return redirect()->intended('/');
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            throw $e;
         }
     }
 }

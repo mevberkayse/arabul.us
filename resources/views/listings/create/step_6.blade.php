@@ -281,6 +281,9 @@
                             text: 'İlanınız incelenmek üzere gönderildi. İnceleme sonucunda yayına alınacaktır.',
                             delay: 10000
                         });
+                        setTimeout(() => {
+                            window.location.href='/'
+                        }, 2000);
                     });
                 }
             );

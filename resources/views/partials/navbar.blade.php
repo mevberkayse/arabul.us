@@ -525,7 +525,7 @@
                     </div>
                     <!-- Google ile Giriş Yap butonu-->
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-danger btn-google w-75">
+                        <button onclick="window.location.href='/login/google/redirect'" type="button" class="btn btn-danger btn-google w-75">
                             <i class="fa-brands fa-google me-2"></i> Google ile Giriş Yap
                         </button>
                     </div>

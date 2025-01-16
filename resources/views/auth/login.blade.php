@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
 
-    <title>Modern Login Page</title>
+    <title>Arabul.us - Giriş Yap</title>
 </head>
 
 <body>

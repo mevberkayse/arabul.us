@@ -86,7 +86,7 @@
         <div class="mb-3 w-100">
             <label for="fiyat" class="form-label">Fiyat</label>
             <div class="input-group">
-                <input type="text" id="fiyat" class="form-control" placeholder="Fiyat giriniz"
+                <input type="number" id="fiyat" class="form-control" placeholder="Fiyat giriniz"
                     @if(session()->has('create_listing_data'))
                 value="{{session()->get('create_listing_data')['price']}}" @endif>
                 <span class="input-group-text" style="font-size: 18px; border-left: none!important;">₺</span>
@@ -174,7 +174,6 @@
             })
         }
         $('#next_step').click(() => {
-
             $.ajax({
                 url: '/api/create-listing/step-4',
                 method: 'POST',

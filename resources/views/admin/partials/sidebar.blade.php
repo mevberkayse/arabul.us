@@ -19,6 +19,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-circle-exclamation"></i></div>
                     Şikayetler
                 </a>
+
+                <a class="nav-link" target="_blank" href="/log-viewer">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-lines"></i></div>
+                    Log Viewer
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer">
