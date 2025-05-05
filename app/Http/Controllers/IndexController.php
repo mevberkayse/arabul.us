@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use App\Models\Category;
 
 class IndexController extends Controller
 {
@@ -24,9 +25,12 @@ class IndexController extends Controller
             $listings = Listing::latest()->take(20)->get();
         }
 
+        $mainCategories = Category::where('parent_id', 0)->get();
+
         return view('homepage', [
             'listings' => $listings,
-            'run_script' => $run_script
+            'run_script' => $run_script,
+            'mainCategories' => $mainCategories
         ]);
     }
 }

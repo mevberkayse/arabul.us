@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Conversation;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use App\Models\Category;
 
 
 class ProfileController extends Controller
@@ -145,8 +146,8 @@ class ProfileController extends Controller
         return view('auth.settings');
     }
     public function yardim(Request $request) {
-
-        return view('yardim');
+        $mainCategories = Category::where('parent_id', 0)->get();
+        return view('yardim', compact('mainCategories'));
     }
 
     public function favorites(Request $request) {

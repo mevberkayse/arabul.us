@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/homepage.css?{{time();}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
 
 
     <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
@@ -40,12 +41,21 @@ footer {
     border-color: #1a1b41; /* Hover'da mavi ton border */
     transform: translateY(-5px); /* Butonu yukarı hareket ettir */
 }
+#itemlist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+}
+
+#itemlist .col-3 {
+    margin-bottom: 20px; /* Ürünler arasındaki dikey boşluk */
+}
 </style>
 <body>
     @include('partials.navbar')
 
     <div class="container mt-5">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-3 border border-secondary p-3 rounded ">
                 <h3 class="mb-4">Kategoriler</h3>
                 <h5 class="mb-3"><a class="text-decoration-none text-black"
@@ -184,9 +194,9 @@ footer {
                 <div class="category-listing-title my-3">
                     <span>{{$category->getListingCount()}} ilan bulundu</span>
                 </div>
-                <div class="row gap-3 justify-content-between" id="itemlist">
+                <div class="row gap-3 justify-content-start " id="itemlist">
                     @foreach($listings as $listing)
-                    <div class="col">
+                    <div class="col-3 mb-4 mx-4">
                         <div class="card" style="width: 18rem; text-decoration: none;">
                             <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                                 style="text-decoration: none;">
@@ -228,10 +238,9 @@ footer {
      <!-- Footer -->
     @include('partials.footer')
 
-    <script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
-    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         let addToFavorite = id => {
             $.ajax({

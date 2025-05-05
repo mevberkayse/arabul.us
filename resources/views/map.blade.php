@@ -57,8 +57,7 @@
 <body>
     <div id="searchMap" style="width: 100%; height: 100%;"></div>
 
-    <script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script>
         // get user location

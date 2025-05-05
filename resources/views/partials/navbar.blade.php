@@ -312,6 +312,57 @@
         height: 100% !important;
         width: 97% !important;
     }
+
+    /* Dropdown menüleri için yeni stiller */
+    .dropdown-menu-1,
+    .dropdown-menu-2,
+    .dropdown-menu-3 {
+        max-height: 300px;
+        max-width: 300px;
+        padding: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: #820933 #f0f0f0;
+        margin-top: 0.5rem;
+    }
+
+    /* Dropdown item hover durumu */
+    .dropdown-menu-1 .dropdown-item:hover,
+    .dropdown-menu-2 .dropdown-item:hover,
+    .dropdown-menu-3 .dropdown-item:hover {
+        background-color: #f0f0f0;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Scrollbar stilleri */
+    .dropdown-menu-1::-webkit-scrollbar,
+    .dropdown-menu-2::-webkit-scrollbar,
+    .dropdown-menu-3::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .dropdown-menu-1::-webkit-scrollbar-track,
+    .dropdown-menu-2::-webkit-scrollbar-track,
+    .dropdown-menu-3::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 3px;
+    }
+
+    .dropdown-menu-1::-webkit-scrollbar-thumb,
+    .dropdown-menu-2::-webkit-scrollbar-thumb,
+    .dropdown-menu-3::-webkit-scrollbar-thumb {
+        background: #820933;
+        border-radius: 3px;
+    }
+
+    .dropdown-menu-1::-webkit-scrollbar-thumb:hover,
+    .dropdown-menu-2::-webkit-scrollbar-thumb:hover,
+    .dropdown-menu-3::-webkit-scrollbar-thumb:hover {
+        background: #6b0726;
+    }
 </style>
 <nav class="navbar navbar-expand-lg custom-navbar ">
     <div class="container-fluid">
@@ -432,57 +483,25 @@
 <nav class="navbar mt-0 pt-0 category-navbar">
     <div class="container-fluid h-100 w-100 p-0 m-0">
         <div class="row g-0 justify-content-end align-items-stretch w-100 text-center h-100 p-0">
-            <div class="col-4 category-bg-1 d-flex justify-content-center align-items-center ">
-                <div class="dropdown text-center position-relative">
-                    <i class="fa-solid fa-mobile-screen-button" style="color:White;"></i>
-                    <a href="#" class="d-block text-white text-decoration-none" style="color:White;"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Telefon & Aksesuar
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-1 text-small shadow">
-                        @foreach($firstCategorySubCategories as $subCategory)
-                        <li><a class="dropdown-item"
-                                href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
-                        </li>
-                        @endforeach
-                    </ul>
+            @if(isset($mainCategories))
+                @foreach($mainCategories as $index => $category)
+                <div class="col-4 category-bg-{{$index + 1}} d-flex justify-content-center align-items-center">
+                    <div class="dropdown text-center position-relative w-100 h-100">
+                        <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-book" style="color:White;"></i>
+                            <span class="text-white text-decoration-none">{{$category->name}}</span>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-{{$index + 1}} text-small shadow position-absolute start-50 translate-middle-x">
+                            @foreach($category->subCategories as $subCategory)
+                            <li><a class="dropdown-item"
+                                    href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <!-- Diğer kategori elemanlarını aynı şekilde düzenle -->
-            <div class="col-4 category-bg-2 d-flex justify-content-center align-items-center ">
-                <div class="dropdown text-center">
-                    <i class="fa-solid fa-laptop" style="color:White;"></i>
-                    <a href="#" class="d-block  text-decoration-none" style="color:White;" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Bilgisayar & Tablet
-                    </a>
-                    <ul
-                        class="dropdown-menu dropdown-menu-2 dropdown-menu-lg-end dropdown-menu-start text-small shadow">
-                        @foreach($secondCategorySubCategories as $subCategory)
-                        <li><a class="dropdown-item"
-                                href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            <div class="col-4 category-bg-3 d-flex justify-content-center align-items-center ">
-                <div class="dropdown text-center">
-                    <i class="fa-solid fa-print" style="color:White;"></i>
-                    <a href="#" class="d-block  text-decoration-none " style="color:White;" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Çevre Birimleri
-                    </a>
-                    <ul
-                        class="dropdown-menu dropdown-menu-3 dropdown-menu-lg-end dropdown-menu-start text-small shadow ">
-                        @foreach($thirdCategorySubCategories as $subCategory)
-                        <li><a class="dropdown-item"
-                                href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </nav>
@@ -534,7 +553,7 @@
         </div>
     </div>
 </div>
-<script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script>
 
@@ -574,7 +593,7 @@
 <!-- Leaflet.js JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}"></script>
 <script type="text/javascript" src="/assets/js/jquery.googlemap.js"></script>

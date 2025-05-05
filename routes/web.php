@@ -12,6 +12,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\API\ConversationController;
+use App\Http\Controllers\HelpController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -28,7 +29,7 @@ Route::get('/edit-profile', [ProfileController::class, 'editprofile'])->name('ed
 Route::get('/kullanici-profili/{id?}', [UserController::class, 'showProfile'])->whereNumber('id');
 Route::get('/settings', [ProfileController::class, 'settings']);
 
-Route::get('/yardim', [ProfileController::class, 'yardim']);
+Route::get('/yardim', [HelpController::class, 'index'])->name('help');
 Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
 
 Route::get('/map', function(){

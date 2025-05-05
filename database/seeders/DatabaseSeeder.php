@@ -16,9 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        DB::table('categories')->insert([
-            'parent_id' => -1,
-            'name' => Str::random(10)
+        $this->call([
+            CategorySeeder::class
         ]);
     }
 }

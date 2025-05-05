@@ -10,29 +10,40 @@ class Category extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'parent_id'
+    ];
+
     public function getParentCategory()
     {
-        return $this->parent_id == -1 ? $this : Category::where('id', $this->parent_id)->first();
+        return $this->parent_id == 0 ? $this : Category::where('id', $this->parent_id)->first();
+    }
+
+    public function subCategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function hasSubCategories()
+    {
+        return $this->subCategories()->exists();
     }
 
     public function getSubCategories()
     {
-        return Category::where('parent_id', $this->id)->get();
+        return $this->subCategories;
     }
+
     public function getListingCount()
     {
-        if ($this->parent_id == -1 || $this->hasSubCategories()) {
+        if ($this->parent_id == 0 || $this->hasSubCategories()) {
             $subcategories = $this->getSubCategories();
             $subcategories = $subcategories->pluck('id');
             return Listing::whereIn('category_id', $subcategories)->count();
         }
 
         return Listing::where('category_id', $this->id)->count();
-    }
-
-    public function hasSubCategories()
-    {
-        return Category::where('parent_id', $this->id)->count() > 0;
     }
 
     public function getParameters()

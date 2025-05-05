@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AraBulus</title>
-    <link rel="stylesheet" href="//cdn.arabul.us/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/profile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/BrightTheme.css" rel="stylesheet">
@@ -169,7 +170,7 @@ footer {
                 <!-- Ürün Kartları -->
                 <div class="row gap-3 mt-2 ">
                     @foreach($listings as $listing)
-                        <div class="col-md-4 col-sm-6 col-lg-3 ">
+                        <div class="col-md-4 col-sm-6 col-lg-3 mx-5">
                             <div class="card" style="width: 18rem;; text-decoration: none;">
                                 <a href="{{route('listings.show', [$listing->id, '-', $listing->slug])}}"
                                     style="text-decoration: none;">
@@ -210,7 +211,7 @@ footer {
     @include('partials.footer')
 </body>
 
-<script src="//cdn.arabul.us/jquery/jquery-3.7.1.min.js"></script>
+<script src="//https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script>
     let addToFavorite = id => {
@@ -366,7 +367,7 @@ footer {
         }
     });
 </script>
-<script src="//cdn.arabul.us/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/js/all.min.js"></script>
 
 </html>

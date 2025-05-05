@@ -59,7 +59,7 @@ class Listing extends Model
 
     public static function nearestTo($lat, $lng)
     {
-        return Listing::where('lat', 'LIKE', $lat . "%")->where('long', 'LIKE', $lng . "%");
+        return Listing::where('lat', 'LIKE', $lat . "%")->where('lng', 'LIKE', $lng . "%");
     }
 
     public function user()
