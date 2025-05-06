@@ -26,9 +26,11 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $listings = Listing::where('user_id', $request->user()->id)->take(3)->get();
+        $mainCategories = Category::where('parent_id', 0)->get();
         return view('auth.profile', [
             'user' => $request->user(),
             'listings' => $listings,
+            'mainCategories' => $mainCategories
         ]);
     }
 
@@ -75,8 +77,9 @@ class ProfileController extends Controller
             $id = Auth::id();
         }
 
-        $user = User::findOrFail($id); // Kullanıcıyı ID ile bul
-        return view('profile.show', compact('user')); // Veriyi profile.show blade dosyasına gönder
+        $user = User::findOrFail($id);
+        $mainCategories = Category::where('parent_id', 0)->get();
+        return view('profile.show', compact('user', 'mainCategories'));
     }
 
     public function chat(Request $request)
@@ -97,8 +100,14 @@ class ProfileController extends Controller
             $openChatInfo = null;
         }
 
+        $mainCategories = Category::where('parent_id', 0)->get();
 
-        return view('chat', ['chats' => $userConversations, 'lastConvo' => $lastConvo, 'openChat' => $openChatInfo]);
+        return view('chat', [
+            'chats' => $userConversations,
+            'lastConvo' => $lastConvo,
+            'openChat' => $openChatInfo,
+            'mainCategories' => $mainCategories
+        ]);
     }
 
     public function editprofile(Request $request)
@@ -142,8 +151,8 @@ class ProfileController extends Controller
     }
 
     public function settings(Request $request) {
-
-        return view('auth.settings');
+        $mainCategories = Category::where('parent_id', 0)->get();
+        return view('auth.settings', compact('mainCategories'));
     }
     public function yardim(Request $request) {
         $mainCategories = Category::where('parent_id', 0)->get();
@@ -153,13 +162,17 @@ class ProfileController extends Controller
     public function favorites(Request $request) {
         $user = $request->user();
         $favorites = Favorite::where('user_id', $user->id)->get();
+        $mainCategories = Category::where('parent_id', 0)->get();
         $f = [];
         foreach ($favorites as $favorite) {
             $f[] = Listing::find($favorite->listing_id);
-         }
+        }
 
-        return view('auth.favorites', ['listings' => $f, 'user' => $user]);
-
+        return view('auth.favorites', [
+            'listings' => $f,
+            'user' => $user,
+            'mainCategories' => $mainCategories
+        ]);
     }
     public function updateName(Request $request)
 {

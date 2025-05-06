@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("descriptions");
-            $table->string("parameters");
+            $table->json("parameters")->nullable();
             $table->string("location");
             $table->integer("price");
             $table->integer("user_id");

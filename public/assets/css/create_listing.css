@@ -36,6 +36,27 @@ body {
   border-radius: 50%;
 }
 
+.step-circle3 {
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.step-circle4 {
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.step-circle5 {
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+}
+
 .upload-box {
   width: 100%;
   text-align: center;
