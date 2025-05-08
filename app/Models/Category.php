@@ -10,6 +10,8 @@ class Category extends Model
 
     use HasFactory;
 
+    public $timestamps = true;
+
     protected $fillable = [
         'name',
         'parent_id'
@@ -49,16 +51,10 @@ class Category extends Model
     public function getParameters()
     {
         // Fetch parameters directly matching the category
-        $params = Parameter::where('category_id', 'like', '%' . $this->id . '%')
-            ->get()
-            ->filter(function ($param) {
-                // Filter to ensure the current category ID is explicitly listed in category_id
-                $categoryIds = explode(',', $param->category_id);
-                return in_array($this->id, $categoryIds);
-            });
+        $params = Parameter::whereJsonContains('category_ids', $this->id)->get();
 
-        // Fetch general parameters (category_id = -1)
-        $generalParams = Parameter::where('category_id', -1)->get();
+        // Fetch general parameters (category_ids = [-1])
+        $generalParams = Parameter::whereJsonContains('category_ids', -1)->get();
 
         // Combine both sets of parameters
         return $params->merge($generalParams);

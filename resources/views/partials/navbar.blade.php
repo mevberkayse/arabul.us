@@ -483,25 +483,23 @@
 <nav class="navbar mt-0 pt-0 category-navbar">
     <div class="container-fluid h-100 w-100 p-0 m-0">
         <div class="row g-0 justify-content-end align-items-stretch w-100 text-center h-100 p-0">
-            @if(isset($mainCategories))
-                @foreach($mainCategories as $index => $category)
-                <div class="col-4 category-bg-{{$index + 1}} d-flex justify-content-center align-items-center">
-                    <div class="dropdown text-center position-relative w-100 h-100">
-                        <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-book" style="color:White;"></i>
-                            <span class="text-white text-decoration-none">{{$category->name}}</span>
-                        </div>
-                        <ul class="dropdown-menu dropdown-menu-{{$index + 1}} text-small shadow position-absolute start-50 translate-middle-x">
-                            @foreach($category->subCategories as $subCategory)
-                            <li><a class="dropdown-item"
-                                    href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
-                            </li>
-                            @endforeach
-                        </ul>
+            @foreach($mainCategories as $index => $category)
+            <div class="col-4 category-bg-{{$index + 1}} d-flex justify-content-center align-items-center">
+                <div class="dropdown text-center position-relative w-100 h-100">
+                    <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-book" style="color:White;"></i>
+                        <span class="text-white text-decoration-none">{{$category->name}}</span>
                     </div>
+                    <ul class="dropdown-menu dropdown-menu-{{$index + 1}} text-small shadow position-absolute start-50 translate-middle-x">
+                        @foreach($category->subCategories as $subCategory)
+                        <li><a class="dropdown-item"
+                                href="{{route('listings.by_category', $subCategory->id)}}">{{$subCategory->name}}</a>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
-                @endforeach
-            @endif
+            </div>
+            @endforeach
         </div>
     </div>
 </nav>

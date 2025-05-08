@@ -36,10 +36,40 @@ class ListingController extends Controller
             $subcategories = $cat->getSubCategories();
             $subcategories = $subcategories->pluck('id');
             $listings = Listing::whereIn('category_id', $subcategories)->take(20)->get();
-            return view('listings.listing', ['listings' => $listings, 'category' => $cat]);
+        } else {
+            $listings = Listing::where('category_id', $category)->take(20)->get();
         }
-        $listings = Listing::where('category_id', $category)->take(20)->get();
 
-        return view('listings.listing', ['listings' => $listings, 'category' => $cat]);
+        // Ana kategorileri al
+        $mainCategories = Category::where('parent_id', -1)->with('subCategories')->get();
+
+        return view('listings.search_results', [
+            'listings' => $listings, 
+            'category' => $cat,
+            'mainCategories' => $mainCategories,
+            'categories' => Category::all(),
+            'parameters' => \App\Models\Parameter::all()->groupBy('category_id')
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        
+        $listings = Listing::where('title', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->take(20)
+            ->get();
+
+        // Ana kategorileri al
+        $mainCategories = Category::where('parent_id', -1)->with('subCategories')->get();
+
+        return view('listings.search_results', [
+            'listings' => $listings,
+            'query' => $query,
+            'mainCategories' => $mainCategories,
+            'categories' => Category::all(),
+            'parameters' => \App\Models\Parameter::all()->groupBy('category_id')
+        ]);
     }
 }
