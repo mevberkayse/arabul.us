@@ -23,6 +23,7 @@ Route::get("/ilan/{id}{dash?}{slug?}", [ListingController::class, 'show'])->name
 
 Route::get('/ilanlar/{category?}', [ListingController::class, 'index'])->name('listings.by_category');
 
+
 Route::get('/chat', [ProfileController::class, 'chat'])->name('chat');
 Route::get('/edit-profile', [ProfileController::class, 'editprofile'])->name('editprofile');
 

@@ -15,21 +15,36 @@ class ListingController extends Controller
         if ($step == null) {
             return redirect()->route('listings.create', ['step' => 1]);
         }
-        return view('listings.create.step_' . $step);
+
+        // Ana kategorileri al (parent_id = 0 olanlar)
+        $mainCategories = Category::where('parent_id', 0)->get();
+
+        // İlgili adımın view dosyasını döndür
+        return view('listings.create.step_' . $step, [
+            'mainCategories' => $mainCategories
+        ]);
+    }
+
+    public function createStep2()
+    {
+        // Ana kategorileri al (parent_id = 0 olanlar)
+        $mainCategories = Category::where('parent_id', 0)->with('subCategories')->get();
+
+        // Blade dosyasına gönder
+        return view('listings.create.step_2', compact('mainCategories'));
     }
 
     public function show(Request $request, $id, $slug = null)
     {
         $listing = Listing::findOrFail($id);
         if ($slug == null) {
-
             return redirect()->route('listings.show', ['id' => $id, 'slug' => $listing->slug]);
         }
         $listings = Listing::all()->take(3);
         return view('listings.listing_new', ['listing' => $listing, 'listings' => $listings]);
     }
 
-    public function index(Request $request, $category)
+     public function index(Request $request, $category)
     {
         $cat = Category::findOrFail($category);
         if ($cat->parent_id == -1 || $cat->hasSubCategories()) {
@@ -40,7 +55,6 @@ class ListingController extends Controller
             $listings = Listing::where('category_id', $category)->take(20)->get();
         }
 
-        // Ana kategorileri al
         $mainCategories = Category::where('parent_id', -1)->with('subCategories')->get();
 
         return view('listings.search_results', [
@@ -61,7 +75,6 @@ class ListingController extends Controller
             ->take(20)
             ->get();
 
-        // Ana kategorileri al
         $mainCategories = Category::where('parent_id', -1)->with('subCategories')->get();
 
         return view('listings.search_results', [

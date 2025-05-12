@@ -70,6 +70,17 @@
             border-color: #37BC61;
         }
 
+        .maincategory .circle {
+            border: 4px solid transparent;
+            border-radius: 50%;
+            padding: 10px;
+            transition: border 0.3s ease;
+        }
+
+        .maincategory.selected .circle {
+            border-color: #37BC61;
+        }
+
         .logo {
             width: 200px;
             height: 200px;
@@ -124,32 +135,21 @@
         </div>
         <!-- Ana Kutucuk -->
         <div class="container d-flex flex-column align-items-center rounded mt-3 border p-4">
-            <h5 class="text-center mb-3">Yüklenecek ürün kategorisi nedir?</h5>
-            <!-- Kategoriler -->
+            <h5 class="text-center mb-3">Yüklenecek ürün ana kategorisi nedir?</h5>
+            <!-- Dinamik Ana Kategoriler -->
             <div class="d-flex justify-content-between w-100">
-                <div class="category" id="cat-1" onclick="highlightCategory('cat-1')">
+                @foreach($mainCategories as $category)
+                <div class="maincategory" id="maincat-{{$category->id}}" onclick="highlightMainCategory('maincat-{{$category->id}}')">
                     <div class="circle" style="background-color: #1A1B41;">
-                        <i class="fa-solid fa-mobile-screen-button" style="color:white;"></i>
+                        <i class="fa-solid fa-book" style="color:white;"></i>
                     </div>
-                    <div class="category-name">Telefon & Aksesuar</div>
+                    <div class="maincategory-name">{{$category->name}}</div>
                 </div>
-                <div class="category" id="cat-2" onclick="highlightCategory('cat-2')">
-                    <div class="circle" style="background-color: #820933;">
-                        <i class="fa-solid fa-laptop" style="color:white;"></i>
-                    </div>
-                    <div class="category-name">Bilgisayar & Tablet</div>
-                </div>
-                <div class="category" id="cat-3" onclick="highlightCategory('cat-3')">
-                    <div class="circle" style="background-color: #52154E;">
-                        <i class="fa-solid fa-print" style="color:white;"></i>
-                    </div>
-                    <div class="category-name">Çevre Birimleri</div>
-                </div>
+                @endforeach
             </div>
         </div>
         <button class="btn btn-outline-custom mt-3 w-25" id="next_step">Devam Et</button>
     </div>
-
 
 </body>
 
@@ -157,12 +157,57 @@
 <script src="//cdn.arabul.us/fontawesome/js/all.min.js"></script>
 <script src="//https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-    let selectedCategory = 0;
+    let selectedMainCategory = 0;
+
+    $(document).ready(() => {
+        $('.maincategory').click((e) => {
+            selectedMainCategory = $(e.currentTarget).attr('id').split('-')[1];
+            $('.maincategory').removeClass('selected');
+            $(e.currentTarget).addClass('selected');
+        });
+
+        $('#next_step').click(() => {
+            if (selectedMainCategory === 0) {
+                PNotify.error({
+                    text: 'Lütfen bir ana kategori seçin.',
+                    delay: 2000
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '/api/create-listing/step-2',
+                method: 'POST',
+                data: {
+                    maincategory: selectedMainCategory,
+                    _token: "{{csrf_token()}}"
+                },
+                success: (data) => {
+                    window.location.href = "{{route('listings.create',[3])}}";
+                },
+                error: (err) => {
+                    PNotify.error({
+                        text: 'Lütfen bir ana kategori seçin.',
+                        delay: 2000
+                    });
+                }
+            });
+        });
+    });
+
+    function highlightMainCategory(selectedId) {
+        document.querySelectorAll('.maincategory').forEach(maincategory => {
+            maincategory.classList.remove('selected');
+        });
+
+        const selectedMainCategory = document.getElementById(selectedId);
+        selectedMainCategory.classList.add('selected');
+    }
 </script>
+
 @if($errors->any())
 <script>
     $(document).ready(() => {
-
         PNotify.error({
             text: '{{$errors->first()}}',
             delay: 2000
@@ -179,45 +224,5 @@
     });
 </script>
 @endif
-<script>
-    $(document).ready(() => {
-        $('.category').click((e) => {
-            selectedCategory = $(e.currentTarget).attr('id').split('-')[1];
-            $('.category').removeClass('selected');
-            $(e.currentTarget).addClass('selected');
-        })
-
-        $('#next_step').click(() => {
-            $.ajax({
-                url: '/api/create-listing/step-2',
-                method: 'POST',
-                data: {
-                    category: selectedCategory,
-                    _token: "{{csrf_token()}}"
-                },
-                success: (data) => {
-                    window.location.href = "{{route('listings.create',[3])}}";
-                },
-                error: (err) => {
-                    PNotify.error({
-                        text: 'Lütfen bir kategori seçin.',
-                        delay: 2000
-                    })
-                }
-            })
-        })
-    })
-    function highlightCategory(selectedId) {
-        //  'selected' sınıfını kaldır
-        document.querySelectorAll('.category').forEach(category => {
-            category.classList.remove('selected');
-        });
-
-        //  'selected' sınıfını ekle
-        const selectedCategory = document.getElementById(selectedId);
-        selectedCategory.classList.add('selected');
-    }
-
-</script>
 
 </html>
