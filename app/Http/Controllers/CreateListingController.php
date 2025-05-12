@@ -22,7 +22,9 @@ class CreateListingController extends Controller
                 return redirect()->route('listings.create', ['step' => 1])->withErrors(['images' => 'Lütfen en az bir resim yükleyin']);
             }
 
-            return view('listings.create.step_' . $step, ['images' => $images]);
+            $mainCategories = Category::where('parent_id', 0)->with('subCategories')->get();
+
+            return view('listings.create.step_' . $step, ['images' => $images, 'mainCategories' => $mainCategories]);
         }
         if ($step == 3) {
             $images = $request->session()->get('create_listing_images');
